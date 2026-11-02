@@ -261,13 +261,14 @@
 @media (prefers-reduced-motion: reduce) { .announce-track { animation: none; } }
 
 /* ---------- build-your-own subscription box ---------- */
-.box-inner { grid-template-columns: 1fr; gap: 28px; align-items: start; max-width: 1240px; }
+.box-inner { grid-template-columns: minmax(0, 1fr); gap: 28px; align-items: start; max-width: 1240px; }
 .box-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 28px; align-items: end; }
 .steps-tight { gap: 8px; }
 .steps-tight li { display: flex; gap: 12px; align-items: flex-start; padding: 14px; border-radius: 18px; }
 .steps-tight .step-num { flex: none; width: 32px; height: 32px; font-size: 15px; }
 .steps-tight h3 { font-size: 17px; margin: 2px 0 2px; }
 .steps-tight p { font-size: 13.5px; }
+.box-inner > *, .box > *, .box-head > *, .box-pick, .box-chips, .box-grid { min-width: 0; max-width: 100%; }
 .box { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 20px; align-items: start; }
 .box-chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; }
 .box-chips::-webkit-scrollbar { display: none; }
@@ -327,13 +328,17 @@
 .box-save dt, .box-save dd { font-size: 13px; color: var(--heart); }
 .box-note { margin: 0; font-size: 12px; color: var(--ink-soft); }
 @media (max-width: 1100px) {
-  .box-head { grid-template-columns: 1fr; }
-  .box { grid-template-columns: 1fr; }
+  .box-head { grid-template-columns: minmax(0, 1fr); }
+  .box { grid-template-columns: minmax(0, 1fr); }
   .box-summary { position: static; }
 }
 @media (max-width: 900px) {
   .steps-tight { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .steps-tight li { flex-direction: column; gap: 6px; padding: 10px; }
+  .steps-tight li { flex-direction: column; gap: 6px; padding: 10px; min-width: 0; }
+  .subscribe { padding-left: 12px; padding-right: 12px; }
+  .box-inner { padding: 28px 16px; border-radius: 28px; }
+  .box-item { grid-template-columns: 48px minmax(0, 1fr) auto; }
+  .box-img { width: 48px; height: 48px; }
   .steps-tight p { display: none; }
   .steps-tight h3 { font-size: 14px; }
   .box-grid { max-height: 420px; }
@@ -354,3 +359,6 @@
   .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .footer-brand { grid-column: 1 / -1; }
 }
+
+/* never let anything push the page sideways on phones */
+html, body { max-width: 100%; overflow-x: clip; }
