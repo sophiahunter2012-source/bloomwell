@@ -17,3 +17,11 @@ Run it locally. It needs a local server because ES modules don't load from `file
 python3 -m http.server 8000
 # then open http://localhost:8000
 ```
+
+### Collection pages
+
+`collections/` holds one page per collection (by type and by ritual) plus an index page. They are generated from the product list in `scripts/build_collections.py`. To add or change a product, edit that list and run:
+
+```bash
+python3 scripts/build_collections.py
+```

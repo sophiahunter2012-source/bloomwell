@@ -338,6 +338,11 @@ main, .site-footer { position: relative; z-index: 2; }
   font-family: var(--font-display); font-size: clamp(26px, 3vw, 36px); letter-spacing: -.015em;
   display: flex; align-items: baseline; gap: 10px; padding-bottom: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--line);
 }
+.sa-group { position: relative; }
+.sa-view { position: absolute; right: 0; top: 10px; font-size: 14px; font-weight: 600; text-decoration: none; border-bottom: 1.5px solid currentColor; padding-bottom: 2px; }
+.sa-view span { display: inline-block; transition: transform .25s; }
+.sa-view:hover span { transform: translateX(4px); }
+.ritual-link { margin-top: 18px; }
 .sa-heading span { font-family: var(--font-body); font-size: 14px; font-weight: 500; color: var(--ink-soft); }
 .sa-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; perspective: 1200px; }
 .sa-card { min-width: 0; }
