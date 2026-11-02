@@ -358,6 +358,7 @@ put("sections/bw-header.liquid", """{%- liquid
     <a href="{{ base }}#bundles">Bundles</a>
     <a href="{{ base }}#subscribe">Subscribe &amp; save</a>
     <a href="{{ base }}#reviews">Reviews</a>
+    <a href="{{ routes.cart_url }}" class="nav-bag"{% if template.name == 'cart' %} aria-current="page"{% endif %}>Bag{% if cart.item_count > 0 %} <span class="nav-bag-count" data-cart-count>{{ cart.item_count }}</span>{% endif %}</a>
   </nav>
   <a class="cart-link" href="{{ routes.cart_url }}" aria-label="Bag, {{ cart.item_count }} items">""" + BAG + """<span class="cart-count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span></a>
 </header>
@@ -688,7 +689,7 @@ put("sections/main-cart.liquid", """<section class="c-hero cart-page" aria-label
   <div class="cart-wrap">
     <h1 id="cart-title" class="display c-title"><span class="line"><span>Your bag</span></span></h1>
     {%- if cart.item_count > 0 -%}
-      <form action="{{ routes.cart_url }}" method="post" class="cart-form">
+      <form action="{{ routes.cart_url }}" method="post" class="cart-form" id="cart-form">
         <ul class="cart-lines" role="list">
           {%- for item in cart.items -%}
             <li class="cart-line">
@@ -710,16 +711,19 @@ put("sections/main-cart.liquid", """<section class="c-hero cart-page" aria-label
         <div class="cart-summary">
           <p class="cart-subtotal"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></p>
           {%- if cart.total_discount > 0 -%}<p class="cart-saving">You're saving {{ cart.total_discount | money }}</p>{%- endif -%}
-          <p class="cart-small">Taxes and shipping are calculated at checkout.</p>
+          <p class="cart-small">Taxes and shipping are calculated at checkout, where you can pay securely by card.</p>
           <div class="cart-actions">
-            <button type="submit" name="update" class="btn btn-ghost">Update bag</button>
+            <a class="btn btn-ghost" href="{{ routes.root_url }}">Continue shopping</a>
             <button type="submit" name="checkout" class="btn">Checkout</button>
           </div>
         </div>
       </form>
     {%- else -%}
       <p class="lede">Your bag is empty. Let's fix that.</p>
-      <p><a class="btn" href="{{ routes.collections_url }}">Shop collections</a></p>
+      <div class="cart-actions cart-empty-actions">
+        <a class="btn" href="{{ routes.root_url }}">Start shopping</a>
+        <a class="btn btn-ghost" href="{{ routes.collections_url }}">Browse collections</a>
+      </div>
     {%- endif -%}
   </div>
 </section>

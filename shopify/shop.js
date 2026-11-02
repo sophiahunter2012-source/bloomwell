@@ -90,13 +90,33 @@ if (form) {
       const res = await fetch(`${BW.cartAddUrl}.js`, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
       const data = await res.json();
       if (!res.ok) throw new Error(data.description || 'Could not add to bag');
-      msg.innerHTML = `Added to your bag. <a href="${BW.cartUrl}">View bag</a>`;
-      refreshCount();
+      // Straight to the bag, where shoppers can keep shopping or check out
+      addBtn.textContent = 'Added!';
+      window.location.href = BW.cartUrl;
+      return;
     } catch (err) {
       msg.textContent = err.message;
       msg.classList.add('is-error');
-    } finally {
       addBtn.disabled = false;
     }
+  });
+}
+
+/* Bag page: quantities save themselves (no "update" button needed) */
+const cartForm = document.getElementById('cart-form');
+if (cartForm) {
+  let timer;
+  cartForm.querySelectorAll('input[name="updates[]"]').forEach((input) => {
+    input.addEventListener('change', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const update = document.createElement('input');
+        update.type = 'hidden';
+        update.name = 'update';
+        update.value = '1';
+        cartForm.appendChild(update);
+        cartForm.submit();
+      }, 600);
+    });
   });
 }

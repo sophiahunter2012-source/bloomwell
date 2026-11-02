@@ -23,6 +23,7 @@
     <a href="{{ base }}#bundles">Bundles</a>
     <a href="{{ base }}#subscribe">Subscribe &amp; save</a>
     <a href="{{ base }}#reviews">Reviews</a>
+    <a href="{{ routes.cart_url }}" class="nav-bag"{% if template.name == 'cart' %} aria-current="page"{% endif %}>Bag{% if cart.item_count > 0 %} <span class="nav-bag-count" data-cart-count>{{ cart.item_count }}</span>{% endif %}</a>
   </nav>
   <a class="cart-link" href="{{ routes.cart_url }}" aria-label="Bag, {{ cart.item_count }} items"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span></a>
 </header>
