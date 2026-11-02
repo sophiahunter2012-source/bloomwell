@@ -35,7 +35,10 @@
       </svg>
       <span class="brand-word">Bloomwell</span>
     </a>
-    <nav class="nav" aria-label="Primary">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+    <nav class="nav" id="primary-nav" aria-label="Primary">
       <a href="#rituals">Rituals</a>
       <a href="#shop">Shop</a>
       <a href="#day">A day in bloom</a>
@@ -138,9 +141,9 @@
         <div class="shop-head">
           <p class="eyebrow">The collection</p>
           <h2 id="shop-title" class="h2">Made to be kept<br>out on the counter</h2>
-          <p class="shop-hint" aria-hidden="true">Keep scrolling <span>→</span></p>
+          <p class="shop-hint" aria-hidden="true"><span class="hint-scroll">Keep scrolling</span><span class="hint-swipe">Swipe to browse</span> <span class="arrow">→</span></p>
         </div>
-        <ul class="shop-track" role="list">
+        <ul class="shop-track" role="list" aria-label="Bloomwell products">
           <li class="card" style="--tint:#F6D9D1"><div class="card-media"><img src="assets/img/products/skin-sip-sm.webp" alt="Skin Sip collagen powder jar beside its pink canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Glow</span><h3>Skin Sip</h3><p>Collagen + hyaluronic acid powder. Supports glowing skin.</p><a class="card-link" href="#shop">Shop Skin Sip</a></div></li>
           <li class="card" style="--tint:#DDE7CF"><div class="card-media"><img src="assets/img/products/daily-glow-sm.webp" alt="Daily Glow multivitamin gummies in a sage canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Glow</span><h3>Daily Glow</h3><p>Adult multivitamin gummies. Helps fill daily nutrient gaps.</p><a class="card-link" href="#shop">Shop Daily Glow</a></div></li>
           <li class="card" style="--tint:#F7D8C8"><div class="card-media"><img src="assets/img/products/lip-balm-sm.webp" alt="Daily Nourish lip balm in a peach tube" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Glow</span><h3>Daily Nourish Lip Balm</h3><p>Natural beeswax balm for soft, cared-for lips.</p><a class="card-link" href="#shop">Shop Lip Balm</a></div></li>

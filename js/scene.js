@@ -42,8 +42,8 @@ function leafShape() {
 }
 
 export function createScene(canvas, { lowPower = false } = {}) {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lowPower ? 1.25 : 1.75));
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: !lowPower, alpha: true, powerPreference: lowPower ? 'default' : 'high-performance' });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lowPower ? 1.5 : 1.75));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
@@ -66,7 +66,7 @@ export function createScene(canvas, { lowPower = false } = {}) {
   // ---- Hero heart -------------------------------------------------------
   const heartGeo = smooth(new THREE.ExtrudeGeometry(heartShape(), {
     depth: 0.42, bevelEnabled: true, bevelThickness: 0.32, bevelSize: 0.26,
-    bevelSegments: lowPower ? 8 : 14, curveSegments: 48, steps: 1,
+    bevelSegments: lowPower ? 6 : 14, curveSegments: lowPower ? 28 : 48, steps: 1,
   }));
   heartGeo.center();
   heartGeo.computeBoundingBox();
@@ -101,7 +101,7 @@ export function createScene(canvas, { lowPower = false } = {}) {
   // ---- Gummy hearts -----------------------------------------------------
   const gummyGeo = smooth(new THREE.ExtrudeGeometry(heartShape(0.95), {
     depth: 0.35, bevelEnabled: true, bevelThickness: 0.38, bevelSize: 0.3,
-    bevelSegments: lowPower ? 5 : 8, curveSegments: 20,
+    bevelSegments: lowPower ? 4 : 8, curveSegments: lowPower ? 12 : 20,
   }));
   gummyGeo.center();
   const gummyMat = new THREE.MeshPhysicalMaterial({
@@ -109,7 +109,7 @@ export function createScene(canvas, { lowPower = false } = {}) {
     sheen: 1, sheenRoughness: 0.35, sheenColor: new THREE.Color('#ffffff'),
     transparent: true, opacity: 1,
   });
-  const COUNT = lowPower ? 16 : 30;
+  const COUNT = lowPower ? 12 : 30;
   const gummies = new THREE.InstancedMesh(gummyGeo, gummyMat, COUNT);
   gummies.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   const palette = ['#F4B8A8', '#E58F73', '#C9DAB4', '#A9C98E', '#CFC1EE', '#B4D3DB', '#F6CB8E', '#F7D3DA'];
@@ -142,9 +142,14 @@ export function createScene(canvas, { lowPower = false } = {}) {
   const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
   const dummy = new THREE.Object3D();
 
-  let vw = 1, vh = 1;
+  // The canvas is sized in CSS to the *large* viewport (100lvh), so the
+  // phone's address bar sliding in and out doesn't resize WebGL mid-scroll.
+  let vw = 1, vh = 1, lastW = 0, lastH = 0;
   function resize() {
-    const w = window.innerWidth, h = window.innerHeight;
+    const w = canvas.clientWidth || window.innerWidth;
+    const h = canvas.clientHeight || window.innerHeight;
+    if (w === lastW && h === lastH) return;
+    lastW = w; lastH = h;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
@@ -169,9 +174,9 @@ export function createScene(canvas, { lowPower = false } = {}) {
     let px = state.x, py = state.y, sc = state.scale;
     if (state.anchorEl && state.anchor > 0.001) {
       const r = state.anchorEl.getBoundingClientRect();
-      const ax = ((r.left + r.width / 2) / window.innerWidth) * 2 - 1;
-      const ay = -(((r.top + r.height / 2) / window.innerHeight) * 2 - 1);
-      const as = r.height / (window.innerHeight * 0.55);
+      const ax = ((r.left + r.width / 2) / lastW) * 2 - 1;
+      const ay = -(((r.top + r.height / 2) / lastH) * 2 - 1);
+      const as = r.height / (lastH * 0.55);
       const k = state.anchor;
       px += (ax - px) * k; py += (ay - py) * k; sc += (as - sc) * k;
     }
