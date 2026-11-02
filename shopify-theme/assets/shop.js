@@ -120,3 +120,13 @@ if (cartForm) {
     });
   });
 }
+
+/* Back button: return to the previous Bloomwell page, or home if there isn't one */
+document.querySelectorAll('[data-back]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    let sameSite = false;
+    try { sameSite = document.referrer && new URL(document.referrer).origin === window.location.origin; } catch (e) { sameSite = false; }
+    if (sameSite && window.history.length > 1) window.history.back();
+    else window.location.href = BW.root || '/';
+  });
+});

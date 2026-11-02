@@ -10,6 +10,8 @@
     </a>
     <nav class="footer-nav" aria-label="Footer">
       <a href="{{ routes.collections_url }}">All collections</a>
+      {%- assign rp = pages['refund-policy'] -%}{%- if rp.id -%}<a href="{{ rp.url }}">Refund policy</a>{%- endif -%}
+      {%- for policy in shop.policies -%}{%- unless policy.title contains 'Refund' and rp.id -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endunless -%}{%- endfor -%}
       {%- assign c = collections["gummies"] -%}{%- if c.id -%}<a href="{{ c.url }}">{{ c.title }}</a>{%- endif -%}
       {%- assign c = collections["protein-powders"] -%}{%- if c.id -%}<a href="{{ c.url }}">{{ c.title }}</a>{%- endif -%}
       {%- assign c = collections["herbal-teas"] -%}{%- if c.id -%}<a href="{{ c.url }}">{{ c.title }}</a>{%- endif -%}

@@ -373,6 +373,8 @@ put("sections/bw-footer.liquid", """<footer class="site-footer">
     </a>
     <nav class="footer-nav" aria-label="Footer">
       <a href="{{ routes.collections_url }}">All collections</a>
+      {%- assign rp = pages['refund-policy'] -%}{%- if rp.id -%}<a href="{{ rp.url }}">Refund policy</a>{%- endif -%}
+      {%- for policy in shop.policies -%}{%- unless policy.title contains 'Refund' and rp.id -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endunless -%}{%- endfor -%}
 """ + coll_links + """
       {%- for link in linklists.footer.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
     </nav>
@@ -434,6 +436,9 @@ put("layout/theme.liquid", PALETTE_LIQUID + """
   <canvas id="stage" aria-hidden="true"></canvas>
   <div class="grain" aria-hidden="true"></div>
   {% section 'bw-header' %}
+  {%- unless template.name == 'index' or template.name == 'password' -%}
+    <button type="button" class="bw-back" data-back aria-label="Go back to the previous page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Back</button>
+  {%- endunless -%}
   <main id="main">
     {{ content_for_layout }}
   </main>
