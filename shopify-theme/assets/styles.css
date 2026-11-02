@@ -734,3 +734,8 @@ main, .site-footer { position: relative; z-index: 2; }
   .press-logo[aria-hidden="true"] { display: none; }
   .day-line path { stroke-dashoffset: 0; }
 }
+
+/* phones/tablets: no big empty gaps around the manifesto */
+.is-flow .manifesto { min-height: 0; padding: 56px var(--gutter) 40px; align-items: flex-start; }
+.is-flow .bw-ribbon { padding: 8px 0 16px; }
+.is-flow .rituals-pin { padding-top: 40px; }
