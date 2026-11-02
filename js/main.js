@@ -376,6 +376,47 @@ if (!reduceMotion) {
 }
 
 /* ------------------------------------------------------------------ */
+/* Ritual photos: tap a back photo to rotate all three around          */
+/* ------------------------------------------------------------------ */
+function syncFan(fan) {
+  fan.querySelectorAll('img').forEach((img) => {
+    const front = img.dataset.pos === '2';
+    if (front) {
+      img.removeAttribute('role'); img.removeAttribute('tabindex'); img.removeAttribute('aria-label');
+    } else {
+      img.setAttribute('role', 'button');
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('aria-label', `Bring ${img.alt} to the front`);
+    }
+  });
+}
+function rotateFan(fan, tapped) {
+  const from = Number(tapped.dataset.pos);
+  if (from === 2) return;
+  // Tapped left (0):  left→front, front→right, right→left.
+  // Tapped right (1): right→front, front→left, left→right.
+  const next = from === 0 ? { 0: 2, 2: 1, 1: 0 } : { 1: 2, 2: 0, 0: 1 };
+  fan.querySelectorAll('img').forEach((img) => {
+    img.dataset.pos = String(next[img.dataset.pos]);
+    img.classList.add('is-tapped');
+  });
+  syncFan(fan);
+  const front = fan.querySelector('img[data-pos="2"]');
+  if (document.activeElement === tapped) front.setAttribute('tabindex', '-1'), front.focus({ preventScroll: true });
+}
+fans.forEach((fan) => {
+  syncFan(fan);
+  fan.addEventListener('click', (e) => {
+    const img = e.target.closest('img');
+    if (img && fan.classList.contains('is-active')) rotateFan(fan, img);
+  });
+  fan.addEventListener('keydown', (e) => {
+    const img = e.target.closest('img[role="button"]');
+    if (img && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); rotateFan(fan, img); }
+  });
+});
+
+/* ------------------------------------------------------------------ */
 /* Bundles: one-time vs subscribe & save pricing                       */
 /* ------------------------------------------------------------------ */
 const SUBSCRIBE_DISCOUNT = 0.15; // keep in sync with the "Save 15%" copy
