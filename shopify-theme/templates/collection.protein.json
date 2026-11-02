@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {}
+    },
+    "faq": {
+      "type": "bw-faq",
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Bloom Protein FAQs",
+        "open_first": false
+      },
+      "blocks": {
+        "q0": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I use Bloom Protein?",
+            "answer": "<p>Add a scoop to water, milk or your favourite plant milk and shake or blend. It also stirs into smoothies, overnight oats and coffee. Check the label on your tub for the serving size.</p>"
+          }
+        },
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "Which flavour should I choose?",
+            "answer": "<p>Vanilla is creamy and goes with everything. Chocolate is rich and smooth, Cookies &amp; Cream is the indulgent one, Strawberry is sweet and fruity, and Lemon Sorbet is bright and refreshing. Can't decide? Try a few and rotate.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "Is Bloom Protein plant-based?",
+            "answer": "<p>Yes. Every Bloom Protein flavour is a plant protein. For the full ingredient list and allergen information, check the label on each tub.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "What goes well with Bloom Protein?",
+            "answer": "<p>After a workout, pair it with a Hydrate Bloom electrolyte stick and finish with Stretch Balm. You'll find them all in our Fuel ritual.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

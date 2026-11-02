@@ -753,6 +753,41 @@ put("sections/main-password.liquid", """<section class="c-hero simple-page"><div
 """ + schema("Password"))
 
 
+FAQ_SECTION = """<section class="c-faq" aria-labelledby="faq-title-{{ section.id }}">
+  <div class="c-faq-inner">
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 id="faq-title-{{ section.id }}" class="h2">{{ section.settings.heading }}</h2>
+    <div class="c-faq-list">
+      {%- for block in section.blocks -%}
+        <details class="c-faq-item" {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}>
+          <summary><span>{{ block.settings.question }}</span><span class="c-faq-icon" aria-hidden="true"></span></summary>
+          <div class="c-faq-answer rte">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+"""
+put("sections/bw-faq.liquid", FAQ_SECTION + schema("FAQs", {
+    "settings": [
+        {"type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Good to know"},
+        {"type": "text", "id": "heading", "label": "Heading", "default": "Questions, answered"},
+        {"type": "checkbox", "id": "open_first", "label": "Open the first question", "default": False},
+    ],
+    "blocks": [{"type": "faq", "name": "Question", "settings": [
+        {"type": "text", "id": "question", "label": "Question", "default": "Your question"},
+        {"type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Your answer.</p>"},
+    ]}],
+    "presets": [{"name": "FAQs"}],
+}))
+
+PROTEIN_FAQS = [
+    ("How do I use Bloom Protein?", "<p>Add a scoop to water, milk or your favourite plant milk and shake or blend. It also stirs into smoothies, overnight oats and coffee. Check the label on your tub for the serving size.</p>"),
+    ("Which flavour should I choose?", "<p>Vanilla is creamy and goes with everything. Chocolate is rich and smooth, Cookies &amp; Cream is the indulgent one, Strawberry is sweet and fruity, and Lemon Sorbet is bright and refreshing. Can't decide? Try a few and rotate.</p>"),
+    ("Is Bloom Protein plant-based?", "<p>Yes. Every Bloom Protein flavour is a plant protein. For the full ingredient list and allergen information, check the label on each tub.</p>"),
+    ("What goes well with Bloom Protein?", "<p>After a workout, pair it with a Hydrate Bloom electrolyte stick and finish with Stretch Balm. You'll find them all in our Fuel ritual.</p>"),
+]
+
 def tpl(section_type, settings=None, extra_sections=None):
     secs = {"main": {"type": section_type, "settings": settings or {}}}
     order = ["main"]
@@ -760,6 +795,13 @@ def tpl(section_type, settings=None, extra_sections=None):
 
 
 put("templates/collection.json", tpl("main-collection"))
+protein_tpl = {"sections": {
+    "main": {"type": "main-collection", "settings": {}},
+    "faq": {"type": "bw-faq", "settings": {"eyebrow": "Good to know", "heading": "Bloom Protein FAQs", "open_first": False},
+            "blocks": {f"q{i}": {"type": "faq", "settings": {"question": q, "answer": a}} for i, (q, a) in enumerate(PROTEIN_FAQS)},
+            "block_order": [f"q{i}" for i in range(len(PROTEIN_FAQS))]},
+}, "order": ["main", "faq"]}
+put("templates/collection.protein.json", json.dumps(protein_tpl, indent=2))
 put("templates/list-collections.json", tpl("main-list-collections"))
 put("templates/product.json", tpl("main-product"))
 put("templates/cart.json", tpl("main-cart"))
