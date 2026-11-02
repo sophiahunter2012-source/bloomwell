@@ -1,6 +1,7 @@
 // Bloomwell collection pages: same 3D heart + gummies as the home page,
 // tinted to the collection, with lighter scroll choreography.
 import { createScene } from './scene.js';
+import { initFX, trackVelocity } from './fx.js';
 
 const { gsap, ScrollTrigger } = window;
 gsap.registerPlugin(ScrollTrigger);
@@ -54,13 +55,14 @@ const HERO = corner
   : mobile
   ? { x: 0, y: 0.6, scale: 0.36, tilt: 0, turn: 0, color: accent, fruit: 1, gummies: 1 }
   : { x: 0.5, y: -0.04, scale: 0.85, tilt: 0.05, turn: 0, color: accent, fruit: 1, gummies: 1 };
+HERO.orbit = HERO.scale > 0.3 ? 1 : 0;
 const AWAY = flow
-  ? { scale: 0.001, fruit: 0, gummies: 0.45 }
-  : { x: 0.86, y: 0.64, scale: 0.24, tilt: 0.1, turn: Math.PI * 2, gummies: 0.5 };
+  ? { scale: 0.001, fruit: 0, gummies: 0.45, orbit: 0 }
+  : { x: 0.86, y: 0.64, scale: 0.24, tilt: 0.1, turn: Math.PI * 2, gummies: 0.5, orbit: 0 };
 
 if (stage) {
   const { state } = stage;
-  Object.assign(state, HERO);
+  Object.assign(state, HERO, { orbit: HERO.scale > 0.3 ? 1 : 0 });
   ScrollTrigger.create({ start: 0, end: 'max', onUpdate: (s) => { state.scroll = s.progress * 0.35; } });
   ScrollTrigger.create({
     trigger: '.c-hero', start: 'bottom 55%',
@@ -70,6 +72,9 @@ if (stage) {
   if (reduceMotion) state.intro = 1;
   else gsap.to(state, { intro: 1, duration: 2, ease: 'power3.out' });
 }
+
+initFX({ gsap, ScrollTrigger, stage, reduceMotion, canHover, isHome: false });
+trackVelocity(ScrollTrigger, stage);
 
 /* Entrances */
 if (!reduceMotion) {

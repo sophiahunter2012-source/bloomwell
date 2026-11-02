@@ -6,6 +6,7 @@
 //    native scrolling, swipeable product row, lighter effects.
 // scene.js renders the 3D heart + gummies behind the content in both modes.
 import { createScene } from './scene.js';
+import { initFX, trackVelocity } from './fx.js';
 
 const { gsap, ScrollTrigger } = window;
 gsap.registerPlugin(ScrollTrigger);
@@ -80,6 +81,8 @@ try {
   document.body.classList.add('no-webgl');
 }
 const state = stage ? stage.state : {};
+const fxDelay = initFX({ gsap, ScrollTrigger, stage, reduceMotion, canHover, isHome: true });
+trackVelocity(ScrollTrigger, stage);
 if (stage) ScrollTrigger.create({ start: 0, end: 'max', onUpdate: (s) => { state.scroll = s.progress; } });
 
 // Heart poses per section. x/y are fractions of the half-viewport.
@@ -130,7 +133,7 @@ function applyPreset(name, instant = false) {
   const { bg, ...pose } = p;
   if (stage) {
     if (name === 'cta') state.anchorEl = ctaHeart;
-    gsap.to(state, { anchor: name === 'cta' ? 1 : 0, ...pose, duration: dur, ease: 'power3.inOut', overwrite: 'auto' });
+    gsap.to(state, { anchor: name === 'cta' ? 1 : 0, orbit: name === 'hero' || name === 'cta' ? 1 : 0, ...pose, duration: dur, ease: 'power3.inOut', overwrite: 'auto' });
   }
   if (bg) gsap.to(root, { '--bg': bg, duration: dur, ease: 'power2.inOut', overwrite: 'auto' });
 }
@@ -158,7 +161,7 @@ applyPreset('hero', true);
 if (reduceMotion) {
   if (stage) state.intro = 1;
 } else {
-  const intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
+  const intro = gsap.timeline({ defaults: { ease: 'power4.out' }, delay: fxDelay });
   if (stage) intro.to(state, { intro: 1, duration: 2.2, ease: 'power3.out' }, 0);
   intro
     .from('.hero .eyebrow', { y: 20, opacity: 0, duration: 1 }, 0.2)

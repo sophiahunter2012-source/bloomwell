@@ -876,6 +876,7 @@ def build_assets():
     scene = (ROOT / "js" / "scene.js").read_text()
     scene = scene.replace("'../assets/vendor/RoomEnvironment.js'", "'./RoomEnvironment.js'").replace("'../assets/vendor/BufferGeometryUtils.js'", "'./BufferGeometryUtils.js'")
     (a / "scene.js").write_text(scene)
+    shutil.copy(ROOT / "js" / "fx.js", a / "fx.js")
     main_js = (ROOT / "js" / "main.js").read_text()
     # Newsletter posts to Shopify for real: drop the front-end-only handler
     i = main_js.index("/* Newsletter")

@@ -2,6 +2,7 @@
 
 /* ---------- hero ---------- */
 .c-hero {
+  position: relative;
   min-height: 74vh; min-height: 74svh; display: flex; align-items: center;
   padding: 130px var(--gutter) 48px;
 }

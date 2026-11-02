@@ -662,6 +662,60 @@ main, .site-footer { position: relative; z-index: 2; }
   .is-flow .card { width: min(40vw, 320px); }
 }
 
+
+/* ==========================================================================
+   Extra effects (js/fx.js)
+   ========================================================================== */
+/* blooming intro */
+.bw-loader {
+  position: fixed; inset: 0; z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+  background: var(--bg); clip-path: circle(150% at 50% 46%);
+}
+.bw-loader-mark { width: 92px; height: 104px; filter: drop-shadow(0 18px 30px rgba(31, 77, 63, .25)); }
+.bw-loader-mark svg { width: 100%; height: 100%; }
+.bw-loader-word { overflow: hidden; font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 7vw, 72px); letter-spacing: -.02em; color: var(--ink); }
+.bw-loader-word span { display: inline-block; }
+
+/* giant word ribbon */
+.bw-ribbon { position: relative; z-index: 2; overflow: hidden; padding: 40px 0 60px; perspective: 900px; pointer-events: none; }
+.bw-ribbon-tilt { transform-style: preserve-3d; transform: rotateX(18deg) rotateZ(-3deg); }
+.bw-ribbon-row {
+  display: flex; align-items: center; gap: .35em; width: max-content; white-space: nowrap; will-change: transform;
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(64px, 13vw, 190px); line-height: 1; letter-spacing: -.035em; color: var(--ink);
+}
+.bw-ribbon-row + .bw-ribbon-row { margin-top: .08em; margin-left: -.6em; }
+.bw-ribbon-row .is-outline { color: transparent; -webkit-text-stroke: 2px var(--ink); }
+.bw-ribbon-row i { font-style: normal; font-size: .38em; color: var(--orange); transform: translateY(-.15em); }
+.row-b { color: var(--heart); }
+.row-b .is-outline { -webkit-text-stroke-color: var(--heart); }
+
+/* flip-in headings */
+.bw-w { display: inline-block; white-space: nowrap; perspective: 600px; }
+.bw-c { display: inline-block; transform-origin: 50% 100%; backface-visibility: hidden; }
+
+/* heart cursor (mouse only) */
+.bw-cursor { position: fixed; left: 0; top: 0; z-index: 300; pointer-events: none; opacity: 0; transition: opacity .3s; }
+.bw-cursor.is-on { opacity: 1; }
+.bw-cursor-ring {
+  position: absolute; left: -18px; top: -18px; width: 36px; height: 36px; border-radius: 50%;
+  border: 1.5px solid var(--ink); transition: transform .35s var(--ease-out), background-color .3s, border-color .3s;
+}
+.bw-cursor-heart { position: absolute; left: -6px; top: -7px; width: 12px; height: 14px; transition: transform .35s var(--ease-out); }
+.bw-cursor-heart svg { width: 100%; height: 100%; }
+.bw-cursor.is-hover .bw-cursor-ring { transform: scale(1.7); background: color-mix(in srgb, var(--orange) 22%, transparent); border-color: var(--orange); }
+.bw-cursor.is-hover .bw-cursor-heart { transform: scale(1.4); }
+.bw-cursor.is-down .bw-cursor-ring { transform: scale(.8); }
+@media (hover: hover) and (pointer: fine) { .has-bw-cursor, .has-bw-cursor a, .has-bw-cursor button { cursor: none; } .has-bw-cursor input, .has-bw-cursor textarea { cursor: text; } }
+
+/* tap hint */
+.bw-tap-hint {
+  position: absolute; right: var(--gutter); top: 96px; z-index: 3; margin: 0;
+  padding: 8px 14px; border-radius: 999px; background: var(--card); box-shadow: var(--shadow-soft);
+  font-size: 13px; font-weight: 600; color: var(--ink-soft); animation: bw-hint 2.6s ease-in-out 3s infinite both;
+}
+@keyframes bw-hint { 0%, 100% { transform: translateY(0); opacity: .95; } 50% { transform: translateY(-6px); opacity: 1; } }
+@media (max-width: 900px) { .bw-tap-hint { top: 84px; font-size: 12px; } }
+
 /* ---------- motion preferences ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
