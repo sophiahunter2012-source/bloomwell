@@ -150,7 +150,7 @@ put("sections/bw-press.liquid", """<section class="press" aria-labelledby="press
 """ + schema("Press strip", {
     "settings": [
         {"type": "text", "id": "label", "label": "Label", "default": "As featured in"},
-        {"type": "checkbox", "id": "example", "label": "Show 'Example' tag (turn off once real press is added)", "default": True},
+        {"type": "checkbox", "id": "example", "label": "Show Example tag", "info": "Turn off once real press is added.", "default": True},
     ],
     "blocks": [{"type": "logo", "name": "Publication", "settings": [
         {"type": "text", "id": "name", "label": "Publication name", "default": "Your Magazine"},
@@ -220,7 +220,7 @@ put("sections/bw-bundles.liquid", """<section class="bundles" id="bundles" data-
     "settings": [
         {"type": "text", "id": "heading", "label": "Heading", "default": "Rituals, ready-made"},
         {"type": "text", "id": "text", "label": "Text", "default": "Our favourite routines in one box."},
-        {"type": "range", "id": "discount", "label": "Bundle discount shown (%). Create a matching automatic discount in Shopify first.", "min": 0, "max": 50, "step": 1, "unit": "%", "default": 0},
+        {"type": "range", "id": "discount", "label": "Bundle discount shown", "info": "Create a matching automatic discount in Shopify first.", "min": 0, "max": 50, "step": 1, "unit": "%", "default": 0},
     ],
     "presets": [{"name": "Bundles"}],
 }))
@@ -253,7 +253,7 @@ put("sections/bw-pairs.liquid", """<section class="pairs" id="pairs" aria-labell
   </ul>
 </section>
 """ + schema("Perfect pairs", {
-    "settings": [{"type": "range", "id": "discount", "label": "Pair discount shown (%). Create a matching automatic discount in Shopify first.", "min": 0, "max": 50, "step": 1, "unit": "%", "default": 0}],
+    "settings": [{"type": "range", "id": "discount", "label": "Pair discount shown", "info": "Create a matching automatic discount in Shopify first.", "min": 0, "max": 50, "step": 1, "unit": "%", "default": 0}],
     "presets": [{"name": "Perfect pairs"}],
 }))
 
@@ -283,13 +283,13 @@ put("sections/bw-reviews.liquid", """<section class="reviews" id="reviews" data-
 """ + schema("Reviews", {
     "settings": [
         {"type": "text", "id": "heading", "label": "Heading", "default": "Loved by the Bloomwell community"},
-        {"type": "text", "id": "note", "label": "Note (clear this once reviews are real)", "default": "These are example reviews to show the layout. Real customer reviews will appear here."},
+        {"type": "text", "id": "note", "label": "Note", "info": "Clear this once reviews are real.", "default": "These are example reviews to show the layout. Real customer reviews will appear here."},
     ],
     "blocks": [{"type": "review", "name": "Review", "settings": [
         {"type": "range", "id": "rating", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5},
         {"type": "textarea", "id": "quote", "label": "Review", "default": "Write the customer's review here."},
         {"type": "text", "id": "name", "label": "Customer name", "default": "Sample customer"},
-        {"type": "text", "id": "product", "label": "Product", "default": ""},
+        {"type": "text", "id": "product", "label": "Product"},
         {"type": "checkbox", "id": "example", "label": "Mark as example", "default": True},
     ]}],
     "presets": [{"name": "Reviews"}],
