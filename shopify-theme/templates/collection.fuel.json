@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {}
+    },
+    "faq": {
+      "type": "bw-faq",
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Fuel ritual FAQs",
+        "open_first": false
+      },
+      "blocks": {
+        "q0": {
+          "type": "faq",
+          "settings": {
+            "question": "What's in the Fuel ritual?",
+            "answer": "<p>Hydrate Bloom, Bloom Protein in five flavours, Defend Bloom, Defend Bloom Citrus, Immune Tea, Focus Tea and Stretch Balm.</p>"
+          }
+        },
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "Which Bloom Protein flavour should I try?",
+            "answer": "<p>Vanilla, Chocolate, Cookies and Cream, Strawberry and Lemon Sorbet. Vanilla goes with everything, and the others are great for switching it up.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I use the Fuel products together?",
+            "answer": "<p>Start with a protein shake, add Hydrate Bloom to your water, enjoy Focus Tea in the afternoon, and finish with Stretch Balm after a workout.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I buy them as a bundle?",
+            "answer": "<p>Yes. The Daily Defence bundle and the After the workout pair on our home page add matching products to your bag in one tap.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {}
+    },
+    "faq": {
+      "type": "bw-faq",
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Gut ritual FAQs",
+        "open_first": false
+      },
+      "blocks": {
+        "q0": {
+          "type": "faq",
+          "settings": {
+            "question": "What's in the Gut ritual?",
+            "answer": "<p>Gut Greens superfood powder, Gut Glow prebiotic and probiotic gummies, and Belly Bloom gentle digestion gummies.</p>"
+          }
+        },
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "When should I take each product?",
+            "answer": "<p>Many people take Gut Greens and Gut Glow in the morning and keep Belly Bloom for when they need it. Check each label for directions.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I buy the Gut ritual as a bundle?",
+            "answer": "<p>Yes. The Gut Reset bundle on our home page adds all three to your bag in one tap.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I take them with other supplements?",
+            "answer": "<p>If you take other supplements or medication, check with your healthcare provider before starting.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

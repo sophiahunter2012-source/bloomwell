@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {}
+    },
+    "faq": {
+      "type": "bw-faq",
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Herbal tea FAQs",
+        "open_first": false
+      },
+      "blocks": {
+        "q0": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I brew Bloomwell tea?",
+            "answer": "<p>Add hot water and let it steep for a few minutes. Check the label on your tin for the recommended amount and steeping time.</p>"
+          }
+        },
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "When should I drink each tea?",
+            "answer": "<p>Focus Tea suits the afternoon, Immune Tea is lovely any time of day, and Calm Tea is made for winding down in the evening.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "What's in each blend?",
+            "answer": "<p>Focus Tea is peppermint and lemon, Immune Tea is elderberry and ginger, and Calm Tea is chamomile and lemon balm. Full ingredients are on each tin.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I drink them iced?",
+            "answer": "<p>Yes. Brew as usual, let it cool, then pour over ice for a refreshing iced tea.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

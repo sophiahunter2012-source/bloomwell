@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {}
+    },
+    "faq": {
+      "type": "bw-faq",
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Body care FAQs",
+        "open_first": false
+      },
+      "blocks": {
+        "q0": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the lip balm made from?",
+            "answer": "<p>Daily Nourish Lip Balm is made with natural beeswax. You'll find the full ingredient list on the tube.</p>"
+          }
+        },
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "Is the Hand Cream greasy?",
+            "answer": "<p>Our Hand Cream blends shea butter and botanical oils. A little goes a long way, so start with a small amount and massage it in.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I use Stretch Balm?",
+            "answer": "<p>Massage a small amount into tired muscles after a workout or a long day. For external use only, and avoid broken skin.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Are these suitable for sensitive skin?",
+            "answer": "<p>Check the ingredient list on each product and patch test on a small area first if you have sensitive skin.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

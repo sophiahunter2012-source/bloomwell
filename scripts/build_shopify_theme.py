@@ -802,6 +802,22 @@ protein_tpl = {"sections": {
             "block_order": [f"q{i}" for i in range(len(PROTEIN_FAQS))]},
 }, "order": ["main", "faq"]}
 put("templates/collection.protein.json", json.dumps(protein_tpl, indent=2))
+
+# FAQ templates for every other collection (copy lives in collection_copy.py)
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from collection_copy import FAQS as COLL_FAQS
+FAQ_TITLES = {"gummies": "Gummies FAQs", "herbal-teas": "Herbal tea FAQs", "powders-drinks": "Powders & drinks FAQs",
+              "body-care": "Body care FAQs", "home-relaxation": "Home & relaxation FAQs", "glow": "Glow ritual FAQs",
+              "gut": "Gut ritual FAQs", "rest": "Rest ritual FAQs", "fuel": "Fuel ritual FAQs"}
+for key, faqs in COLL_FAQS.items():
+    t = {"sections": {
+        "main": {"type": "main-collection", "settings": {}},
+        "faq": {"type": "bw-faq", "settings": {"eyebrow": "Good to know", "heading": FAQ_TITLES[key], "open_first": False},
+                "blocks": {f"q{i}": {"type": "faq", "settings": {"question": q, "answer": f"<p>{a}</p>"}} for i, (q, a) in enumerate(faqs)},
+                "block_order": [f"q{i}" for i in range(len(faqs))]},
+    }, "order": ["main", "faq"]}
+    put(f"templates/collection.{key}.json", json.dumps(t, indent=2))
 put("templates/list-collections.json", tpl("main-list-collections"))
 put("templates/product.json", tpl("main-product"))
 put("templates/cart.json", tpl("main-cart"))

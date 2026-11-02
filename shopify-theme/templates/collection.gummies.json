@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {}
+    },
+    "faq": {
+      "type": "bw-faq",
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Gummies FAQs",
+        "open_first": false
+      },
+      "blocks": {
+        "q0": {
+          "type": "faq",
+          "settings": {
+            "question": "How many gummies should I take?",
+            "answer": "<p>Every Bloomwell gummy has its own serving size, so check the label on your jar and follow the directions there.</p>"
+          }
+        },
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I take more than one type of gummy?",
+            "answer": "<p>Many people combine a few, like Daily Glow in the morning and Rest Easy at night. If you take other supplements or medication, check with your healthcare provider first.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "Which gummy is right for me?",
+            "answer": "<p>Daily Glow is our multivitamin, Gut Glow and Belly Bloom support digestion, Calm Bloom helps you unwind, Rest Easy is for evenings, and Defend Bloom or Defend Bloom Citrus support immune health.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "How should I store my gummies?",
+            "answer": "<p>Keep the lid closed and store your jar somewhere cool and dry, away from direct sunlight and heat, so they stay soft and fresh.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

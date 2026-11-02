@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {}
+    },
+    "faq": {
+      "type": "bw-faq",
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Glow ritual FAQs",
+        "open_first": false
+      },
+      "blocks": {
+        "q0": {
+          "type": "faq",
+          "settings": {
+            "question": "What's in the Glow ritual?",
+            "answer": "<p>Skin Sip collagen powder, Daily Glow multivitamin gummies, Daily Nourish Lip Balm and our Hand Cream.</p>"
+          }
+        },
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I build my Glow routine?",
+            "answer": "<p>Take Skin Sip and Daily Glow in the morning, then keep the Lip Balm and Hand Cream on hand throughout the day.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I buy the Glow ritual as a bundle?",
+            "answer": "<p>Yes. The Glow Ritual bundle on our home page adds all four products to your bag in one tap.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need all four products?",
+            "answer": "<p>Not at all. Start with one or two you love and add the rest whenever you like.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

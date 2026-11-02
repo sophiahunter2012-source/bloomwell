@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {}
+    },
+    "faq": {
+      "type": "bw-faq",
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Powders & drinks FAQs",
+        "open_first": false
+      },
+      "blocks": {
+        "q0": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I use Skin Sip?",
+            "answer": "<p>Stir a scoop into your coffee, tea or smoothie. Check the label for the serving size.</p>"
+          }
+        },
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "What do I mix Gut Greens with?",
+            "answer": "<p>Gut Greens mixes easily with water, juice or a smoothie. Shake or stir well and enjoy.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "When should I use Hydrate Bloom?",
+            "answer": "<p>Add a stick to your water bottle on busy days, during workouts, in hot weather or when travelling.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I use them together?",
+            "answer": "<p>Yes. Many people take Skin Sip in the morning, Gut Greens with lunch and Hydrate Bloom throughout the day. Check each label for directions.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

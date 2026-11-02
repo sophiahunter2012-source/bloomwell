@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {}
+    },
+    "faq": {
+      "type": "bw-faq",
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Home & relaxation FAQs",
+        "open_first": false
+      },
+      "blocks": {
+        "q0": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I use Sleep Well Mist?",
+            "answer": "<p>Spray lightly over your pillow and bedding a few minutes before bed, or mist the room to create a calm atmosphere.</p>"
+          }
+        },
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does the candle burn?",
+            "answer": "<p>Calm Soy Candle is made with slow-burning natural wax. For an even burn, let the top layer melt fully the first time you light it, and never leave it unattended.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "How much bath soak should I use?",
+            "answer": "<p>Check the label for the recommended amount, then add it to warm running water and relax.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Do they make good gifts?",
+            "answer": "<p>Yes. All three look beautiful out on display and make a thoughtful gift for anyone who needs a little more calm.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

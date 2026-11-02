@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {}
+    },
+    "faq": {
+      "type": "bw-faq",
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Rest ritual FAQs",
+        "open_first": false
+      },
+      "blocks": {
+        "q0": {
+          "type": "faq",
+          "settings": {
+            "question": "What's in the Rest ritual?",
+            "answer": "<p>Calm Bloom gummies, Rest Easy sleep support gummies, Calm Tea, Sleep Well Mist, Relax Bath Soak and our Calm Soy Candle.</p>"
+          }
+        },
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "What's a good evening routine?",
+            "answer": "<p>Try a cup of Calm Tea and a Calm Bloom gummy as the day slows down, a warm bath with Relax Bath Soak, then Sleep Well Mist and Rest Easy before bed.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I buy the Rest ritual as a bundle?",
+            "answer": "<p>Yes. The Sleep Ritual bundle on our home page brings together Calm Bloom, Rest Easy, Calm Tea and Sleep Well Mist.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need all six products?",
+            "answer": "<p>Not at all. Start with one step you'll enjoy every night and build from there.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}
