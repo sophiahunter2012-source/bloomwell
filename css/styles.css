@@ -271,6 +271,18 @@ main, .site-footer { position: relative; z-index: 2; }
 .card-link::after { content: " →"; transition: margin .25s; margin-left: 2px; }
 .card-link:hover::after { margin-left: 8px; }
 
+.card-media img.is-swapping { opacity: 0; transform: scale(.94); transition: opacity .2s, transform .2s; }
+.swatches { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 12px; }
+.swatch {
+  width: 30px; height: 30px; border-radius: 50%; padding: 0; cursor: pointer;
+  background: var(--sw); border: 2px solid var(--card); box-shadow: 0 0 0 1px var(--line);
+  transition: box-shadow .2s, transform .2s var(--ease-out);
+}
+.swatch:hover { transform: scale(1.1); }
+.swatch[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--ink); }
+.flavor-name { font-size: 13px; font-weight: 600; margin-left: 4px; color: var(--ink-soft); }
+@media (pointer: coarse) { .swatch { width: 36px; height: 36px; } }
+
 /* ---------- a day in bloom ---------- */
 .day { padding: 140px var(--gutter) 120px; }
 .day-head { text-align: center; margin-bottom: 80px; }

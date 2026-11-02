@@ -372,6 +372,34 @@ if (!reduceMotion) {
 }
 
 /* ------------------------------------------------------------------ */
+/* Bloom Protein flavour picker                                        */
+/* ------------------------------------------------------------------ */
+document.querySelectorAll('.card-protein').forEach((card) => {
+  const img = card.querySelector('.card-media img');
+  const desc = card.querySelector('.protein-desc');
+  const label = card.querySelector('.flavor-name');
+  const swatches = [...card.querySelectorAll('.swatch')];
+  // Warm the cache so swapping is instant
+  swatches.forEach((b) => { const i = new Image(); i.src = b.dataset.img; });
+  swatches.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (btn.getAttribute('aria-pressed') === 'true') return;
+      swatches.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      const flavor = btn.dataset.flavor.replace('&amp;', '&');
+      label.textContent = flavor;
+      desc.textContent = btn.dataset.desc.replace('&amp;', '&');
+      card.style.setProperty('--tint', btn.dataset.tint);
+      img.classList.add('is-swapping');
+      setTimeout(() => {
+        img.src = btn.dataset.img;
+        img.alt = `Bloom Protein plant protein canister, ${flavor} flavor`;
+        img.classList.remove('is-swapping');
+      }, reduceMotion ? 0 : 180);
+    });
+  });
+});
+
+/* ------------------------------------------------------------------ */
 /* Newsletter (front-end only — connect to your email provider)         */
 /* ------------------------------------------------------------------ */
 const form = document.querySelector('.signup');
