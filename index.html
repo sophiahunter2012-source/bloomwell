@@ -41,8 +41,9 @@
     <nav class="nav" id="primary-nav" aria-label="Primary">
       <a href="#rituals">Rituals</a>
       <a href="#shop">Shop</a>
-      <a href="#day">A day in bloom</a>
-      <a href="#promise">Our promise</a>
+      <a href="#bundles">Bundles</a>
+      <a href="#subscribe">Subscribe &amp; save</a>
+      <a href="#reviews">Reviews</a>
     </nav>
     <a class="btn btn-small" href="#shop">Shop now</a>
   </header>
@@ -63,6 +64,17 @@
         </div>
       </div>
       <div class="scroll-cue" aria-hidden="true"><span></span>Scroll</div>
+    </section>
+
+    <!-- PRESS — EXAMPLE: replace each placeholder with a real publication that featured Bloomwell -->
+    <section class="press" aria-labelledby="press-title">
+      <p id="press-title" class="press-label">As featured in <span class="example-tag">Example</span></p>
+      <div class="press-marquee">
+        <ul class="press-track" role="list">
+          <li class="press-logo pl-1">Your Magazine</li><li class="press-logo pl-2">PUBLICATION</li><li class="press-logo pl-3">the journal</li><li class="press-logo pl-4">Wellness Weekly</li><li class="press-logo pl-5">EDITORIAL</li>
+          <li class="press-logo pl-1" aria-hidden="true">Your Magazine</li><li class="press-logo pl-2" aria-hidden="true">PUBLICATION</li><li class="press-logo pl-3" aria-hidden="true">the journal</li><li class="press-logo pl-4" aria-hidden="true">Wellness Weekly</li><li class="press-logo pl-5" aria-hidden="true">EDITORIAL</li>
+        </ul>
+      </div>
     </section>
 
     <!-- MANIFESTO -->
@@ -168,6 +180,139 @@
       </div>
     </section>
 
+    <!-- BUNDLES — prices and discounts are EXAMPLES: set your real prices in data-price / data-compare -->
+    <section class="bundles" id="bundles" data-preset="bundles" aria-labelledby="bundles-title">
+      <div class="section-head">
+        <p class="eyebrow">Bundle &amp; save</p>
+        <h2 id="bundles-title" class="h2">Rituals, ready-made</h2>
+        <p class="lede">Our favourite routines in one box, for less than buying each on its own.</p>
+      </div>
+      <div class="bundle-grid">
+          <article class="bundle" style="--tint:#FBE2DA" data-price="89" data-compare="112">
+            <div class="bundle-stack n4" aria-hidden="true"><img src="assets/img/products/skin-sip-sm.webp" alt="" width="600" height="600" loading="lazy"><img src="assets/img/products/daily-glow-sm.webp" alt="" width="600" height="600" loading="lazy"><img src="assets/img/products/lip-balm-sm.webp" alt="" width="600" height="600" loading="lazy"><img src="assets/img/products/hand-cream-sm.webp" alt="" width="600" height="600" loading="lazy"></div>
+            <div class="bundle-body">
+              <span class="save-pill">Save 21%</span>
+              <h3>The Glow Ritual</h3>
+              <p class="bundle-items">Skin Sip, Daily Glow, Lip Balm &amp; Hand Cream</p>
+              <fieldset class="buy-toggle">
+                <legend class="sr-only">Purchase option for The Glow Ritual</legend>
+                <label><input type="radio" name="buy-glow" value="once" checked><span>One-time</span></label>
+                <label><input type="radio" name="buy-glow" value="sub"><span>Subscribe &amp; save 15%</span></label>
+              </fieldset>
+              <p class="price"><span class="price-now">$89.00</span> <s class="price-was">$112.00</s> <span class="price-note"></span></p>
+              <a class="btn btn-block" href="#shop">Shop the bundle</a>
+            </div>
+          </article>
+          <article class="bundle" style="--tint:#E9E2F6" data-price="94" data-compare="118">
+            <div class="bundle-stack n4" aria-hidden="true"><img src="assets/img/products/calm-bloom-sm.webp" alt="" width="600" height="600" loading="lazy"><img src="assets/img/products/rest-easy-sm.webp" alt="" width="600" height="600" loading="lazy"><img src="assets/img/products/calm-tea-sm.webp" alt="" width="600" height="600" loading="lazy"><img src="assets/img/products/sleep-mist-sm.webp" alt="" width="600" height="600" loading="lazy"></div>
+            <div class="bundle-body">
+              <span class="save-pill">Save 20%</span>
+              <h3>The Sleep Ritual</h3>
+              <p class="bundle-items">Calm Bloom, Rest Easy, Calm Tea &amp; Sleep Well Mist</p>
+              <fieldset class="buy-toggle">
+                <legend class="sr-only">Purchase option for The Sleep Ritual</legend>
+                <label><input type="radio" name="buy-sleep" value="once" checked><span>One-time</span></label>
+                <label><input type="radio" name="buy-sleep" value="sub"><span>Subscribe &amp; save 15%</span></label>
+              </fieldset>
+              <p class="price"><span class="price-now">$94.00</span> <s class="price-was">$118.00</s> <span class="price-note"></span></p>
+              <a class="btn btn-block" href="#shop">Shop the bundle</a>
+            </div>
+          </article>
+          <article class="bundle" style="--tint:#E5EEDA" data-price="77" data-compare="96">
+            <div class="bundle-stack n3" aria-hidden="true"><img src="assets/img/products/gut-greens-sm.webp" alt="" width="600" height="600" loading="lazy"><img src="assets/img/products/gut-glow-sm.webp" alt="" width="600" height="600" loading="lazy"><img src="assets/img/products/belly-bloom-sm.webp" alt="" width="600" height="600" loading="lazy"></div>
+            <div class="bundle-body">
+              <span class="save-pill">Save 20%</span>
+              <h3>The Gut Reset</h3>
+              <p class="bundle-items">Gut Greens, Gut Glow &amp; Belly Bloom</p>
+              <fieldset class="buy-toggle">
+                <legend class="sr-only">Purchase option for The Gut Reset</legend>
+                <label><input type="radio" name="buy-gut" value="once" checked><span>One-time</span></label>
+                <label><input type="radio" name="buy-gut" value="sub"><span>Subscribe &amp; save 15%</span></label>
+              </fieldset>
+              <p class="price"><span class="price-now">$77.00</span> <s class="price-was">$96.00</s> <span class="price-note"></span></p>
+              <a class="btn btn-block" href="#shop">Shop the bundle</a>
+            </div>
+          </article>
+          <article class="bundle" style="--tint:#FBE3D3" data-price="83" data-compare="104">
+            <div class="bundle-stack n4" aria-hidden="true"><img src="assets/img/products/defend-bloom-sm.webp" alt="" width="600" height="600" loading="lazy"><img src="assets/img/products/immune-tea-sm.webp" alt="" width="600" height="600" loading="lazy"><img src="assets/img/products/hydrate-bloom-sm.webp" alt="" width="600" height="600" loading="lazy"><img src="assets/img/products/defend-citrus-sm.webp" alt="" width="600" height="600" loading="lazy"></div>
+            <div class="bundle-body">
+              <span class="save-pill">Save 20%</span>
+              <h3>The Daily Defence</h3>
+              <p class="bundle-items">Defend Bloom, Defend Bloom Citrus, Immune Tea &amp; Hydrate Bloom</p>
+              <fieldset class="buy-toggle">
+                <legend class="sr-only">Purchase option for The Daily Defence</legend>
+                <label><input type="radio" name="buy-defend" value="once" checked><span>One-time</span></label>
+                <label><input type="radio" name="buy-defend" value="sub"><span>Subscribe &amp; save 15%</span></label>
+              </fieldset>
+              <p class="price"><span class="price-now">$83.00</span> <s class="price-was">$104.00</s> <span class="price-note"></span></p>
+              <a class="btn btn-block" href="#shop">Shop the bundle</a>
+            </div>
+          </article>
+      </div>
+    </section>
+
+    <!-- SUBSCRIBE & SAVE — EXAMPLE terms: update to match your real subscription policy -->
+    <section class="subscribe" id="subscribe" aria-labelledby="subscribe-title">
+      <div class="subscribe-inner">
+        <div class="subscribe-copy">
+          <p class="eyebrow">Subscribe &amp; save</p>
+          <h2 id="subscribe-title" class="h2">Never run out of your ritual</h2>
+          <p class="lede">Save 15% on every delivery when you subscribe to any product or bundle.</p>
+        </div>
+        <ol class="steps">
+          <li><span class="step-num">1</span><h3>Pick your ritual</h3><p>Any product or bundle, any flavour.</p></li>
+          <li><span class="step-num">2</span><h3>Choose your rhythm</h3><p>Delivered every 30, 60 or 90 days.</p></li>
+          <li><span class="step-num">3</span><h3>Save 15%, always</h3><p>Skip, swap or cancel any time from your account.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- BETTER TOGETHER (cross-sell) — example pair discount -->
+    <section class="pairs" id="pairs" aria-labelledby="pairs-title">
+      <div class="section-head">
+        <p class="eyebrow">Better together</p>
+        <h2 id="pairs-title" class="h2">Perfect pairs</h2>
+      </div>
+      <ul class="pair-list" role="list">
+          <li class="pair">
+            <div class="pair-visual">
+              <figure><img src="assets/img/products/calm-bloom-sm.webp" alt="Calm Bloom" width="600" height="600" loading="lazy"><figcaption>Calm Bloom</figcaption></figure>
+              <span class="plus" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></span>
+              <figure><img src="assets/img/products/calm-tea-sm.webp" alt="Calm Tea" width="600" height="600" loading="lazy"><figcaption>Calm Tea</figcaption></figure>
+            </div>
+            <div class="pair-body">
+              <h3>The evening wind-down</h3>
+              <p>Calm Bloom + Calm Tea. Save 10% when you buy them together.</p>
+              <a class="card-link" href="#shop">Shop the pair</a>
+            </div>
+          </li>
+          <li class="pair">
+            <div class="pair-visual">
+              <figure><img src="assets/img/products/bloom-protein-sm.webp" alt="Bloom Protein" width="600" height="600" loading="lazy"><figcaption>Bloom Protein</figcaption></figure>
+              <span class="plus" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></span>
+              <figure><img src="assets/img/products/hydrate-bloom-sm.webp" alt="Hydrate Bloom" width="600" height="600" loading="lazy"><figcaption>Hydrate Bloom</figcaption></figure>
+            </div>
+            <div class="pair-body">
+              <h3>After the workout</h3>
+              <p>Bloom Protein + Hydrate Bloom. Save 10% when you buy them together.</p>
+              <a class="card-link" href="#shop">Shop the pair</a>
+            </div>
+          </li>
+          <li class="pair">
+            <div class="pair-visual">
+              <figure><img src="assets/img/products/skin-sip-sm.webp" alt="Skin Sip" width="600" height="600" loading="lazy"><figcaption>Skin Sip</figcaption></figure>
+              <span class="plus" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></span>
+              <figure><img src="assets/img/products/hand-cream-sm.webp" alt="Hand Cream" width="600" height="600" loading="lazy"><figcaption>Hand Cream</figcaption></figure>
+            </div>
+            <div class="pair-body">
+              <h3>Glow, inside and out</h3>
+              <p>Skin Sip + Hand Cream. Save 10% when you buy them together.</p>
+              <a class="card-link" href="#shop">Shop the pair</a>
+            </div>
+          </li>
+      </ul>
+    </section>
+
     <!-- A DAY IN BLOOM -->
     <section class="day" id="day" data-preset="day" aria-labelledby="day-title">
       <div class="day-head">
@@ -203,6 +348,53 @@
           <div class="moment-imgs"><img src="assets/img/products/calm-candle-sm.webp" alt="Calm Soy Candle" width="600" height="600" loading="lazy"><img src="assets/img/products/rest-easy-sm.webp" alt="Rest Easy" width="600" height="600" loading="lazy"></div>
         </div>
       </div>
+    </section>
+
+    <!-- REVIEWS — EXAMPLES ONLY: replace with real, verified customer reviews before going live -->
+    <section class="reviews" id="reviews" data-preset="reviews" aria-labelledby="reviews-title">
+      <div class="section-head reviews-head">
+        <div>
+          <p class="eyebrow">Reviews</p>
+          <h2 id="reviews-title" class="h2">Loved by the Bloomwell community</h2>
+          <p class="reviews-note">These are example reviews to show the layout. Real customer reviews will appear here.</p>
+        </div>
+        <div class="review-nav">
+          <button type="button" class="round-btn" data-dir="-1" aria-label="Previous reviews"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button type="button" class="round-btn" data-dir="1" aria-label="Next reviews"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+      <ul class="review-track" role="list" tabindex="0" aria-label="Customer reviews">
+          <li class="review">
+            <div class="review-top"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg></span><span class="example-tag">Example</span></div>
+            <blockquote>“My evening routine finally feels like something I look forward to. The gummies taste great.”</blockquote>
+            <p class="review-meta"><span class="review-name">Sample customer</span> <span class="review-product">on Calm Bloom</span></p>
+          </li>
+          <li class="review">
+            <div class="review-top"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg></span><span class="example-tag">Example</span></div>
+            <blockquote>“Dissolves easily in my morning coffee. The jar looks so pretty on my counter.”</blockquote>
+            <p class="review-meta"><span class="review-name">Sample customer</span> <span class="review-product">on Skin Sip</span></p>
+          </li>
+          <li class="review">
+            <div class="review-top"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg></span><span class="example-tag">Example</span></div>
+            <blockquote>“I love the little heart gummies. Part of my wind-down every night now.”</blockquote>
+            <p class="review-meta"><span class="review-name">Sample customer</span> <span class="review-product">on Rest Easy</span></p>
+          </li>
+          <li class="review">
+            <div class="review-top"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg></span><span class="example-tag">Example</span></div>
+            <blockquote>“The strawberry flavour is my favourite. Smooth, not chalky at all.”</blockquote>
+            <p class="review-meta"><span class="review-name">Sample customer</span> <span class="review-product">on Bloom Protein</span></p>
+          </li>
+          <li class="review">
+            <div class="review-top"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg></span><span class="example-tag">Example</span></div>
+            <blockquote>“Easiest way I have found to get my greens in. Mixes well with water.”</blockquote>
+            <p class="review-meta"><span class="review-name">Sample customer</span> <span class="review-product">on Gut Greens</span></p>
+          </li>
+          <li class="review">
+            <div class="review-top"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg></span><span class="example-tag">Example</span></div>
+            <blockquote>“Smells calming without being too strong. I spray it on my pillow every night.”</blockquote>
+            <p class="review-meta"><span class="review-name">Sample customer</span> <span class="review-product">on Sleep Well Mist</span></p>
+          </li>
+      </ul>
     </section>
 
     <!-- PROMISE -->
@@ -257,7 +449,10 @@
       <nav class="footer-nav" aria-label="Footer">
         <a href="#rituals">Rituals</a>
         <a href="#shop">Shop</a>
+        <a href="#bundles">Bundles</a>
+        <a href="#subscribe">Subscribe &amp; save</a>
         <a href="#day">A day in bloom</a>
+        <a href="#reviews">Reviews</a>
         <a href="#promise">Our promise</a>
       </nav>
     </div>

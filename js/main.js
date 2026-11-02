@@ -95,6 +95,10 @@ const PRESETS = {
   fuel:      { d: { color: '#E8937A', bg: '#FCE9DE', turn: Math.PI * 5 },  m: { color: '#E8937A', bg: '#FCE9DE', turn: Math.PI * 5 } },
   shop:      { d: { x: 0.82, y: 0.66, scale: 0.32, tilt: 0,    turn: Math.PI * 6, color: '#316B58', fruit: 1, gummies: 0.55, bg: '#FAF5EC' },
                m: { x: 0.72, y: 0.74, scale: 0.22, tilt: 0,    turn: Math.PI * 6, color: '#316B58', fruit: 1, gummies: 0.4,  bg: '#FAF5EC' } },
+  bundles:   { d: { x: 0.84, y: 0.66, scale: 0.3,  tilt: 0.1,  turn: Math.PI * 6.5, color: '#E8937A', fruit: 0, gummies: 0.5, bg: '#FBF1EA' },
+               m: { x: 0.72, y: 0.74, scale: 0.22, tilt: 0.1,  turn: Math.PI * 6.5, color: '#E8937A', fruit: 0, gummies: 0.4, bg: '#FBF1EA' } },
+  reviews:   { d: { x: -0.84, y: -0.62, scale: 0.3, tilt: -0.1, turn: Math.PI * 7.5, color: '#316B58', fruit: 1, gummies: 0.6, bg: '#FAF5EC' },
+               m: { x: 0.72, y: 0.74, scale: 0.22, tilt: -0.1, turn: Math.PI * 7.5, color: '#316B58', fruit: 1, gummies: 0.4, bg: '#FAF5EC' } },
   day:       { d: { x: -0.78, y: 0.55, scale: 0.42, tilt: 0.2, turn: Math.PI * 7, fruit: 0, gummies: 0.45 },
                m: { x: 0.7,  y: 0.72, scale: 0.24, tilt: 0.2, turn: Math.PI * 7, fruit: 0, gummies: 0.3 } },
   promise:   { d: { x: 0.82, y: 0.58, scale: 0.36, tilt: -0.2, turn: Math.PI * 8, color: '#316B58', fruit: 1, gummies: 0.7, bg: '#FAF5EC' },
@@ -368,6 +372,70 @@ if (!reduceMotion) {
   gsap.from('.rituals-head > *', {
     y: 40, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.1,
     scrollTrigger: { trigger: '.rituals', start: 'top 75%' },
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/* Bundles: one-time vs subscribe & save pricing                       */
+/* ------------------------------------------------------------------ */
+const SUBSCRIBE_DISCOUNT = 0.15; // keep in sync with the "Save 15%" copy
+const money = (n) => `$${n.toFixed(2)}`;
+document.querySelectorAll('.bundle').forEach((b) => {
+  const price = Number(b.dataset.price);
+  const compare = Number(b.dataset.compare);
+  const now = b.querySelector('.price-now');
+  const was = b.querySelector('.price-was');
+  const note = b.querySelector('.price-note');
+  b.querySelectorAll('.buy-toggle input').forEach((r) => r.addEventListener('change', () => {
+    const sub = r.value === 'sub' && r.checked;
+    now.textContent = money(sub ? price * (1 - SUBSCRIBE_DISCOUNT) : price);
+    was.textContent = money(compare);
+    note.textContent = sub ? 'Delivered every 30 days · skip or cancel any time' : '';
+    if (!reduceMotion) gsap.fromTo(now, { y: -8, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: 'power3.out' });
+  }));
+});
+// Touch screens can't hover, so bundles fan open as they scroll into view.
+document.querySelectorAll('.bundle').forEach((b) => {
+  ScrollTrigger.create({ trigger: b, start: 'top 70%', onEnter: () => { if (!canHover) b.classList.add('is-open'); } });
+});
+
+/* Reviews carousel arrows */
+const reviewTrack = document.querySelector('.review-track');
+document.querySelectorAll('.review-nav .round-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const card = reviewTrack.querySelector('.review');
+    const step = card ? card.getBoundingClientRect().width + 20 : 300;
+    reviewTrack.scrollBy({ left: step * Number(btn.dataset.dir), behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+});
+
+/* 3D entrances for the shopping sections */
+if (!reduceMotion) {
+  const lite = isFlow();
+  gsap.from('.bundle', {
+    y: 80, opacity: 0, rotationX: lite ? 0 : -22, rotationY: lite ? 0 : (i) => (i % 2 ? 8 : -8),
+    transformPerspective: 1100, transformOrigin: '50% 100%', duration: 1.1, ease: 'power3.out', stagger: 0.1,
+    clearProps: 'transform', scrollTrigger: { trigger: '.bundle-grid', start: 'top 82%' },
+  });
+  gsap.from('.subscribe-inner', {
+    y: 60, opacity: 0, scale: 0.96, duration: 1.1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.subscribe', start: 'top 82%' },
+  });
+  gsap.from('.steps li', {
+    y: 40, opacity: 0, rotationY: lite ? 0 : -30, transformPerspective: 900, duration: 0.9, ease: 'power3.out', stagger: 0.12,
+    scrollTrigger: { trigger: '.steps', start: 'top 85%' },
+  });
+  gsap.from('.pair', {
+    y: 70, opacity: 0, rotationX: lite ? 0 : -20, transformPerspective: 1000, duration: 1, ease: 'power3.out', stagger: 0.12,
+    scrollTrigger: { trigger: '.pair-list', start: 'top 85%' },
+  });
+  gsap.from('.plus', {
+    rotation: -180, scale: 0, duration: 0.9, ease: 'back.out(2)', stagger: 0.12, clearProps: 'transform',
+    scrollTrigger: { trigger: '.pair-list', start: 'top 75%' },
+  });
+  gsap.from('.review', {
+    x: 80, opacity: 0, rotationY: lite ? 0 : -25, transformPerspective: 1000, duration: 1, ease: 'power3.out', stagger: 0.08,
+    scrollTrigger: { trigger: '.review-track', start: 'top 85%' },
   });
 }
 
