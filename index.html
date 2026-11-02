@@ -39,6 +39,7 @@
       <span></span><span></span>
     </button>
     <nav class="nav" id="primary-nav" aria-label="Primary">
+      <a href="#rituals">Rituals</a>
       <a href="#shop">Shop</a>
       <a href="#shop-all">Shop all</a>
       <a href="#bundles">Bundles</a>
@@ -59,11 +60,125 @@
         </h1>
         <p class="lede">Heart-shaped gummies, gentle powders and slow little rituals for your skin, gut, rest and everyday energy.</p>
         <div class="hero-ctas">
-          <a class="btn" href="#shop-all">Shop all products</a>
-          <a class="btn btn-ghost" href="#bundles">Shop bundles</a>
+          <a class="btn" href="#shop">Shop the collection</a>
+          <a class="btn btn-ghost" href="#rituals">Find your ritual</a>
         </div>
       </div>
       <div class="scroll-cue" aria-hidden="true"><span></span>Scroll</div>
+    </section>
+
+    <!-- PRESS — EXAMPLE: replace each placeholder with a real publication that featured Bloomwell -->
+    <section class="press" aria-labelledby="press-title">
+      <p id="press-title" class="press-label">As featured in <span class="example-tag">Example</span></p>
+      <div class="press-marquee">
+        <ul class="press-track" role="list">
+          <li class="press-logo pl-1">Your Magazine</li><li class="press-logo pl-2">PUBLICATION</li><li class="press-logo pl-3">the journal</li><li class="press-logo pl-4">Wellness Weekly</li><li class="press-logo pl-5">EDITORIAL</li>
+          <li class="press-logo pl-1" aria-hidden="true">Your Magazine</li><li class="press-logo pl-2" aria-hidden="true">PUBLICATION</li><li class="press-logo pl-3" aria-hidden="true">the journal</li><li class="press-logo pl-4" aria-hidden="true">Wellness Weekly</li><li class="press-logo pl-5" aria-hidden="true">EDITORIAL</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <section class="manifesto" data-preset="manifesto" aria-label="Our philosophy">
+      <p class="manifesto-text" data-split>
+        Feeling good should feel good. Every Bloomwell ritual is made to sit out on your counter, slip into your day, and remind you to take care of yourself, one little heart at a time.
+      </p>
+    </section>
+
+    <!-- RITUALS (pinned) -->
+    <section class="rituals" id="rituals" aria-labelledby="rituals-title">
+      <div class="rituals-pin">
+        <div class="rituals-head">
+          <p class="eyebrow">Find your ritual</p>
+          <h2 id="rituals-title" class="h2">Four ways to bloom</h2>
+          <ol class="ritual-progress" aria-hidden="true">
+            <li class="is-active"></li><li></li><li></li><li></li>
+          </ol>
+        </div>
+
+        <div class="ritual-panels">
+          <article class="ritual is-active" data-ritual="glow">
+            <span class="ritual-num">01</span>
+            <h3 class="ritual-name">Glow</h3>
+            <p class="ritual-desc">Collagen you sip, vitamins you look forward to, and balms for your lips and hands. Beauty starts on the inside.</p>
+            <ul class="chips"><li>Skin Sip</li><li>Daily Glow</li><li>Lip Balm</li><li>Hand Cream</li></ul>
+          </article>
+          <article class="ritual" data-ritual="gut">
+            <span class="ritual-num">02</span>
+            <h3 class="ritual-name">Gut</h3>
+            <p class="ritual-desc">A scoop of greens, a daily pre and probiotic, and gentle gummies for days you need them. Happy belly, happy you.</p>
+            <ul class="chips"><li>Gut Greens</li><li>Gut Glow</li><li>Belly Bloom</li></ul>
+          </article>
+          <article class="ritual" data-ritual="rest">
+            <span class="ritual-num">03</span>
+            <h3 class="ritual-name">Rest</h3>
+            <p class="ritual-desc">Magnesium and ashwagandha to unwind, a cup of calm tea, a mist for your pillow and gummies to drift off. Your evening, softened.</p>
+            <ul class="chips"><li>Calm Bloom</li><li>Rest Easy</li><li>Calm Tea</li><li>Sleep Well Mist</li><li>Bath Soak</li><li>Candle</li></ul>
+          </article>
+          <article class="ritual" data-ritual="fuel">
+            <span class="ritual-num">04</span>
+            <h3 class="ritual-name">Fuel</h3>
+            <p class="ritual-desc">Electrolytes for busy days, plant protein in five flavors, immune and focus teas, vitamin C and zinc, and a balm for after the stretch.</p>
+            <ul class="chips"><li>Hydrate Bloom</li><li>Bloom Protein</li><li>Defend Bloom</li><li>Immune Tea</li><li>Focus Tea</li><li>Stretch Balm</li></ul>
+          </article>
+        </div>
+
+        <div class="ritual-stage">
+          <div class="fan is-active" data-ritual="glow">
+            <img data-pos="0" src="assets/img/products/daily-glow.webp" alt="Daily Glow" width="1200" height="1200">
+            <img data-pos="1" src="assets/img/products/lip-balm.webp" alt="Lip Balm" width="1200" height="1200">
+            <img data-pos="2" src="assets/img/products/skin-sip.webp" alt="Skin Sip" width="1200" height="1200">
+          </div>
+          <div class="fan" data-ritual="gut">
+            <img data-pos="0" src="assets/img/products/belly-bloom.webp" alt="Belly Bloom" width="1200" height="1200" loading="lazy">
+            <img data-pos="1" src="assets/img/products/gut-glow.webp" alt="Gut Glow" width="1200" height="1200" loading="lazy">
+            <img data-pos="2" src="assets/img/products/gut-greens.webp" alt="Gut Greens" width="1200" height="1200" loading="lazy">
+          </div>
+          <div class="fan" data-ritual="rest">
+            <img data-pos="0" src="assets/img/products/sleep-mist.webp" alt="Sleep Well Mist" width="1200" height="1200" loading="lazy">
+            <img data-pos="1" src="assets/img/products/rest-easy.webp" alt="Rest Easy" width="1200" height="1200" loading="lazy">
+            <img data-pos="2" src="assets/img/products/calm-bloom.webp" alt="Calm Bloom" width="1200" height="1200" loading="lazy">
+          </div>
+          <div class="fan" data-ritual="fuel">
+            <img data-pos="0" src="assets/img/products/bloom-protein.webp" alt="Bloom Protein" width="1200" height="1200" loading="lazy">
+            <img data-pos="1" src="assets/img/products/stretch-balm.webp" alt="Stretch Balm" width="1200" height="1200" loading="lazy">
+            <img data-pos="2" src="assets/img/products/hydrate-bloom.webp" alt="Hydrate Bloom" width="1200" height="1200" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOP (horizontal) -->
+    <section class="shop" id="shop" data-preset="shop" aria-labelledby="shop-title">
+      <div class="shop-pin">
+        <div class="shop-head">
+          <p class="eyebrow">The collection</p>
+          <h2 id="shop-title" class="h2">Made to be kept<br>out on the counter</h2>
+          <p class="shop-hint" aria-hidden="true"><span class="hint-scroll">Keep scrolling</span><span class="hint-swipe">Swipe to browse</span> <span class="arrow">→</span></p>
+        </div>
+        <ul class="shop-track" role="list" aria-label="Bloomwell products">
+          <li class="card" style="--tint:#F6D9D1"><div class="card-media"><img src="assets/img/products/skin-sip-sm.webp" alt="Skin Sip collagen powder jar beside its pink canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Glow</span><h3>Skin Sip</h3><p>Collagen + hyaluronic acid powder. Supports glowing skin.</p><a class="card-link" href="#shop">Shop Skin Sip</a></div></li>
+          <li class="card" style="--tint:#DDE7CF"><div class="card-media"><img src="assets/img/products/daily-glow-sm.webp" alt="Daily Glow multivitamin gummies in a sage canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Glow</span><h3>Daily Glow</h3><p>Adult multivitamin gummies. Helps fill daily nutrient gaps.</p><a class="card-link" href="#shop">Shop Daily Glow</a></div></li>
+          <li class="card" style="--tint:#F7D8C8"><div class="card-media"><img src="assets/img/products/lip-balm-sm.webp" alt="Daily Nourish lip balm in a peach tube" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Glow</span><h3>Daily Nourish Lip Balm</h3><p>Natural beeswax balm for soft, cared-for lips.</p><a class="card-link" href="#shop">Shop Lip Balm</a></div></li>
+          <li class="card" style="--tint:#F8DCD6"><div class="card-media"><img src="assets/img/products/hand-cream-sm.webp" alt="Bloomwell hand cream in a blush tube" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Glow</span><h3>Hand Cream</h3><p>Shea butter &amp; botanical oils for soft, nourished hands.</p><a class="card-link" href="#shop">Shop Hand Cream</a></div></li>
+          <li class="card" style="--tint:#DDE7CF"><div class="card-media"><img src="assets/img/products/gut-greens-sm.webp" alt="Gut Greens superfood powder in a sage canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Gut</span><h3>Gut Greens</h3><p>Superfood + gut powder. Your greens in one easy scoop.</p><a class="card-link" href="#shop">Shop Gut Greens</a></div></li>
+          <li class="card" style="--tint:#E4EBD6"><div class="card-media"><img src="assets/img/products/gut-glow-sm.webp" alt="Gut Glow prebiotic and probiotic gummies" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Gut</span><h3>Gut Glow</h3><p>Prebiotic + probiotic gummies. Supports healthy digestion.</p><a class="card-link" href="#shop">Shop Gut Glow</a></div></li>
+          <li class="card" style="--tint:#F8DCD6"><div class="card-media"><img src="assets/img/products/belly-bloom-sm.webp" alt="Belly Bloom digestion gummies in a blush canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Gut</span><h3>Belly Bloom</h3><p>Gentle digestion gummies for days your belly needs a hug.</p><a class="card-link" href="#shop">Shop Belly Bloom</a></div></li>
+          <li class="card" style="--tint:#E4DDF4"><div class="card-media"><img src="assets/img/products/calm-bloom-sm.webp" alt="Calm Bloom magnesium and ashwagandha gummies beside a lavender canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Rest</span><h3>Calm Bloom</h3><p>Magnesium + ashwagandha gummies. Helps you feel relaxed.</p><a class="card-link" href="#shop">Shop Calm Bloom</a></div></li>
+          <li class="card" style="--tint:#D7E6EA"><div class="card-media"><img src="assets/img/products/rest-easy-sm.webp" alt="Rest Easy sleep support gummies in a soft blue canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Rest</span><h3>Rest Easy</h3><p>Sleep support gummies. Gently helps you drift off.</p><a class="card-link" href="#shop">Shop Rest Easy</a></div></li>
+          <li class="card" style="--tint:#DFEBDD"><div class="card-media"><img src="assets/img/products/calm-tea-sm.webp" alt="Calm Tea herbal blend in a sage tin" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Rest</span><h3>Calm Tea</h3><p>Herbal tea blend with chamomile &amp; lemon balm.</p><a class="card-link" href="#shop">Shop Calm Tea</a></div></li>
+          <li class="card" style="--tint:#E4DDF4"><div class="card-media"><img src="assets/img/products/sleep-mist-sm.webp" alt="Sleep Well Mist pillow spray beside a lavender pillow" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Rest</span><h3>Sleep Well Mist</h3><p>Pillow &amp; room spray with lavender &amp; chamomile.</p><a class="card-link" href="#shop">Shop Sleep Well Mist</a></div></li>
+          <li class="card" style="--tint:#ECE8E1"><div class="card-media"><img src="assets/img/products/bath-soak-sm.webp" alt="Relax Bath Soak magnesium salts pouch and glass jar" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Rest</span><h3>Relax Bath Soak</h3><p>Magnesium bath salts with lavender &amp; chamomile.</p><a class="card-link" href="#shop">Shop Bath Soak</a></div></li>
+          <li class="card" style="--tint:#F1EADD"><div class="card-media"><img src="assets/img/products/calm-candle-sm.webp" alt="Calm soy candle in frosted glass with a wooden lid" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Rest</span><h3>Calm Soy Candle</h3><p>Slow-burning natural wax for your wind-down.</p><a class="card-link" href="#shop">Shop Candle</a></div></li>
+          <li class="card" style="--tint:#F6D3C6"><div class="card-media"><img src="assets/img/products/hydrate-bloom-sm.webp" alt="Hydrate Bloom electrolyte stick boxes and sachets" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Hydrate Bloom</h3><p>Electrolyte sticks to keep you going on busy days.</p><a class="card-link" href="#shop">Shop Hydrate Bloom</a></div></li>
+          <li class="card card-protein" style="--tint:#DDE7CF"><div class="card-media"><img src="assets/img/products/bloom-protein-sm.webp" alt="Bloom Protein plant protein canister, Vanilla flavor" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Bloom Protein</h3><p class="protein-desc">Vanilla plant protein. Creamy, gentle fuel.</p><div class="swatches" role="group" aria-label="Choose a flavor"><button type="button" class="swatch" style="--sw:#CFE0B8" data-img="assets/img/products/bloom-protein-sm.webp" data-tint="#DDE7CF" data-desc="Vanilla plant protein. Creamy, gentle fuel." data-flavor="Vanilla" aria-pressed="true" aria-label="Vanilla"></button><button type="button" class="swatch" style="--sw:#8A5A44" data-img="assets/img/products/protein-chocolate-sm.webp" data-tint="#E9D3C6" data-desc="Chocolate plant protein. Rich, smooth fuel." data-flavor="Chocolate" aria-pressed="false" aria-label="Chocolate"></button><button type="button" class="swatch" style="--sw:#F1ECE3" data-img="assets/img/products/protein-cookies-sm.webp" data-tint="#EFEBE4" data-desc="Cookies &amp; cream plant protein. Indulgent, gentle fuel." data-flavor="Cookies &amp; Cream" aria-pressed="false" aria-label="Cookies &amp; Cream"></button><button type="button" class="swatch" style="--sw:#F3BFC6" data-img="assets/img/products/protein-strawberry-sm.webp" data-tint="#F8DCDF" data-desc="Strawberry plant protein. Sweet, fruity fuel." data-flavor="Strawberry" aria-pressed="false" aria-label="Strawberry"></button><button type="button" class="swatch" style="--sw:#F2E7A0" data-img="assets/img/products/protein-lemon-sm.webp" data-tint="#F6F0C8" data-desc="Lemon sorbet plant protein. Bright, refreshing fuel." data-flavor="Lemon Sorbet" aria-pressed="false" aria-label="Lemon Sorbet"></button><span class="flavor-name" aria-live="polite">Vanilla</span></div><a class="card-link" href="#shop">Shop Bloom Protein</a></div></li>
+          <li class="card" style="--tint:#F5D5C4"><div class="card-media"><img src="assets/img/products/defend-bloom-sm.webp" alt="Defend Bloom vitamin C and zinc gummies beside a terracotta canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Defend Bloom</h3><p>Vitamin C + zinc gummies. Supports immune health.</p><a class="card-link" href="#shop">Shop Defend Bloom</a></div></li>
+          <li class="card" style="--tint:#F8DCC4"><div class="card-media"><img src="assets/img/products/defend-citrus-sm.webp" alt="Defend Bloom Citrus immune gummies in an orange canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Defend Bloom Citrus</h3><p>Vitamin C, zinc &amp; elderberry gummies with a bright citrus taste.</p><a class="card-link" href="#shop">Shop Defend Bloom Citrus</a></div></li>
+          <li class="card" style="--tint:#F3D7C3"><div class="card-media"><img src="assets/img/products/immune-tea-sm.webp" alt="Immune Tea in a terracotta tin" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Immune Tea</h3><p>Daily defence tea with elderberry &amp; ginger.</p><a class="card-link" href="#shop">Shop Immune Tea</a></div></li>
+          <li class="card" style="--tint:#F6F0C8"><div class="card-media"><img src="assets/img/products/focus-tea-sm.webp" alt="Focus Tea in a soft yellow tin" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Focus Tea</h3><p>Clear mind tea with peppermint &amp; lemon.</p><a class="card-link" href="#shop">Shop Focus Tea</a></div></li>
+          <li class="card" style="--tint:#F3D2C0"><div class="card-media"><img src="assets/img/products/stretch-balm-sm.webp" alt="Stretch Balm soothing muscle balm in an amber jar" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Stretch Balm</h3><p>Soothing muscle balm with magnesium &amp; essential oils.</p><a class="card-link" href="#shop">Shop Stretch Balm</a></div></li>
+        </ul>
+      </div>
     </section>
 
     <!-- SHOP ALL — every product, grouped by type -->
@@ -131,57 +246,6 @@
             <li class="sa-card" style="--tint:#F1EADD"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/calm-candle-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Calm Soy Candle</h4><p>Slow-burning natural wax</p><span class="tag">Rest</span></div></div></li>
           </ul>
         </div>
-      </div>
-    </section>
-
-    <!-- PRESS — EXAMPLE: replace each placeholder with a real publication that featured Bloomwell -->
-    <section class="press" aria-labelledby="press-title">
-      <p id="press-title" class="press-label">As featured in <span class="example-tag">Example</span></p>
-      <div class="press-marquee">
-        <ul class="press-track" role="list">
-          <li class="press-logo pl-1">Your Magazine</li><li class="press-logo pl-2">PUBLICATION</li><li class="press-logo pl-3">the journal</li><li class="press-logo pl-4">Wellness Weekly</li><li class="press-logo pl-5">EDITORIAL</li>
-          <li class="press-logo pl-1" aria-hidden="true">Your Magazine</li><li class="press-logo pl-2" aria-hidden="true">PUBLICATION</li><li class="press-logo pl-3" aria-hidden="true">the journal</li><li class="press-logo pl-4" aria-hidden="true">Wellness Weekly</li><li class="press-logo pl-5" aria-hidden="true">EDITORIAL</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- MANIFESTO -->
-    <section class="manifesto" data-preset="manifesto" aria-label="Our philosophy">
-      <p class="manifesto-text" data-split>
-        Feeling good should feel good. Every Bloomwell ritual is made to sit out on your counter, slip into your day, and remind you to take care of yourself, one little heart at a time.
-      </p>
-    </section>
-
-    <!-- SHOP (horizontal) -->
-    <section class="shop" id="shop" data-preset="shop" aria-labelledby="shop-title">
-      <div class="shop-pin">
-        <div class="shop-head">
-          <p class="eyebrow">The collection</p>
-          <h2 id="shop-title" class="h2">Made to be kept<br>out on the counter</h2>
-          <p class="shop-hint" aria-hidden="true"><span class="hint-scroll">Keep scrolling</span><span class="hint-swipe">Swipe to browse</span> <span class="arrow">→</span></p>
-        </div>
-        <ul class="shop-track" role="list" aria-label="Bloomwell products">
-          <li class="card" style="--tint:#F6D9D1"><div class="card-media"><img src="assets/img/products/skin-sip-sm.webp" alt="Skin Sip collagen powder jar beside its pink canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Glow</span><h3>Skin Sip</h3><p>Collagen + hyaluronic acid powder. Supports glowing skin.</p><a class="card-link" href="#shop">Shop Skin Sip</a></div></li>
-          <li class="card" style="--tint:#DDE7CF"><div class="card-media"><img src="assets/img/products/daily-glow-sm.webp" alt="Daily Glow multivitamin gummies in a sage canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Glow</span><h3>Daily Glow</h3><p>Adult multivitamin gummies. Helps fill daily nutrient gaps.</p><a class="card-link" href="#shop">Shop Daily Glow</a></div></li>
-          <li class="card" style="--tint:#F7D8C8"><div class="card-media"><img src="assets/img/products/lip-balm-sm.webp" alt="Daily Nourish lip balm in a peach tube" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Glow</span><h3>Daily Nourish Lip Balm</h3><p>Natural beeswax balm for soft, cared-for lips.</p><a class="card-link" href="#shop">Shop Lip Balm</a></div></li>
-          <li class="card" style="--tint:#F8DCD6"><div class="card-media"><img src="assets/img/products/hand-cream-sm.webp" alt="Bloomwell hand cream in a blush tube" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Glow</span><h3>Hand Cream</h3><p>Shea butter &amp; botanical oils for soft, nourished hands.</p><a class="card-link" href="#shop">Shop Hand Cream</a></div></li>
-          <li class="card" style="--tint:#DDE7CF"><div class="card-media"><img src="assets/img/products/gut-greens-sm.webp" alt="Gut Greens superfood powder in a sage canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Gut</span><h3>Gut Greens</h3><p>Superfood + gut powder. Your greens in one easy scoop.</p><a class="card-link" href="#shop">Shop Gut Greens</a></div></li>
-          <li class="card" style="--tint:#E4EBD6"><div class="card-media"><img src="assets/img/products/gut-glow-sm.webp" alt="Gut Glow prebiotic and probiotic gummies" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Gut</span><h3>Gut Glow</h3><p>Prebiotic + probiotic gummies. Supports healthy digestion.</p><a class="card-link" href="#shop">Shop Gut Glow</a></div></li>
-          <li class="card" style="--tint:#F8DCD6"><div class="card-media"><img src="assets/img/products/belly-bloom-sm.webp" alt="Belly Bloom digestion gummies in a blush canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Gut</span><h3>Belly Bloom</h3><p>Gentle digestion gummies for days your belly needs a hug.</p><a class="card-link" href="#shop">Shop Belly Bloom</a></div></li>
-          <li class="card" style="--tint:#E4DDF4"><div class="card-media"><img src="assets/img/products/calm-bloom-sm.webp" alt="Calm Bloom magnesium and ashwagandha gummies beside a lavender canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Rest</span><h3>Calm Bloom</h3><p>Magnesium + ashwagandha gummies. Helps you feel relaxed.</p><a class="card-link" href="#shop">Shop Calm Bloom</a></div></li>
-          <li class="card" style="--tint:#D7E6EA"><div class="card-media"><img src="assets/img/products/rest-easy-sm.webp" alt="Rest Easy sleep support gummies in a soft blue canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Rest</span><h3>Rest Easy</h3><p>Sleep support gummies. Gently helps you drift off.</p><a class="card-link" href="#shop">Shop Rest Easy</a></div></li>
-          <li class="card" style="--tint:#DFEBDD"><div class="card-media"><img src="assets/img/products/calm-tea-sm.webp" alt="Calm Tea herbal blend in a sage tin" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Rest</span><h3>Calm Tea</h3><p>Herbal tea blend with chamomile &amp; lemon balm.</p><a class="card-link" href="#shop">Shop Calm Tea</a></div></li>
-          <li class="card" style="--tint:#E4DDF4"><div class="card-media"><img src="assets/img/products/sleep-mist-sm.webp" alt="Sleep Well Mist pillow spray beside a lavender pillow" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Rest</span><h3>Sleep Well Mist</h3><p>Pillow &amp; room spray with lavender &amp; chamomile.</p><a class="card-link" href="#shop">Shop Sleep Well Mist</a></div></li>
-          <li class="card" style="--tint:#ECE8E1"><div class="card-media"><img src="assets/img/products/bath-soak-sm.webp" alt="Relax Bath Soak magnesium salts pouch and glass jar" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Rest</span><h3>Relax Bath Soak</h3><p>Magnesium bath salts with lavender &amp; chamomile.</p><a class="card-link" href="#shop">Shop Bath Soak</a></div></li>
-          <li class="card" style="--tint:#F1EADD"><div class="card-media"><img src="assets/img/products/calm-candle-sm.webp" alt="Calm soy candle in frosted glass with a wooden lid" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Rest</span><h3>Calm Soy Candle</h3><p>Slow-burning natural wax for your wind-down.</p><a class="card-link" href="#shop">Shop Candle</a></div></li>
-          <li class="card" style="--tint:#F6D3C6"><div class="card-media"><img src="assets/img/products/hydrate-bloom-sm.webp" alt="Hydrate Bloom electrolyte stick boxes and sachets" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Hydrate Bloom</h3><p>Electrolyte sticks to keep you going on busy days.</p><a class="card-link" href="#shop">Shop Hydrate Bloom</a></div></li>
-          <li class="card card-protein" style="--tint:#DDE7CF"><div class="card-media"><img src="assets/img/products/bloom-protein-sm.webp" alt="Bloom Protein plant protein canister, Vanilla flavor" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Bloom Protein</h3><p class="protein-desc">Vanilla plant protein. Creamy, gentle fuel.</p><div class="swatches" role="group" aria-label="Choose a flavor"><button type="button" class="swatch" style="--sw:#CFE0B8" data-img="assets/img/products/bloom-protein-sm.webp" data-tint="#DDE7CF" data-desc="Vanilla plant protein. Creamy, gentle fuel." data-flavor="Vanilla" aria-pressed="true" aria-label="Vanilla"></button><button type="button" class="swatch" style="--sw:#8A5A44" data-img="assets/img/products/protein-chocolate-sm.webp" data-tint="#E9D3C6" data-desc="Chocolate plant protein. Rich, smooth fuel." data-flavor="Chocolate" aria-pressed="false" aria-label="Chocolate"></button><button type="button" class="swatch" style="--sw:#F1ECE3" data-img="assets/img/products/protein-cookies-sm.webp" data-tint="#EFEBE4" data-desc="Cookies &amp; cream plant protein. Indulgent, gentle fuel." data-flavor="Cookies &amp; Cream" aria-pressed="false" aria-label="Cookies &amp; Cream"></button><button type="button" class="swatch" style="--sw:#F3BFC6" data-img="assets/img/products/protein-strawberry-sm.webp" data-tint="#F8DCDF" data-desc="Strawberry plant protein. Sweet, fruity fuel." data-flavor="Strawberry" aria-pressed="false" aria-label="Strawberry"></button><button type="button" class="swatch" style="--sw:#F2E7A0" data-img="assets/img/products/protein-lemon-sm.webp" data-tint="#F6F0C8" data-desc="Lemon sorbet plant protein. Bright, refreshing fuel." data-flavor="Lemon Sorbet" aria-pressed="false" aria-label="Lemon Sorbet"></button><span class="flavor-name" aria-live="polite">Vanilla</span></div><a class="card-link" href="#shop">Shop Bloom Protein</a></div></li>
-          <li class="card" style="--tint:#F5D5C4"><div class="card-media"><img src="assets/img/products/defend-bloom-sm.webp" alt="Defend Bloom vitamin C and zinc gummies beside a terracotta canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Defend Bloom</h3><p>Vitamin C + zinc gummies. Supports immune health.</p><a class="card-link" href="#shop">Shop Defend Bloom</a></div></li>
-          <li class="card" style="--tint:#F8DCC4"><div class="card-media"><img src="assets/img/products/defend-citrus-sm.webp" alt="Defend Bloom Citrus immune gummies in an orange canister" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Defend Bloom Citrus</h3><p>Vitamin C, zinc &amp; elderberry gummies with a bright citrus taste.</p><a class="card-link" href="#shop">Shop Defend Bloom Citrus</a></div></li>
-          <li class="card" style="--tint:#F3D7C3"><div class="card-media"><img src="assets/img/products/immune-tea-sm.webp" alt="Immune Tea in a terracotta tin" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Immune Tea</h3><p>Daily defence tea with elderberry &amp; ginger.</p><a class="card-link" href="#shop">Shop Immune Tea</a></div></li>
-          <li class="card" style="--tint:#F6F0C8"><div class="card-media"><img src="assets/img/products/focus-tea-sm.webp" alt="Focus Tea in a soft yellow tin" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Focus Tea</h3><p>Clear mind tea with peppermint &amp; lemon.</p><a class="card-link" href="#shop">Shop Focus Tea</a></div></li>
-          <li class="card" style="--tint:#F3D2C0"><div class="card-media"><img src="assets/img/products/stretch-balm-sm.webp" alt="Stretch Balm soothing muscle balm in an amber jar" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Stretch Balm</h3><p>Soothing muscle balm with magnesium &amp; essential oils.</p><a class="card-link" href="#shop">Shop Stretch Balm</a></div></li>
-        </ul>
       </div>
     </section>
 
@@ -452,7 +516,8 @@
         <span class="brand-word">Bloomwell</span>
       </a>
       <nav class="footer-nav" aria-label="Footer">
-          <a href="#shop">Shop</a>
+        <a href="#rituals">Rituals</a>
+        <a href="#shop">Shop</a>
         <a href="#shop-all">Shop all</a>
         <a href="#bundles">Bundles</a>
         <a href="#subscribe">Subscribe &amp; save</a>

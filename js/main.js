@@ -1,7 +1,7 @@
 // Bloomwell — scroll choreography.
 // Two modes, picked by device:
-//  • "cinematic" (laptops/desktops with a mouse or trackpad): horizontal
-//    product scroll, Lenis smooth scrolling.
+//  • "cinematic" (laptops/desktops with a mouse or trackpad): pinned ritual
+//    steps, horizontal product scroll, Lenis smooth scrolling.
 //  • "flow" (phones, iPads, any touch-first device or narrow window): normal
 //    native scrolling, swipeable product row, lighter effects.
 // scene.js renders the 3D heart + gummies behind the content in both modes.
@@ -108,6 +108,7 @@ const PRESETS = {
   cta:       { d: { x: 0,    y: 0.5,  scale: 0.62, tilt: 0,    turn: Math.PI * 10, color: '#316B58', fruit: 1, gummies: 1, bg: '#FAF5EC' },
                m: { x: 0,    y: 0.5,  scale: 0.45, tilt: 0,    turn: Math.PI * 10, color: '#316B58', fruit: 1, gummies: 1, bg: '#FAF5EC' } },
 };
+const RITUALS = ['glow', 'gut', 'rest', 'fuel'];
 // Rituals inherit pose from "glow" so later rituals only override colour + turn.
 ['gut', 'rest', 'fuel'].forEach((k) => {
   PRESETS[k].d = { ...PRESETS.glow.d, ...PRESETS[k].d };
@@ -138,13 +139,14 @@ mobileMQ.addEventListener('change', () => applyPreset(current, true));
 // Section zones: the active pose is always resolved from scroll position
 // (not event order), so fast flicks and anchor links land on the right pose.
 let zones = [];
+let ritualIdx = 0;
 function resolveZone() {
   if (!zones.length) return;
   const y = window.scrollY;
   let zone = null;
   for (const z of zones) if (y >= z.st.start && (!zone || z.st.start >= zone.st.start)) zone = z;
   if (!zone) zone = zones[0];
-  const name = zone.name;
+  const name = zone.name === 'rituals' ? RITUALS[ritualIdx] : zone.name;
   if (name !== current) applyPreset(name);
 }
 ScrollTrigger.create({ start: 0, end: 'max', onUpdate: resolveZone, onRefresh: resolveZone });
@@ -182,14 +184,52 @@ if (!reduceMotion) {
 /* ------------------------------------------------------------------ */
 /* Rituals + shop: one setup per mode                                   */
 /* ------------------------------------------------------------------ */
+const panels = [...document.querySelectorAll('.ritual')];
+const fans = [...document.querySelectorAll('.fan')];
+const dots = [...document.querySelectorAll('.ritual-progress li')];
 const track = document.querySelector('.shop-track');
 const cards = [...document.querySelectorAll('.card')];
+
+function setRitual(i) {
+  if (i === ritualIdx) return;
+  const prevFan = fans[ritualIdx];
+  prevFan.classList.remove('is-active');
+  prevFan.classList.add('is-leaving');
+  setTimeout(() => prevFan.classList.remove('is-leaving'), 700);
+  ritualIdx = i;
+  panels.forEach((p, k) => p.classList.toggle('is-active', k === i));
+  fans.forEach((f, k) => f.classList.toggle('is-active', k === i));
+  dots.forEach((d, k) => d.classList.toggle('is-active', k === i));
+  resolveZone();
+}
 
 const mm = gsap.matchMedia();
 
 // Laptops & desktops: pinned, cinematic version.
 mm.add(CINEMA_QUERY, () => {
   root.classList.remove('is-flow');
+  panels.forEach((p, k) => p.classList.toggle('is-active', k === ritualIdx));
+  fans.forEach((f, k) => f.classList.toggle('is-active', k === ritualIdx));
+
+  ScrollTrigger.create({
+    trigger: '.rituals',
+    pin: '.rituals-pin',
+    start: 'top top',
+    end: () => `+=${window.innerHeight * 3}`,
+    invalidateOnRefresh: true,
+    onUpdate: (self) => setRitual(Math.min(RITUALS.length - 1, Math.floor(self.progress * RITUALS.length))),
+  });
+
+  // Ritual stage drifts gently with the pointer for extra depth
+  const stageEl = document.querySelector('.ritual-stage');
+  const onMove = (e) => {
+    gsap.to(stageEl, {
+      rotationY: ((e.clientX / window.innerWidth) - 0.5) * 10,
+      rotationX: ((e.clientY / window.innerHeight) - 0.5) * -8,
+      duration: 0.8, ease: 'power3.out', overwrite: 'auto',
+    });
+  };
+  if (!reduceMotion) window.addEventListener('pointermove', onMove, { passive: true });
 
   // Horizontal product scroll
   const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
@@ -232,14 +272,15 @@ mm.add(CINEMA_QUERY, () => {
     }
   }
 
-  zones = [...document.querySelectorAll('[data-preset]')].map((el) => ({
-    name: el.dataset.preset,
+  zones = [...document.querySelectorAll('[data-preset], .rituals')].map((el) => ({
+    name: el.dataset.preset || 'rituals',
     st: ScrollTrigger.create({ trigger: el, start: 'top 55%' }),
   }));
 
   return () => {
+    window.removeEventListener('pointermove', onMove);
     cleanups.forEach((fn) => fn());
-    gsap.set([track, ...cards], { clearProps: 'all' });
+    gsap.set([stageEl, track, ...cards], { clearProps: 'all' });
     zones = [];
   };
 });
@@ -247,13 +288,32 @@ mm.add(CINEMA_QUERY, () => {
 // Phones, iPads, touch devices and narrow windows: natural scrolling.
 mm.add(FLOW_QUERY, () => {
   root.classList.add('is-flow');
-  zones = [...document.querySelectorAll('[data-preset]')].map((el) => ({
-    name: el.dataset.preset,
+  panels.forEach((p) => p.classList.add('is-active'));
+  fans.forEach((f) => f.classList.remove('is-active', 'is-leaving'));
+
+  // Each product fan opens in 3D as it scrolls into view.
+  fans.forEach((fan) => {
+    ScrollTrigger.create({
+      trigger: fan, start: 'top 85%',
+      onEnter: () => fan.classList.add('is-active'),
+    });
+  });
+  if (!reduceMotion) {
+    gsap.utils.toArray('.ritual').forEach((p) => {
+      gsap.from(p, { y: 40, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: p, start: 'top 88%' } });
+    });
+  }
+
+  // Zones follow each ritual's product fan, so colours change per ritual.
+  zones = [...document.querySelectorAll('[data-preset], .fan')].map((el) => ({
+    name: el.dataset.preset || el.dataset.ritual,
     st: ScrollTrigger.create({ trigger: el, start: 'top 60%' }),
   }));
 
   return () => {
     root.classList.remove('is-flow');
+    panels.forEach((p, k) => p.classList.toggle('is-active', k === ritualIdx));
+    fans.forEach((f, k) => f.classList.toggle('is-active', k === ritualIdx));
     zones = [];
   };
 });
@@ -311,7 +371,52 @@ if (!reduceMotion) {
     y: 40, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.1,
     scrollTrigger: { trigger: '.cta', start: 'top 70%' },
   });
+  gsap.from('.rituals-head > *', {
+    y: 40, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.1,
+    scrollTrigger: { trigger: '.rituals', start: 'top 75%' },
+  });
 }
+
+/* ------------------------------------------------------------------ */
+/* Ritual photos: tap a back photo to rotate all three around          */
+/* ------------------------------------------------------------------ */
+function syncFan(fan) {
+  fan.querySelectorAll('img').forEach((img) => {
+    const front = img.dataset.pos === '2';
+    if (front) {
+      img.removeAttribute('role'); img.removeAttribute('tabindex'); img.removeAttribute('aria-label');
+    } else {
+      img.setAttribute('role', 'button');
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('aria-label', `Bring ${img.alt} to the front`);
+    }
+  });
+}
+function rotateFan(fan, tapped) {
+  const from = Number(tapped.dataset.pos);
+  if (from === 2) return;
+  // Tapped left (0):  left→front, front→right, right→left.
+  // Tapped right (1): right→front, front→left, left→right.
+  const next = from === 0 ? { 0: 2, 2: 1, 1: 0 } : { 1: 2, 2: 0, 0: 1 };
+  fan.querySelectorAll('img').forEach((img) => {
+    img.dataset.pos = String(next[img.dataset.pos]);
+    img.classList.add('is-tapped');
+  });
+  syncFan(fan);
+  const front = fan.querySelector('img[data-pos="2"]');
+  if (document.activeElement === tapped) front.setAttribute('tabindex', '-1'), front.focus({ preventScroll: true });
+}
+fans.forEach((fan) => {
+  syncFan(fan);
+  fan.addEventListener('click', (e) => {
+    const img = e.target.closest('img');
+    if (img && fan.classList.contains('is-active')) rotateFan(fan, img);
+  });
+  fan.addEventListener('keydown', (e) => {
+    const img = e.target.closest('img[role="button"]');
+    if (img && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); rotateFan(fan, img); }
+  });
+});
 
 /* ------------------------------------------------------------------ */
 /* Shop all: filter by product type                                    */
