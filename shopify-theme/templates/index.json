@@ -1,0 +1,180 @@
+{
+  "sections": {
+    "hero": {
+      "type": "bw-hero",
+      "settings": {}
+    },
+    "press": {
+      "type": "bw-press",
+      "settings": {},
+      "blocks": {
+        "p0": {
+          "type": "logo",
+          "settings": {
+            "name": "Your Magazine"
+          }
+        },
+        "p1": {
+          "type": "logo",
+          "settings": {
+            "name": "PUBLICATION"
+          }
+        },
+        "p2": {
+          "type": "logo",
+          "settings": {
+            "name": "the journal"
+          }
+        },
+        "p3": {
+          "type": "logo",
+          "settings": {
+            "name": "Wellness Weekly"
+          }
+        },
+        "p4": {
+          "type": "logo",
+          "settings": {
+            "name": "EDITORIAL"
+          }
+        }
+      },
+      "block_order": [
+        "p0",
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ]
+    },
+    "manifesto": {
+      "type": "bw-manifesto",
+      "settings": {}
+    },
+    "rituals": {
+      "type": "bw-rituals",
+      "settings": {}
+    },
+    "gallery": {
+      "type": "bw-gallery",
+      "settings": {}
+    },
+    "shop_all": {
+      "type": "bw-shop-all",
+      "settings": {}
+    },
+    "bundles": {
+      "type": "bw-bundles",
+      "settings": {}
+    },
+    "subscribe": {
+      "type": "bw-subscribe",
+      "settings": {}
+    },
+    "pairs": {
+      "type": "bw-pairs",
+      "settings": {}
+    },
+    "day": {
+      "type": "bw-day",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "bw-reviews",
+      "settings": {},
+      "blocks": {
+        "r0": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "My evening routine finally feels like something I look forward to. The gummies taste great.",
+            "name": "Sample customer",
+            "product": "Calm Bloom",
+            "example": true
+          }
+        },
+        "r1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "Dissolves easily in my morning coffee. The jar looks so pretty on my counter.",
+            "name": "Sample customer",
+            "product": "Skin Sip",
+            "example": true
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "I love the little heart gummies. Part of my wind-down every night now.",
+            "name": "Sample customer",
+            "product": "Rest Easy",
+            "example": true
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "The strawberry flavour is my favourite. Smooth, not chalky at all.",
+            "name": "Sample customer",
+            "product": "Bloom Protein",
+            "example": true
+          }
+        },
+        "r4": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "Easiest way I have found to get my greens in. Mixes well with water.",
+            "name": "Sample customer",
+            "product": "Gut Greens",
+            "example": true
+          }
+        },
+        "r5": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "Smells calming without being too strong. I spray it on my pillow every night.",
+            "name": "Sample customer",
+            "product": "Sleep Well Mist",
+            "example": true
+          }
+        }
+      },
+      "block_order": [
+        "r0",
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ]
+    },
+    "promise": {
+      "type": "bw-promise",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "bw-newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "press",
+    "manifesto",
+    "rituals",
+    "gallery",
+    "shop_all",
+    "bundles",
+    "subscribe",
+    "pairs",
+    "day",
+    "reviews",
+    "promise",
+    "newsletter"
+  ]
+}

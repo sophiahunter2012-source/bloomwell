@@ -1,0 +1,108 @@
+{%- liquid
+  assign accent = '#316B58'
+  assign bg = '#FAF5EC'
+  assign eyebrow = 'Collection'
+  if template.name == 'collection'
+    case collection.handle
+    when 'gummies'
+      assign accent = '#E8937A'
+      assign bg = '#FBEAE4'
+      assign eyebrow = 'Collection'
+    when 'protein-powders'
+      assign accent = '#A6C78B'
+      assign bg = '#EEF3E4'
+      assign eyebrow = 'Collection'
+    when 'herbal-teas'
+      assign accent = '#E2B54A'
+      assign bg = '#FBF5DF'
+      assign eyebrow = 'Collection'
+    when 'powders-drinks'
+      assign accent = '#F0AE9C'
+      assign bg = '#FBEDE6'
+      assign eyebrow = 'Collection'
+    when 'body-care'
+      assign accent = '#E8937A'
+      assign bg = '#FCE9DE'
+      assign eyebrow = 'Collection'
+    when 'home-relaxation'
+      assign accent = '#B7A6E4'
+      assign bg = '#EFEBF8'
+      assign eyebrow = 'Collection'
+    when 'glow'
+      assign accent = '#F0AE9C'
+      assign bg = '#FBEAE4'
+      assign eyebrow = 'Ritual'
+    when 'gut'
+      assign accent = '#A6C78B'
+      assign bg = '#EEF3E4'
+      assign eyebrow = 'Ritual'
+    when 'rest'
+      assign accent = '#B7A6E4'
+      assign bg = '#EFEBF8'
+      assign eyebrow = 'Ritual'
+    when 'fuel'
+      assign accent = '#E8937A'
+      assign bg = '#FCE9DE'
+      assign eyebrow = 'Ritual'
+    endcase
+  elsif template.name == 'product'
+    for t in product.tags
+      case t
+      when 'ritual:glow'
+        assign accent = '#F0AE9C'
+        assign bg = '#FBEAE4'
+      when 'ritual:gut'
+        assign accent = '#A6C78B'
+        assign bg = '#EEF3E4'
+      when 'ritual:rest'
+        assign accent = '#B7A6E4'
+        assign bg = '#EFEBF8'
+      when 'ritual:fuel'
+        assign accent = '#E8937A'
+        assign bg = '#FCE9DE'
+      endcase
+    endfor
+  endif
+-%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" style="--bg:{{ bg }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page_title }}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}</title>
+  {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta name="theme-color" content="{{ bg }}">
+  <link rel="icon" href="{{ 'favicon.svg' | asset_url }}" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+  {{ 'styles.css' | asset_url | stylesheet_tag }}
+  {{ 'collections.css' | asset_url | stylesheet_tag }}
+  {{ 'shopify.css' | asset_url | stylesheet_tag }}
+  <script type="importmap">
+    { "imports": { "three": "{{ 'three.module.min.js' | asset_url }}" } }
+  </script>
+  {{ content_for_header }}
+</head>
+<body class="template-{{ template.name }}" data-accent="{{ accent }}"{% if template.name == 'product' or template.name == 'cart' %} data-pose="corner"{% endif %}>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <canvas id="stage" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  {% section 'bw-header' %}
+  <main id="main">
+    {{ content_for_layout }}
+  </main>
+  {% section 'bw-footer' %}
+  <script src="{{ 'gsap.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'ScrollTrigger.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'lenis.min.js' | asset_url }}" defer></script>
+  <script>window.BW = { cartUrl: {{ routes.cart_url | json }}, cartAddUrl: {{ routes.cart_add_url | json }}, root: {{ routes.root_url | json }} };</script>
+  {%- if template.name == 'index' -%}
+    <script type="module" src="{{ 'main.js' | asset_url }}"></script>
+  {%- else -%}
+    <script type="module" src="{{ 'collection.js' | asset_url }}"></script>
+  {%- endif -%}
+  <script type="module" src="{{ 'shop.js' | asset_url }}"></script>
+</body>
+</html>

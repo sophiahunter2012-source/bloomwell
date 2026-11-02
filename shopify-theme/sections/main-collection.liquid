@@ -1,0 +1,132 @@
+{%- liquid
+  assign accent = '#316B58'
+  assign bg = '#FAF5EC'
+  assign eyebrow = 'Collection'
+  if template.name == 'collection'
+    case collection.handle
+    when 'gummies'
+      assign accent = '#E8937A'
+      assign bg = '#FBEAE4'
+      assign eyebrow = 'Collection'
+    when 'protein-powders'
+      assign accent = '#A6C78B'
+      assign bg = '#EEF3E4'
+      assign eyebrow = 'Collection'
+    when 'herbal-teas'
+      assign accent = '#E2B54A'
+      assign bg = '#FBF5DF'
+      assign eyebrow = 'Collection'
+    when 'powders-drinks'
+      assign accent = '#F0AE9C'
+      assign bg = '#FBEDE6'
+      assign eyebrow = 'Collection'
+    when 'body-care'
+      assign accent = '#E8937A'
+      assign bg = '#FCE9DE'
+      assign eyebrow = 'Collection'
+    when 'home-relaxation'
+      assign accent = '#B7A6E4'
+      assign bg = '#EFEBF8'
+      assign eyebrow = 'Collection'
+    when 'glow'
+      assign accent = '#F0AE9C'
+      assign bg = '#FBEAE4'
+      assign eyebrow = 'Ritual'
+    when 'gut'
+      assign accent = '#A6C78B'
+      assign bg = '#EEF3E4'
+      assign eyebrow = 'Ritual'
+    when 'rest'
+      assign accent = '#B7A6E4'
+      assign bg = '#EFEBF8'
+      assign eyebrow = 'Ritual'
+    when 'fuel'
+      assign accent = '#E8937A'
+      assign bg = '#FCE9DE'
+      assign eyebrow = 'Ritual'
+    endcase
+  elsif template.name == 'product'
+    for t in product.tags
+      case t
+      when 'ritual:glow'
+        assign accent = '#F0AE9C'
+        assign bg = '#FBEAE4'
+      when 'ritual:gut'
+        assign accent = '#A6C78B'
+        assign bg = '#EEF3E4'
+      when 'ritual:rest'
+        assign accent = '#B7A6E4'
+        assign bg = '#EFEBF8'
+      when 'ritual:fuel'
+        assign accent = '#E8937A'
+        assign bg = '#FCE9DE'
+      endcase
+    endfor
+  endif
+-%}
+<section class="c-hero" aria-labelledby="c-title">
+  <div class="c-hero-copy">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a><span aria-hidden="true">/</span><a href="{{ routes.collections_url }}">Collections</a><span aria-hidden="true">/</span><span aria-current="page">{{ collection.title }}</span>
+    </nav>
+    <p class="eyebrow">{{ eyebrow }}</p>
+    <h1 id="c-title" class="display c-title"><span class="line"><span>{{ collection.title }}</span></span></h1>
+    {%- if collection.description != blank -%}<div class="lede">{{ collection.description }}</div>{%- endif -%}
+    <p class="c-count">{{ collection.products_count }} product{% if collection.products_count != 1 %}s{% endif %}</p>
+  </div>
+</section>
+
+<section class="c-products" aria-label="{{ collection.title | escape }} products">
+  <div class="c-switch" aria-label="Browse collections">
+    <div class="c-switch-row"><span class="c-switch-label">By type</span>{%- assign c = collections["gummies"] -%}{%- if c.id -%}<a class="c-chip" href="{{ c.url }}"{% if c.handle == collection.handle %} aria-current="page"{% endif %}>{{ c.title }}</a>{%- endif -%}{%- assign c = collections["protein-powders"] -%}{%- if c.id -%}<a class="c-chip" href="{{ c.url }}"{% if c.handle == collection.handle %} aria-current="page"{% endif %}>{{ c.title }}</a>{%- endif -%}{%- assign c = collections["herbal-teas"] -%}{%- if c.id -%}<a class="c-chip" href="{{ c.url }}"{% if c.handle == collection.handle %} aria-current="page"{% endif %}>{{ c.title }}</a>{%- endif -%}{%- assign c = collections["powders-drinks"] -%}{%- if c.id -%}<a class="c-chip" href="{{ c.url }}"{% if c.handle == collection.handle %} aria-current="page"{% endif %}>{{ c.title }}</a>{%- endif -%}{%- assign c = collections["body-care"] -%}{%- if c.id -%}<a class="c-chip" href="{{ c.url }}"{% if c.handle == collection.handle %} aria-current="page"{% endif %}>{{ c.title }}</a>{%- endif -%}{%- assign c = collections["home-relaxation"] -%}{%- if c.id -%}<a class="c-chip" href="{{ c.url }}"{% if c.handle == collection.handle %} aria-current="page"{% endif %}>{{ c.title }}</a>{%- endif -%}</div>
+    <div class="c-switch-row"><span class="c-switch-label">By ritual</span>{%- assign c = collections["glow"] -%}{%- if c.id -%}<a class="c-chip" href="{{ c.url }}"{% if c.handle == collection.handle %} aria-current="page"{% endif %}>{{ c.title }}</a>{%- endif -%}{%- assign c = collections["gut"] -%}{%- if c.id -%}<a class="c-chip" href="{{ c.url }}"{% if c.handle == collection.handle %} aria-current="page"{% endif %}>{{ c.title }}</a>{%- endif -%}{%- assign c = collections["rest"] -%}{%- if c.id -%}<a class="c-chip" href="{{ c.url }}"{% if c.handle == collection.handle %} aria-current="page"{% endif %}>{{ c.title }}</a>{%- endif -%}{%- assign c = collections["fuel"] -%}{%- if c.id -%}<a class="c-chip" href="{{ c.url }}"{% if c.handle == collection.handle %} aria-current="page"{% endif %}>{{ c.title }}</a>{%- endif -%}</div>
+  </div>
+  {%- paginate collection.products by 48 -%}
+    <ul class="c-grid" role="list">
+      {%- for p in collection.products -%}
+        {%- liquid
+  assign tint = '#F1EADD'
+  for t in p.tags
+    if t contains 'tint:'
+      assign tint = t | remove: 'tint:'
+    endif
+  endfor
+-%}<li class="p-card" style="--tint:{{ tint }}">
+  <div class="p-inner">
+    <a class="p-media" href="{{ p.url }}">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '350,500,700', sizes: '(max-width: 900px) 50vw, 280px', alt: p.featured_image.alt | default: p.title }}{%- endif -%}</a>
+    <div class="p-body">
+      {%- for t in p.tags -%}{%- if t contains 'ritual:' -%}{%- assign r = t | remove: 'ritual:' -%}<a class="tag tag-link" href="{{ routes.collections_url }}/{{ r }}">{{ r | capitalize }}</a>{%- endif -%}{%- endfor -%}
+      {%- assign parts = p.title | split: ' — ' -%}
+      <h2><a href="{{ p.url }}">{{ parts[0] }}</a></h2>
+      {%- if parts[1] -%}<p class="p-short">{{ parts[1] }}</p>{%- endif -%}
+      <p class="p-desc">{{ p.description | strip_html | truncatewords: 18 }}</p>
+      <p class="p-price">{% if p.price_varies %}From {% endif %}{{ p.price | money }}</p>
+      <a class="card-link" href="{{ p.url }}">Shop {{ parts[0] }}</a>
+    </div>
+  </div>
+</li>
+      {%- else -%}
+        <li class="c-empty">No products here yet.</li>
+      {%- endfor -%}
+    </ul>
+    {%- if paginate.pages > 1 -%}<nav class="c-pages" aria-label="Pagination">{{ paginate | default_pagination }}</nav>{%- endif -%}
+  {%- endpaginate -%}
+</section>
+
+<section class="c-sub" aria-labelledby="c-sub-title">
+  <div class="c-sub-inner">
+    <div>
+      <p class="eyebrow">Subscribe &amp; save</p>
+      <h2 id="c-sub-title" class="h2">Never run out of your ritual</h2>
+    </div>
+    <a class="btn btn-light" href="{{ routes.root_url }}#subscribe">How it works</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection",
+  "tag": "div",
+  "class": "bw-section"
+}
+{% endschema %}

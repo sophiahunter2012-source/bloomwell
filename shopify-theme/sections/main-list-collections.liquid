@@ -1,0 +1,166 @@
+<section class="c-hero" aria-labelledby="c-title">
+  <div class="c-hero-copy">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ routes.root_url }}">Home</a><span aria-hidden="true">/</span><span aria-current="page">Collections</span></nav>
+    <p class="eyebrow">Shop</p>
+    <h1 id="c-title" class="display c-title"><span class="line"><span>Collections</span></span></h1>
+    <p class="lede">Every Bloomwell product, sorted by what it is or by the ritual it belongs to.</p>
+  </div>
+</section>
+<section class="c-more c-index-group" aria-labelledby="g-type">
+  <div class="section-head"><h2 id="g-type" class="h2">Shop by type</h2></div>
+  <ul class="c-tiles" role="list">
+{%- assign c = collections['gummies'] -%}{%- assign tbg = '#FBEAE4' -%}{%- assign group = 'By type' -%}{%- if c.id -%}
+<li class="c-tile" style="--tint:{{ tbg }}">
+  <a href="{{ c.url }}">
+    <div class="tile-stack" aria-hidden="true">
+      {%- for p in c.products limit: 3 -%}{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- endfor -%}
+    </div>
+    <div class="tile-body">
+      <span class="tile-group">{{ group }}</span>
+      <h3>{{ c.title }}</h3>
+      <span class="tile-count">{{ c.products_count }} product{% if c.products_count != 1 %}s{% endif %}</span>
+    </div>
+  </a>
+</li>
+{%- endif -%}
+{%- assign c = collections['protein-powders'] -%}{%- assign tbg = '#EEF3E4' -%}{%- assign group = 'By type' -%}{%- if c.id -%}
+<li class="c-tile" style="--tint:{{ tbg }}">
+  <a href="{{ c.url }}">
+    <div class="tile-stack" aria-hidden="true">
+      {%- for p in c.products limit: 3 -%}{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- endfor -%}
+    </div>
+    <div class="tile-body">
+      <span class="tile-group">{{ group }}</span>
+      <h3>{{ c.title }}</h3>
+      <span class="tile-count">{{ c.products_count }} product{% if c.products_count != 1 %}s{% endif %}</span>
+    </div>
+  </a>
+</li>
+{%- endif -%}
+{%- assign c = collections['herbal-teas'] -%}{%- assign tbg = '#FBF5DF' -%}{%- assign group = 'By type' -%}{%- if c.id -%}
+<li class="c-tile" style="--tint:{{ tbg }}">
+  <a href="{{ c.url }}">
+    <div class="tile-stack" aria-hidden="true">
+      {%- for p in c.products limit: 3 -%}{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- endfor -%}
+    </div>
+    <div class="tile-body">
+      <span class="tile-group">{{ group }}</span>
+      <h3>{{ c.title }}</h3>
+      <span class="tile-count">{{ c.products_count }} product{% if c.products_count != 1 %}s{% endif %}</span>
+    </div>
+  </a>
+</li>
+{%- endif -%}
+{%- assign c = collections['powders-drinks'] -%}{%- assign tbg = '#FBEDE6' -%}{%- assign group = 'By type' -%}{%- if c.id -%}
+<li class="c-tile" style="--tint:{{ tbg }}">
+  <a href="{{ c.url }}">
+    <div class="tile-stack" aria-hidden="true">
+      {%- for p in c.products limit: 3 -%}{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- endfor -%}
+    </div>
+    <div class="tile-body">
+      <span class="tile-group">{{ group }}</span>
+      <h3>{{ c.title }}</h3>
+      <span class="tile-count">{{ c.products_count }} product{% if c.products_count != 1 %}s{% endif %}</span>
+    </div>
+  </a>
+</li>
+{%- endif -%}
+{%- assign c = collections['body-care'] -%}{%- assign tbg = '#FCE9DE' -%}{%- assign group = 'By type' -%}{%- if c.id -%}
+<li class="c-tile" style="--tint:{{ tbg }}">
+  <a href="{{ c.url }}">
+    <div class="tile-stack" aria-hidden="true">
+      {%- for p in c.products limit: 3 -%}{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- endfor -%}
+    </div>
+    <div class="tile-body">
+      <span class="tile-group">{{ group }}</span>
+      <h3>{{ c.title }}</h3>
+      <span class="tile-count">{{ c.products_count }} product{% if c.products_count != 1 %}s{% endif %}</span>
+    </div>
+  </a>
+</li>
+{%- endif -%}
+{%- assign c = collections['home-relaxation'] -%}{%- assign tbg = '#EFEBF8' -%}{%- assign group = 'By type' -%}{%- if c.id -%}
+<li class="c-tile" style="--tint:{{ tbg }}">
+  <a href="{{ c.url }}">
+    <div class="tile-stack" aria-hidden="true">
+      {%- for p in c.products limit: 3 -%}{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- endfor -%}
+    </div>
+    <div class="tile-body">
+      <span class="tile-group">{{ group }}</span>
+      <h3>{{ c.title }}</h3>
+      <span class="tile-count">{{ c.products_count }} product{% if c.products_count != 1 %}s{% endif %}</span>
+    </div>
+  </a>
+</li>
+{%- endif -%}
+  </ul>
+</section>
+<section class="c-more c-index-group" aria-labelledby="g-ritual">
+  <div class="section-head"><h2 id="g-ritual" class="h2">Shop by ritual</h2></div>
+  <ul class="c-tiles" role="list">
+{%- assign c = collections['glow'] -%}{%- assign tbg = '#FBEAE4' -%}{%- assign group = 'By ritual' -%}{%- if c.id -%}
+<li class="c-tile" style="--tint:{{ tbg }}">
+  <a href="{{ c.url }}">
+    <div class="tile-stack" aria-hidden="true">
+      {%- for p in c.products limit: 3 -%}{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- endfor -%}
+    </div>
+    <div class="tile-body">
+      <span class="tile-group">{{ group }}</span>
+      <h3>{{ c.title }}</h3>
+      <span class="tile-count">{{ c.products_count }} product{% if c.products_count != 1 %}s{% endif %}</span>
+    </div>
+  </a>
+</li>
+{%- endif -%}
+{%- assign c = collections['gut'] -%}{%- assign tbg = '#EEF3E4' -%}{%- assign group = 'By ritual' -%}{%- if c.id -%}
+<li class="c-tile" style="--tint:{{ tbg }}">
+  <a href="{{ c.url }}">
+    <div class="tile-stack" aria-hidden="true">
+      {%- for p in c.products limit: 3 -%}{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- endfor -%}
+    </div>
+    <div class="tile-body">
+      <span class="tile-group">{{ group }}</span>
+      <h3>{{ c.title }}</h3>
+      <span class="tile-count">{{ c.products_count }} product{% if c.products_count != 1 %}s{% endif %}</span>
+    </div>
+  </a>
+</li>
+{%- endif -%}
+{%- assign c = collections['rest'] -%}{%- assign tbg = '#EFEBF8' -%}{%- assign group = 'By ritual' -%}{%- if c.id -%}
+<li class="c-tile" style="--tint:{{ tbg }}">
+  <a href="{{ c.url }}">
+    <div class="tile-stack" aria-hidden="true">
+      {%- for p in c.products limit: 3 -%}{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- endfor -%}
+    </div>
+    <div class="tile-body">
+      <span class="tile-group">{{ group }}</span>
+      <h3>{{ c.title }}</h3>
+      <span class="tile-count">{{ c.products_count }} product{% if c.products_count != 1 %}s{% endif %}</span>
+    </div>
+  </a>
+</li>
+{%- endif -%}
+{%- assign c = collections['fuel'] -%}{%- assign tbg = '#FCE9DE' -%}{%- assign group = 'By ritual' -%}{%- if c.id -%}
+<li class="c-tile" style="--tint:{{ tbg }}">
+  <a href="{{ c.url }}">
+    <div class="tile-stack" aria-hidden="true">
+      {%- for p in c.products limit: 3 -%}{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- endfor -%}
+    </div>
+    <div class="tile-body">
+      <span class="tile-group">{{ group }}</span>
+      <h3>{{ c.title }}</h3>
+      <span class="tile-count">{{ c.products_count }} product{% if c.products_count != 1 %}s{% endif %}</span>
+    </div>
+  </a>
+</li>
+{%- endif -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Collections list",
+  "tag": "div",
+  "class": "bw-section"
+}
+{% endschema %}

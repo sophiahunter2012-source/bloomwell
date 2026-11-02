@@ -1,0 +1,44 @@
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="brand brand-footer" href="{{ routes.root_url }}" aria-label="{{ shop.name }} home">
+      <svg class="brand-mark" viewBox="0 0 100 112" aria-hidden="true">
+        <path d="M50 108C22 87 6 70 6 48 6 33 16 23 29 23c9 0 16 5 21 13 5-8 12-13 21-13 13 0 23 10 23 25 0 22-16 39-44 60Z" fill="#316B58"/>
+        <circle cx="50" cy="14" r="10" fill="#F2A35E"/>
+        <path d="M57 6c1-5 6-7 12-7-1 6-5 10-12 11Z" fill="#7DB36B"/>
+      </svg>
+      <span class="brand-word">Bloomwell</span>
+    </a>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="{{ routes.collections_url }}">All collections</a>
+      {%- assign c = collections["gummies"] -%}{%- if c.id -%}<a href="{{ c.url }}">{{ c.title }}</a>{%- endif -%}
+      {%- assign c = collections["protein-powders"] -%}{%- if c.id -%}<a href="{{ c.url }}">{{ c.title }}</a>{%- endif -%}
+      {%- assign c = collections["herbal-teas"] -%}{%- if c.id -%}<a href="{{ c.url }}">{{ c.title }}</a>{%- endif -%}
+      {%- assign c = collections["powders-drinks"] -%}{%- if c.id -%}<a href="{{ c.url }}">{{ c.title }}</a>{%- endif -%}
+      {%- assign c = collections["body-care"] -%}{%- if c.id -%}<a href="{{ c.url }}">{{ c.title }}</a>{%- endif -%}
+      {%- assign c = collections["home-relaxation"] -%}{%- if c.id -%}<a href="{{ c.url }}">{{ c.title }}</a>{%- endif -%}
+      {%- assign c = collections["glow"] -%}{%- if c.id -%}<a href="{{ c.url }}">{{ c.title }}</a>{%- endif -%}
+      {%- assign c = collections["gut"] -%}{%- if c.id -%}<a href="{{ c.url }}">{{ c.title }}</a>{%- endif -%}
+      {%- assign c = collections["rest"] -%}{%- if c.id -%}<a href="{{ c.url }}">{{ c.title }}</a>{%- endif -%}
+      {%- assign c = collections["fuel"] -%}{%- if c.id -%}<a href="{{ c.url }}">{{ c.title }}</a>{%- endif -%}
+      {%- for link in linklists.footer.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+    </nav>
+  </div>
+  <p class="disclaimer">{{ section.settings.disclaimer }}</p>
+  <p class="copyright">© <span id="year">{{ 'now' | date: '%Y' }}</span> {{ shop.name }}. Health · Wellness.</p>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "div",
+  "class": "bw-section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "disclaimer",
+      "label": "Disclaimer",
+      "default": "*These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease. Consult your healthcare provider before starting any supplement, especially if you are pregnant, nursing or taking medication."
+    }
+  ]
+}
+{% endschema %}

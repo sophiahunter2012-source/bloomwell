@@ -1,0 +1,126 @@
+<section class="pairs" id="pairs" aria-labelledby="pairs-title">
+  <div class="section-head">
+    <p class="eyebrow">Better together</p>
+    <h2 id="pairs-title" class="h2">Perfect pairs</h2>
+  </div>
+  <ul class="pair-list" role="list">
+      {%- liquid
+  assign total = 0
+  assign ids = ''
+  assign handles = 'calm-bloom-magnesium-ashwagandha-gummies,calm-tea' | split: ','
+  for h in handles
+    assign p = all_products[h]
+    if p.id
+      assign v = p.selected_or_first_available_variant
+      assign total = total | plus: v.price
+      assign ids = ids | append: v.id | append: ','
+    endif
+  endfor
+  assign d = section.settings.discount
+  assign now = total
+  if d > 0
+    assign off = total | times: d | divided_by: 100
+    assign now = total | minus: off
+  endif
+-%}
+      <li class="pair">
+        <div class="pair-visual">
+          <figure><a href="{{ routes.root_url | append: 'products/calm-bloom-magnesium-ashwagandha-gummies' | replace: '//', '/' }}"><img src="{{ 'calm-bloom-sm.webp' | asset_url }}" alt="Calm Bloom" width="600" height="600" loading="lazy"></a><figcaption>Calm Bloom</figcaption></figure>
+          <span class="plus" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></span>
+          <figure><a href="{{ routes.root_url | append: 'products/calm-tea' | replace: '//', '/' }}"><img src="{{ 'calm-tea-sm.webp' | asset_url }}" alt="Calm Tea" width="600" height="600" loading="lazy"></a><figcaption>Calm Tea</figcaption></figure>
+        </div>
+        <div class="pair-body">
+          <h3>The evening wind-down</h3>
+          <p>Calm Bloom + Calm Tea{% if d > 0 %}. Save {{ d }}% when you buy them together{% endif %}. <strong>{{ now | money }}</strong></p>
+          <button type="button" class="card-link btn-reset" data-add-items="{{ ids }}">Add both to bag</button>
+        </div>
+      </li>
+      {%- liquid
+  assign total = 0
+  assign ids = ''
+  assign handles = 'bloom-protein,hydrate-bloom-electrolyte-sticks' | split: ','
+  for h in handles
+    assign p = all_products[h]
+    if p.id
+      assign v = p.selected_or_first_available_variant
+      assign total = total | plus: v.price
+      assign ids = ids | append: v.id | append: ','
+    endif
+  endfor
+  assign d = section.settings.discount
+  assign now = total
+  if d > 0
+    assign off = total | times: d | divided_by: 100
+    assign now = total | minus: off
+  endif
+-%}
+      <li class="pair">
+        <div class="pair-visual">
+          <figure><a href="{{ routes.root_url | append: 'products/bloom-protein' | replace: '//', '/' }}"><img src="{{ 'bloom-protein-sm.webp' | asset_url }}" alt="Bloom Protein" width="600" height="600" loading="lazy"></a><figcaption>Bloom Protein</figcaption></figure>
+          <span class="plus" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></span>
+          <figure><a href="{{ routes.root_url | append: 'products/hydrate-bloom-electrolyte-sticks' | replace: '//', '/' }}"><img src="{{ 'hydrate-bloom-sm.webp' | asset_url }}" alt="Hydrate Bloom" width="600" height="600" loading="lazy"></a><figcaption>Hydrate Bloom</figcaption></figure>
+        </div>
+        <div class="pair-body">
+          <h3>After the workout</h3>
+          <p>Bloom Protein + Hydrate Bloom{% if d > 0 %}. Save {{ d }}% when you buy them together{% endif %}. <strong>{{ now | money }}</strong></p>
+          <button type="button" class="card-link btn-reset" data-add-items="{{ ids }}">Add both to bag</button>
+        </div>
+      </li>
+      {%- liquid
+  assign total = 0
+  assign ids = ''
+  assign handles = 'skin-sip-collagen-hyaluronic-acid,hand-cream' | split: ','
+  for h in handles
+    assign p = all_products[h]
+    if p.id
+      assign v = p.selected_or_first_available_variant
+      assign total = total | plus: v.price
+      assign ids = ids | append: v.id | append: ','
+    endif
+  endfor
+  assign d = section.settings.discount
+  assign now = total
+  if d > 0
+    assign off = total | times: d | divided_by: 100
+    assign now = total | minus: off
+  endif
+-%}
+      <li class="pair">
+        <div class="pair-visual">
+          <figure><a href="{{ routes.root_url | append: 'products/skin-sip-collagen-hyaluronic-acid' | replace: '//', '/' }}"><img src="{{ 'skin-sip-sm.webp' | asset_url }}" alt="Skin Sip" width="600" height="600" loading="lazy"></a><figcaption>Skin Sip</figcaption></figure>
+          <span class="plus" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></span>
+          <figure><a href="{{ routes.root_url | append: 'products/hand-cream' | replace: '//', '/' }}"><img src="{{ 'hand-cream-sm.webp' | asset_url }}" alt="Hand Cream" width="600" height="600" loading="lazy"></a><figcaption>Hand Cream</figcaption></figure>
+        </div>
+        <div class="pair-body">
+          <h3>Glow, inside and out</h3>
+          <p>Skin Sip + Hand Cream{% if d > 0 %}. Save {{ d }}% when you buy them together{% endif %}. <strong>{{ now | money }}</strong></p>
+          <button type="button" class="card-link btn-reset" data-add-items="{{ ids }}">Add both to bag</button>
+        </div>
+      </li>
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Perfect pairs",
+  "tag": "div",
+  "class": "bw-section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "discount",
+      "label": "Pair discount shown (%). Create a matching automatic discount in Shopify first.",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perfect pairs"
+    }
+  ]
+}
+{% endschema %}

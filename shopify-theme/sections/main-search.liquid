@@ -1,0 +1,37 @@
+<section class="c-hero simple-page"><div class="simple-wrap">
+  <h1 class="display c-title"><span class="line"><span>Search</span></span></h1>
+  <form action="{{ routes.search_url }}" method="get" class="signup search-form"><label class="sr-only" for="q">Search</label><input id="q" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products"><button class="btn">Search</button></form>
+  {%- if search.performed -%}
+    <ul class="c-grid" role="list">
+      {%- for p in search.results -%}{%- if p.object_type == 'product' -%}{%- liquid
+  assign tint = '#F1EADD'
+  for t in p.tags
+    if t contains 'tint:'
+      assign tint = t | remove: 'tint:'
+    endif
+  endfor
+-%}<li class="p-card" style="--tint:{{ tint }}">
+  <div class="p-inner">
+    <a class="p-media" href="{{ p.url }}">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '350,500,700', sizes: '(max-width: 900px) 50vw, 280px', alt: p.featured_image.alt | default: p.title }}{%- endif -%}</a>
+    <div class="p-body">
+      {%- for t in p.tags -%}{%- if t contains 'ritual:' -%}{%- assign r = t | remove: 'ritual:' -%}<a class="tag tag-link" href="{{ routes.collections_url }}/{{ r }}">{{ r | capitalize }}</a>{%- endif -%}{%- endfor -%}
+      {%- assign parts = p.title | split: ' — ' -%}
+      <h2><a href="{{ p.url }}">{{ parts[0] }}</a></h2>
+      {%- if parts[1] -%}<p class="p-short">{{ parts[1] }}</p>{%- endif -%}
+      <p class="p-desc">{{ p.description | strip_html | truncatewords: 18 }}</p>
+      <p class="p-price">{% if p.price_varies %}From {% endif %}{{ p.price | money }}</p>
+      <a class="card-link" href="{{ p.url }}">Shop {{ parts[0] }}</a>
+    </div>
+  </div>
+</li>{%- endif -%}{%- else -%}<li class="c-empty">No results for “{{ search.terms }}”.</li>{%- endfor -%}
+    </ul>
+  {%- endif -%}
+</div></section>
+
+{% schema %}
+{
+  "name": "Search",
+  "tag": "div",
+  "class": "bw-section"
+}
+{% endschema %}

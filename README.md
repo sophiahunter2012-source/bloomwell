@@ -25,3 +25,17 @@ python3 -m http.server 8000
 ```bash
 python3 scripts/build_collections.py
 ```
+
+## Shopify theme
+
+`shopify-theme/` is the same site as a Shopify theme (Liquid), with real product pages, collections, bag and checkout. It is generated from the static site:
+
+```bash
+python3 scripts/build_collections.py   # optional, static collection pages
+python3 scripts/build_shopify_theme.py # writes shopify-theme/
+cd shopify-theme && zip -r ../bloomwell-shopify-theme.zip . -x '.*'
+```
+
+Upload `bloomwell-shopify-theme.zip` in Shopify admin → Online Store → Themes → Add theme → Upload zip file. Theme-only files live in `shopify/` (bag + product page script and styles).
+
+Product, collection and handle names the theme expects are listed at the top of `scripts/build_shopify_theme.py`. Products are tagged `ritual:<glow|gut|rest|fuel>`, `type:<…>` and `tint:<hex>`; the collections are automatic collections based on those tags.

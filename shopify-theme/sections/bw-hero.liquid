@@ -1,0 +1,28 @@
+<section class="hero" data-preset="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Health <span aria-hidden="true">·</span> Wellness</p>
+        <h1 id="hero-title" class="display">
+          <span class="line"><span>Wellness,</span></span>
+          <span class="line"><span>in full <em>bloom.</em></span></span>
+        </h1>
+        <p class="lede">Heart-shaped gummies, gentle powders and slow little rituals for your skin, gut, rest and everyday energy.</p>
+        <div class="hero-ctas">
+          <a class="btn" href="{{ routes.all_products_collection_url }}">Shop the collection</a>
+          <a class="btn btn-ghost" href="#rituals">Find your ritual</a>
+        </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true"><span></span>Scroll</div>
+    </section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "div",
+  "class": "bw-section",
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,162 @@
+<section class="bundles" id="bundles" data-preset="bundles" aria-labelledby="bundles-title">
+  <div class="section-head">
+    <p class="eyebrow">Bundle &amp; save</p>
+    <h2 id="bundles-title" class="h2">{{ section.settings.heading }}</h2>
+    <p class="lede">{{ section.settings.text }}</p>
+  </div>
+  <div class="bundle-grid">
+      {%- liquid
+  assign total = 0
+  assign ids = ''
+  assign handles = 'skin-sip-collagen-hyaluronic-acid,daily-glow-adult-multivitamin-gummies,daily-nourish-lip-balm,hand-cream' | split: ','
+  for h in handles
+    assign p = all_products[h]
+    if p.id
+      assign v = p.selected_or_first_available_variant
+      assign total = total | plus: v.price
+      assign ids = ids | append: v.id | append: ','
+    endif
+  endfor
+  assign d = section.settings.discount
+  assign now = total
+  if d > 0
+    assign off = total | times: d | divided_by: 100
+    assign now = total | minus: off
+  endif
+-%}
+      <article class="bundle" style="--tint:#FBE2DA">
+        <div class="bundle-stack n4" aria-hidden="true"><img src="{{ 'skin-sip-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"><img src="{{ 'daily-glow-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"><img src="{{ 'lip-balm-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"><img src="{{ 'hand-cream-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"></div>
+        <div class="bundle-body">
+          {%- if d > 0 -%}<span class="save-pill">Save {{ d }}%</span>{%- endif -%}
+          <h3>The Glow Ritual</h3>
+          <p class="bundle-items">Skin Sip, Daily Glow, Lip Balm &amp; Hand Cream</p>
+          <p class="price"><span class="price-now">{{ now | money }}</span>{% if d > 0 %} <s class="price-was">{{ total | money }}</s>{% endif %}</p>
+          <button type="button" class="btn btn-block" data-add-items="{{ ids }}">Add bundle to bag</button>
+        </div>
+      </article>
+      {%- liquid
+  assign total = 0
+  assign ids = ''
+  assign handles = 'calm-bloom-magnesium-ashwagandha-gummies,rest-easy-sleep-support-gummies,calm-tea,sleep-well-mist' | split: ','
+  for h in handles
+    assign p = all_products[h]
+    if p.id
+      assign v = p.selected_or_first_available_variant
+      assign total = total | plus: v.price
+      assign ids = ids | append: v.id | append: ','
+    endif
+  endfor
+  assign d = section.settings.discount
+  assign now = total
+  if d > 0
+    assign off = total | times: d | divided_by: 100
+    assign now = total | minus: off
+  endif
+-%}
+      <article class="bundle" style="--tint:#E9E2F6">
+        <div class="bundle-stack n4" aria-hidden="true"><img src="{{ 'calm-bloom-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"><img src="{{ 'rest-easy-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"><img src="{{ 'calm-tea-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"><img src="{{ 'sleep-mist-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"></div>
+        <div class="bundle-body">
+          {%- if d > 0 -%}<span class="save-pill">Save {{ d }}%</span>{%- endif -%}
+          <h3>The Sleep Ritual</h3>
+          <p class="bundle-items">Calm Bloom, Rest Easy, Calm Tea &amp; Sleep Well Mist</p>
+          <p class="price"><span class="price-now">{{ now | money }}</span>{% if d > 0 %} <s class="price-was">{{ total | money }}</s>{% endif %}</p>
+          <button type="button" class="btn btn-block" data-add-items="{{ ids }}">Add bundle to bag</button>
+        </div>
+      </article>
+      {%- liquid
+  assign total = 0
+  assign ids = ''
+  assign handles = 'gut-greens-superfood-gut-powder,gut-glow-prebiotic-probiotic-gummies,belly-bloom-gentle-digestion-gummies' | split: ','
+  for h in handles
+    assign p = all_products[h]
+    if p.id
+      assign v = p.selected_or_first_available_variant
+      assign total = total | plus: v.price
+      assign ids = ids | append: v.id | append: ','
+    endif
+  endfor
+  assign d = section.settings.discount
+  assign now = total
+  if d > 0
+    assign off = total | times: d | divided_by: 100
+    assign now = total | minus: off
+  endif
+-%}
+      <article class="bundle" style="--tint:#E5EEDA">
+        <div class="bundle-stack n3" aria-hidden="true"><img src="{{ 'gut-greens-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"><img src="{{ 'gut-glow-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"><img src="{{ 'belly-bloom-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"></div>
+        <div class="bundle-body">
+          {%- if d > 0 -%}<span class="save-pill">Save {{ d }}%</span>{%- endif -%}
+          <h3>The Gut Reset</h3>
+          <p class="bundle-items">Gut Greens, Gut Glow &amp; Belly Bloom</p>
+          <p class="price"><span class="price-now">{{ now | money }}</span>{% if d > 0 %} <s class="price-was">{{ total | money }}</s>{% endif %}</p>
+          <button type="button" class="btn btn-block" data-add-items="{{ ids }}">Add bundle to bag</button>
+        </div>
+      </article>
+      {%- liquid
+  assign total = 0
+  assign ids = ''
+  assign handles = 'defend-bloom-vitamin-c-zinc-gummies,immune-tea,hydrate-bloom-electrolyte-sticks,defend-bloom-citrus' | split: ','
+  for h in handles
+    assign p = all_products[h]
+    if p.id
+      assign v = p.selected_or_first_available_variant
+      assign total = total | plus: v.price
+      assign ids = ids | append: v.id | append: ','
+    endif
+  endfor
+  assign d = section.settings.discount
+  assign now = total
+  if d > 0
+    assign off = total | times: d | divided_by: 100
+    assign now = total | minus: off
+  endif
+-%}
+      <article class="bundle" style="--tint:#FBE3D3">
+        <div class="bundle-stack n4" aria-hidden="true"><img src="{{ 'defend-bloom-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"><img src="{{ 'immune-tea-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"><img src="{{ 'hydrate-bloom-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"><img src="{{ 'defend-citrus-sm.webp' | asset_url }}" alt="" width="600" height="600" loading="lazy"></div>
+        <div class="bundle-body">
+          {%- if d > 0 -%}<span class="save-pill">Save {{ d }}%</span>{%- endif -%}
+          <h3>The Daily Defence</h3>
+          <p class="bundle-items">Defend Bloom, Defend Bloom Citrus, Immune Tea &amp; Hydrate Bloom</p>
+          <p class="price"><span class="price-now">{{ now | money }}</span>{% if d > 0 %} <s class="price-was">{{ total | money }}</s>{% endif %}</p>
+          <button type="button" class="btn btn-block" data-add-items="{{ ids }}">Add bundle to bag</button>
+        </div>
+      </article>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bundles",
+  "tag": "div",
+  "class": "bw-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Rituals, ready-made"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Our favourite routines in one box."
+    },
+    {
+      "type": "range",
+      "id": "discount",
+      "label": "Bundle discount shown (%). Create a matching automatic discount in Shopify first.",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bundles"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,47 @@
+<section class="c-hero cart-page" aria-labelledby="cart-title">
+  <div class="cart-wrap">
+    <h1 id="cart-title" class="display c-title"><span class="line"><span>Your bag</span></span></h1>
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" class="cart-form">
+        <ul class="cart-lines" role="list">
+          {%- for item in cart.items -%}
+            <li class="cart-line">
+              <a class="cart-img" href="{{ item.url }}">{%- if item.image -%}{{ item.image | image_url: width: 240 | image_tag: alt: '' }}{%- endif -%}</a>
+              <div class="cart-info">
+                <a class="cart-title" href="{{ item.url }}">{{ item.product.title | split: ' — ' | first }}</a>
+                {%- unless item.product.has_only_default_variant -%}<p class="cart-variant">{{ item.variant.title }}</p>{%- endunless -%}
+                <p class="cart-price">{{ item.final_line_price | money }}</p>
+              </div>
+              <div class="qty">
+                <button type="button" data-qty="-1" aria-label="Decrease quantity of {{ item.product.title | escape }}">−</button>
+                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity of {{ item.product.title | escape }}">
+                <button type="button" data-qty="1" aria-label="Increase quantity of {{ item.product.title | escape }}">+</button>
+              </div>
+              <a class="cart-remove" href="{{ item.url_to_remove }}">Remove</a>
+            </li>
+          {%- endfor -%}
+        </ul>
+        <div class="cart-summary">
+          <p class="cart-subtotal"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></p>
+          {%- if cart.total_discount > 0 -%}<p class="cart-saving">You're saving {{ cart.total_discount | money }}</p>{%- endif -%}
+          <p class="cart-small">Taxes and shipping are calculated at checkout.</p>
+          <div class="cart-actions">
+            <button type="submit" name="update" class="btn btn-ghost">Update bag</button>
+            <button type="submit" name="checkout" class="btn">Checkout</button>
+          </div>
+        </div>
+      </form>
+    {%- else -%}
+      <p class="lede">Your bag is empty. Let's fix that.</p>
+      <p><a class="btn" href="{{ routes.collections_url }}">Shop collections</a></p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "tag": "div",
+  "class": "bw-section"
+}
+{% endschema %}

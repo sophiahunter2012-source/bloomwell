@@ -1,0 +1,132 @@
+{%- liquid
+  assign v = product.selected_or_first_available_variant
+  assign parts = product.title | split: ' — '
+  assign ritual = ''
+  for t in product.tags
+    if t contains 'ritual:'
+      assign ritual = t | remove: 'ritual:'
+    endif
+  endfor
+-%}
+<section class="pdp c-hero" aria-labelledby="pdp-title">
+  <div class="pdp-grid">
+    <div class="pdp-media">
+      <div class="pdp-main">
+        {%- assign img = v.featured_image | default: product.featured_image -%}
+        {%- if img -%}{{ img | image_url: width: 1200 | image_tag: id: 'pdp-image', widths: '600,900,1200', sizes: '(max-width: 900px) 100vw, 50vw', alt: img.alt | default: product.title, fetchpriority: 'high' }}{%- endif -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <ul class="pdp-thumbs" role="list">
+          {%- for m in product.media -%}
+            <li><button type="button" class="pdp-thumb" data-src="{{ m.preview_image | image_url: width: 1200 }}" aria-label="Show image {{ forloop.index }}">{{ m.preview_image | image_url: width: 160 | image_tag: alt: '' }}</button></li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+    <div class="pdp-info">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a><span aria-hidden="true">/</span>
+        {%- if collection -%}<a href="{{ collection.url }}">{{ collection.title }}</a>{%- elsif ritual != '' -%}<a href="{{ routes.collections_url }}/{{ ritual }}">{{ ritual | capitalize }}</a>{%- else -%}<a href="{{ routes.collections_url }}">Collections</a>{%- endif -%}
+        <span aria-hidden="true">/</span><span aria-current="page">{{ parts[0] }}</span>
+      </nav>
+      {%- if ritual != '' -%}<a class="tag tag-link" href="{{ routes.collections_url }}/{{ ritual }}">{{ ritual | capitalize }}</a>{%- endif -%}
+      <h1 id="pdp-title" class="pdp-title">{{ parts[0] }}</h1>
+      {%- if parts[1] -%}<p class="pdp-sub">{{ parts[1] }}</p>{%- endif -%}
+      <p class="pdp-price"><span data-price>{{ v.price | money }}</span>{% if v.compare_at_price > v.price %} <s data-compare>{{ v.compare_at_price | money }}</s>{% endif %}</p>
+
+      {%- form 'product', product, class: 'pdp-form', id: 'pdp-form' -%}
+        <input type="hidden" name="id" value="{{ v.id }}" data-variant-input>
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <fieldset class="pdp-option">
+              <legend>{{ option.name }}: <strong data-option-label>{{ option.selected_value }}</strong></legend>
+              <div class="pdp-values">
+                {%- for value in option.values -%}
+                  {%- liquid
+                    assign sw = ''
+                    case value
+        when 'Vanilla'
+          assign sw = '#CFE0B8'
+        when 'Chocolate'
+          assign sw = '#8A5A44'
+        when 'Cookies & Cream'
+          assign sw = '#F1ECE3'
+        when 'Strawberry'
+          assign sw = '#F3BFC6'
+        when 'Lemon Sorbet'
+          assign sw = '#F2E7A0'
+                    endcase
+                    assign vv = product.variants | where: 'title', value | first
+                  -%}
+                  <button type="button" class="pdp-value{% if sw != '' %} has-swatch{% endif %}" style="{% if sw != '' %}--sw:{{ sw }}{% endif %}"
+                    aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}"
+                    data-variant="{{ vv.id }}" data-price="{{ vv.price | money }}" data-available="{{ vv.available }}"
+                    data-image="{% if vv.featured_image %}{{ vv.featured_image | image_url: width: 1200 }}{% endif %}" data-value="{{ value | escape }}">
+                    {%- if sw != '' -%}<span class="pdp-dot" aria-hidden="true"></span>{%- endif -%}{{ value }}
+                  </button>
+                {%- endfor -%}
+              </div>
+            </fieldset>
+          {%- endfor -%}
+        {%- endunless -%}
+        <div class="pdp-buy">
+          <div class="qty">
+            <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
+            <input type="number" name="quantity" value="1" min="1" aria-label="Quantity">
+            <button type="button" data-qty="1" aria-label="Increase quantity">+</button>
+          </div>
+          <button type="submit" class="btn pdp-add" data-add-button {% unless v.available %}disabled{% endunless %}>{% if v.available %}Add to bag{% else %}Sold out{% endif %}</button>
+        </div>
+        <p class="form-msg" role="status" aria-live="polite"></p>
+      {%- endform -%}
+
+      <div class="pdp-desc">{{ product.description }}</div>
+    </div>
+  </div>
+</section>
+
+{%- if ritual != '' -%}
+  {%- assign rc = collections[ritual] -%}
+  {%- if rc.products_count > 1 -%}
+  <section class="c-products pdp-more" aria-labelledby="pdp-more-title">
+    <div class="section-head"><p class="eyebrow">Complete the ritual</p><h2 id="pdp-more-title" class="h2">Pairs well with</h2></div>
+    <ul class="c-grid" role="list">
+      {%- assign shown = 0 -%}
+      {%- for p in rc.products -%}
+        {%- if p.id != product.id and shown < 4 -%}
+          {%- assign shown = shown | plus: 1 -%}
+          {%- liquid
+  assign tint = '#F1EADD'
+  for t in p.tags
+    if t contains 'tint:'
+      assign tint = t | remove: 'tint:'
+    endif
+  endfor
+-%}<li class="p-card" style="--tint:{{ tint }}">
+  <div class="p-inner">
+    <a class="p-media" href="{{ p.url }}">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '350,500,700', sizes: '(max-width: 900px) 50vw, 280px', alt: p.featured_image.alt | default: p.title }}{%- endif -%}</a>
+    <div class="p-body">
+      {%- for t in p.tags -%}{%- if t contains 'ritual:' -%}{%- assign r = t | remove: 'ritual:' -%}<a class="tag tag-link" href="{{ routes.collections_url }}/{{ r }}">{{ r | capitalize }}</a>{%- endif -%}{%- endfor -%}
+      {%- assign parts = p.title | split: ' — ' -%}
+      <h2><a href="{{ p.url }}">{{ parts[0] }}</a></h2>
+      {%- if parts[1] -%}<p class="p-short">{{ parts[1] }}</p>{%- endif -%}
+      <p class="p-desc">{{ p.description | strip_html | truncatewords: 18 }}</p>
+      <p class="p-price">{% if p.price_varies %}From {% endif %}{{ p.price | money }}</p>
+      <a class="card-link" href="{{ p.url }}">Shop {{ parts[0] }}</a>
+    </div>
+  </div>
+</li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </section>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product",
+  "tag": "div",
+  "class": "bw-section"
+}
+{% endschema %}

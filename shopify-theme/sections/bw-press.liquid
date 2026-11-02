@@ -1,0 +1,92 @@
+<section class="press" aria-labelledby="press-title">
+  <p id="press-title" class="press-label">{{ section.settings.label }}{% if section.settings.example %} <span class="example-tag">Example</span>{% endif %}</p>
+  <div class="press-marquee">
+    <ul class="press-track" role="list">
+      {%- for pass in (1..2) -%}
+        {%- for block in section.blocks -%}
+          <li class="press-logo pl-{{ forloop.index | modulo: 5 | plus: 1 }}"{% if pass == 2 %} aria-hidden="true"{% endif %} {{ block.shopify_attributes }}>
+            {%- if block.settings.logo -%}{{ block.settings.logo | image_url: height: 64 | image_tag: alt: block.settings.name, height: 32, class: 'press-img' }}{%- else -%}{{ block.settings.name }}{%- endif -%}
+          </li>
+        {%- endfor -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Press strip",
+  "tag": "div",
+  "class": "bw-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "As featured in"
+    },
+    {
+      "type": "checkbox",
+      "id": "example",
+      "label": "Show 'Example' tag (turn off once real press is added)",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Publication",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Publication name",
+          "default": "Your Magazine"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Press strip",
+      "blocks": [
+        {
+          "type": "logo",
+          "settings": {
+            "name": "Your Magazine"
+          }
+        },
+        {
+          "type": "logo",
+          "settings": {
+            "name": "PUBLICATION"
+          }
+        },
+        {
+          "type": "logo",
+          "settings": {
+            "name": "the journal"
+          }
+        },
+        {
+          "type": "logo",
+          "settings": {
+            "name": "Wellness Weekly"
+          }
+        },
+        {
+          "type": "logo",
+          "settings": {
+            "name": "EDITORIAL"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

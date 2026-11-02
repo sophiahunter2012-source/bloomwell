@@ -1,0 +1,78 @@
+<section class="rituals" id="rituals" aria-labelledby="rituals-title">
+      <div class="rituals-pin">
+        <div class="rituals-head">
+          <p class="eyebrow">Find your ritual</p>
+          <h2 id="rituals-title" class="h2">Four ways to bloom</h2>
+          <ol class="ritual-progress" aria-hidden="true">
+            <li class="is-active"></li><li></li><li></li><li></li>
+          </ol>
+        </div>
+
+        <div class="ritual-panels">
+          <article class="ritual is-active" data-ritual="glow">
+            <span class="ritual-num">01</span>
+            <h3 class="ritual-name">Glow</h3>
+            <p class="ritual-desc">Collagen you sip, vitamins you look forward to, and balms for your lips and hands. Beauty starts on the inside.</p>
+            <ul class="chips"><li>Skin Sip</li><li>Daily Glow</li><li>Lip Balm</li><li>Hand Cream</li></ul>
+            <a class="card-link ritual-link" href="{{ routes.collections_url }}/glow">Shop the Glow collection</a>
+          </article>
+          <article class="ritual" data-ritual="gut">
+            <span class="ritual-num">02</span>
+            <h3 class="ritual-name">Gut</h3>
+            <p class="ritual-desc">A scoop of greens, a daily pre and probiotic, and gentle gummies for days you need them. Happy belly, happy you.</p>
+            <ul class="chips"><li>Gut Greens</li><li>Gut Glow</li><li>Belly Bloom</li></ul>
+            <a class="card-link ritual-link" href="{{ routes.collections_url }}/gut">Shop the Gut collection</a>
+          </article>
+          <article class="ritual" data-ritual="rest">
+            <span class="ritual-num">03</span>
+            <h3 class="ritual-name">Rest</h3>
+            <p class="ritual-desc">Magnesium and ashwagandha to unwind, a cup of calm tea, a mist for your pillow and gummies to drift off. Your evening, softened.</p>
+            <ul class="chips"><li>Calm Bloom</li><li>Rest Easy</li><li>Calm Tea</li><li>Sleep Well Mist</li><li>Bath Soak</li><li>Candle</li></ul>
+            <a class="card-link ritual-link" href="{{ routes.collections_url }}/rest">Shop the Rest collection</a>
+          </article>
+          <article class="ritual" data-ritual="fuel">
+            <span class="ritual-num">04</span>
+            <h3 class="ritual-name">Fuel</h3>
+            <p class="ritual-desc">Electrolytes for busy days, plant protein in five flavors, immune and focus teas, vitamin C and zinc, and a balm for after the stretch.</p>
+            <ul class="chips"><li>Hydrate Bloom</li><li>Bloom Protein</li><li>Defend Bloom</li><li>Immune Tea</li><li>Focus Tea</li><li>Stretch Balm</li></ul>
+            <a class="card-link ritual-link" href="{{ routes.collections_url }}/fuel">Shop the Fuel collection</a>
+          </article>
+        </div>
+
+        <div class="ritual-stage">
+          <div class="fan is-active" data-ritual="glow">
+            <img data-pos="0" src="{{ 'daily-glow.webp' | asset_url }}" alt="Daily Glow" width="1200" height="1200">
+            <img data-pos="1" src="{{ 'lip-balm.webp' | asset_url }}" alt="Lip Balm" width="1200" height="1200">
+            <img data-pos="2" src="{{ 'skin-sip.webp' | asset_url }}" alt="Skin Sip" width="1200" height="1200">
+          </div>
+          <div class="fan" data-ritual="gut">
+            <img data-pos="0" src="{{ 'belly-bloom.webp' | asset_url }}" alt="Belly Bloom" width="1200" height="1200" loading="lazy">
+            <img data-pos="1" src="{{ 'gut-glow.webp' | asset_url }}" alt="Gut Glow" width="1200" height="1200" loading="lazy">
+            <img data-pos="2" src="{{ 'gut-greens.webp' | asset_url }}" alt="Gut Greens" width="1200" height="1200" loading="lazy">
+          </div>
+          <div class="fan" data-ritual="rest">
+            <img data-pos="0" src="{{ 'sleep-mist.webp' | asset_url }}" alt="Sleep Well Mist" width="1200" height="1200" loading="lazy">
+            <img data-pos="1" src="{{ 'rest-easy.webp' | asset_url }}" alt="Rest Easy" width="1200" height="1200" loading="lazy">
+            <img data-pos="2" src="{{ 'calm-bloom.webp' | asset_url }}" alt="Calm Bloom" width="1200" height="1200" loading="lazy">
+          </div>
+          <div class="fan" data-ritual="fuel">
+            <img data-pos="0" src="{{ 'bloom-protein.webp' | asset_url }}" alt="Bloom Protein" width="1200" height="1200" loading="lazy">
+            <img data-pos="1" src="{{ 'stretch-balm.webp' | asset_url }}" alt="Stretch Balm" width="1200" height="1200" loading="lazy">
+            <img data-pos="2" src="{{ 'hydrate-bloom.webp' | asset_url }}" alt="Hydrate Bloom" width="1200" height="1200" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% schema %}
+{
+  "name": "Rituals",
+  "tag": "div",
+  "class": "bw-section",
+  "presets": [
+    {
+      "name": "Rituals"
+    }
+  ]
+}
+{% endschema %}

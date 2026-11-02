@@ -1,0 +1,12 @@
+<section class="c-hero simple-page"><div class="simple-wrap">
+  <h1 class="display c-title"><span class="line"><span>{{ blog.title }}</span></span></h1>
+  {%- for a in blog.articles -%}<article class="rte"><h2><a href="{{ a.url }}">{{ a.title }}</a></h2>{{ a.excerpt_or_content }}</article>{%- endfor -%}
+</div></section>
+
+{% schema %}
+{
+  "name": "Blog",
+  "tag": "div",
+  "class": "bw-section"
+}
+{% endschema %}

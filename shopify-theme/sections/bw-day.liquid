@@ -1,0 +1,48 @@
+<section class="day" id="day" data-preset="day" aria-labelledby="day-title">
+      <div class="day-head">
+        <p class="eyebrow">A day in bloom</p>
+        <h2 id="day-title" class="h2">Small rituals,<br>morning to moon.</h2>
+      </div>
+      <div class="day-timeline">
+        <svg class="day-line" viewBox="0 0 20 1000" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M10 0 V1000" />
+        </svg>
+        <div class="moment">
+          <span class="moment-time">7:00 am</span>
+          <h3>Rise</h3>
+          <p>Two Daily Glow gummies and a Skin Sip stirred into your coffee or smoothie.</p>
+          <div class="moment-imgs"><img src="{{ 'daily-glow-sm.webp' | asset_url }}" alt="Daily Glow" width="600" height="600" loading="lazy"><img src="{{ 'skin-sip-sm.webp' | asset_url }}" alt="Skin Sip" width="600" height="600" loading="lazy"></div>
+        </div>
+        <div class="moment">
+          <span class="moment-time">12:30 pm</span>
+          <h3>Refuel</h3>
+          <p>A Hydrate Bloom stick in your water bottle, a Bloom Protein shake, and a Focus Tea for the afternoon.</p>
+          <div class="moment-imgs"><img src="{{ 'hydrate-bloom-sm.webp' | asset_url }}" alt="Hydrate Bloom" width="600" height="600" loading="lazy"><img src="{{ 'bloom-protein-sm.webp' | asset_url }}" alt="Bloom Protein" width="600" height="600" loading="lazy"></div>
+        </div>
+        <div class="moment">
+          <span class="moment-time">6:00 pm</span>
+          <h3>Unwind</h3>
+          <p>Stretch it out with Stretch Balm, then a Calm Bloom gummy and a cup of Calm Tea as the day slows down.</p>
+          <div class="moment-imgs"><img src="{{ 'stretch-balm-sm.webp' | asset_url }}" alt="Stretch Balm" width="600" height="600" loading="lazy"><img src="{{ 'calm-bloom-sm.webp' | asset_url }}" alt="Calm Bloom" width="600" height="600" loading="lazy"></div>
+        </div>
+        <div class="moment">
+          <span class="moment-time">10:00 pm</span>
+          <h3>Rest</h3>
+          <p>Light the candle, run a Relax Bath Soak, mist your pillow, and let Rest Easy help you drift off.</p>
+          <div class="moment-imgs"><img src="{{ 'calm-candle-sm.webp' | asset_url }}" alt="Calm Soy Candle" width="600" height="600" loading="lazy"><img src="{{ 'rest-easy-sm.webp' | asset_url }}" alt="Rest Easy" width="600" height="600" loading="lazy"></div>
+        </div>
+      </div>
+    </section>
+
+{% schema %}
+{
+  "name": "A day in bloom",
+  "tag": "div",
+  "class": "bw-section",
+  "presets": [
+    {
+      "name": "A day in bloom"
+    }
+  ]
+}
+{% endschema %}
