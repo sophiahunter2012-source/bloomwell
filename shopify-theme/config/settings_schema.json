@@ -2,9 +2,53 @@
   {
     "name": "theme_info",
     "theme_name": "Bloomwell",
-    "theme_version": "1.0.0",
+    "theme_version": "1.1.0",
     "theme_author": "Bloomwell",
     "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
     "theme_support_url": "https://help.shopify.com"
+  },
+  {
+    "name": "Sale & subscriptions",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "sale_enabled",
+        "label": "Show sale banner and sale prices",
+        "default": true,
+        "info": "Keep this matched to your automatic discount in Shopify Discounts."
+      },
+      {
+        "type": "range",
+        "id": "sale_percent",
+        "label": "Sale percentage",
+        "min": 5,
+        "max": 50,
+        "step": 1,
+        "unit": "%",
+        "default": 15
+      },
+      {
+        "type": "text",
+        "id": "sale_message",
+        "label": "Sale banner text",
+        "default": "Sale \u00b7 15% off everything, taken off automatically at checkout"
+      },
+      {
+        "type": "checkbox",
+        "id": "subscribe_line",
+        "label": "Show subscribe line under prices",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "subscribe_percent",
+        "label": "Subscribe discount",
+        "min": 5,
+        "max": 50,
+        "step": 1,
+        "unit": "%",
+        "default": 20
+      }
+    ]
   }
 ]

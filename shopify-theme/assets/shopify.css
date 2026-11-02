@@ -142,3 +142,74 @@
 .bw-back svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .bw-back:hover { transform: translateX(-3px); background: var(--card); }
 .bw-back:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+/* ---------- Sale banner ---------- */
+.announce {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 56; height: 34px; overflow: hidden;
+  background: var(--ink); color: var(--bg); display: flex; align-items: center;
+  font-size: 13px; font-weight: 600; letter-spacing: .06em;
+}
+.announce-track { display: flex; gap: 28px; width: max-content; white-space: nowrap; padding-left: 28px; animation: announce 40s linear infinite; }
+.announce-dot { color: var(--orange); }
+@keyframes announce { to { transform: translateX(-50%); } }
+.has-sale .site-header { top: 34px; }
+.has-sale .sa-filters-wrap { top: 98px; }
+@media (max-width: 900px) { .has-sale .sa-filters-wrap { top: 94px; } }
+
+/* "Sale" badges on product images */
+.has-sale .card-media, .has-sale .sa-media, .has-sale .p-media, .has-sale .pdp-main, .has-sale .bundle-stack { position: relative; }
+.has-sale .card-media::before, .has-sale .sa-media::before, .has-sale .p-media::before, .has-sale .pdp-main::before {
+  content: "Sale"; position: absolute; top: 12px; left: 12px; z-index: 2; padding: 5px 11px; border-radius: 999px;
+  background: var(--coral); color: #fff; font: 700 11px/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase;
+  box-shadow: 0 6px 14px -6px rgba(217, 115, 90, .7);
+}
+
+/* Prices */
+.bw-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 2px 0 0; font-variant-numeric: tabular-nums; }
+.bw-price .from { font-size: .8em; color: var(--ink-soft); }
+.price-sale { font-family: var(--font-display); font-weight: 700; color: var(--ink); }
+.price-orig { color: var(--ink-soft); font-size: .78em; }
+.sale-pill { align-self: center; padding: 3px 8px; border-radius: 999px; background: color-mix(in srgb, var(--coral) 16%, var(--card)); color: #9A3D27; font: 700 11px/1.2 var(--font-body); letter-spacing: .04em; }
+.p-price { font-size: 20px; }
+.pdp-price { font-size: 30px; }
+.sub-line { display: inline-flex; align-items: center; gap: 6px; margin: 4px 0 0; font-size: 13px; font-weight: 600; color: var(--heart); }
+.sub-line svg { width: 16px; height: 16px; flex: 0 0 auto; fill: color-mix(in srgb, var(--leaf) 45%, transparent); stroke: var(--heart); stroke-width: 1.5; stroke-linecap: round; }
+.pdp-info .sub-line { font-size: 15px; padding: 8px 14px; border-radius: 999px; background: color-mix(in srgb, var(--sage) 45%, var(--card)); }
+
+/* Subscribe option (selling plans) */
+.pdp-purchase { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.pdp-plan { display: flex; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 18px; background: var(--card); box-shadow: 0 0 0 1.5px var(--line); cursor: pointer; }
+.pdp-plan:has(input:checked) { box-shadow: 0 0 0 2px var(--ink); }
+.pdp-plan input { accent-color: var(--heart); width: 18px; height: 18px; }
+.pdp-plan span { display: flex; flex-direction: column; gap: 2px; }
+.pdp-plan small { color: var(--ink-soft); font-size: 13px; }
+
+/* Trust points */
+.pdp-trust { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.pdp-trust li { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 500; color: var(--ink-soft); }
+.pdp-trust svg { width: 18px; height: 18px; fill: none; stroke: var(--heart); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Details accordions on product pages */
+.pdp-details { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.pdp-details .c-faq-item summary { min-height: 56px; font-size: 18px; }
+.pdp-nutrition { width: 100%; border-collapse: collapse; margin-bottom: 12px; font-variant-numeric: tabular-nums; }
+.pdp-nutrition th, .pdp-nutrition td { padding: 9px 0; border-bottom: 1px solid var(--line); text-align: left; font-size: 15px; }
+.pdp-nutrition td { text-align: right; font-weight: 600; color: var(--ink); }
+
+/* Sticky add-to-bag bar (phones) */
+.pdp-sticky { display: none; }
+@media (max-width: 900px) {
+  .pdp-sticky {
+    display: flex; position: fixed; z-index: 58; left: 0; right: 0; bottom: 0; gap: 12px; align-items: center; justify-content: space-between;
+    padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+    background: color-mix(in srgb, var(--card) 96%, transparent); box-shadow: 0 -10px 30px -12px rgba(31, 77, 63, .3);
+    transform: translateY(110%); transition: transform .35s var(--ease-out);
+  }
+  .pdp-sticky.is-visible { transform: none; }
+  .pdp-sticky-info { min-width: 0; display: flex; flex-direction: column; }
+  .pdp-sticky-info strong { font-family: var(--font-display); font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pdp-sticky-price { font-size: 16px; margin: 0; }
+  .pdp-sticky .btn { flex: 0 0 auto; min-height: 46px; }
+  .template-product .bw-back { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (prefers-reduced-motion: reduce) { .announce-track { animation: none; } }

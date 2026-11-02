@@ -55,7 +55,7 @@ document.querySelectorAll('.qty').forEach((q) => {
 const form = document.getElementById('pdp-form');
 if (form) {
   const idInput = form.querySelector('[data-variant-input]');
-  const priceEl = document.querySelector('[data-price]');
+  const priceEl = document.querySelector('.pdp-price [data-price]');
   const mainImg = document.getElementById('pdp-image');
   const addBtn = form.querySelector('[data-add-button]');
   const msg = form.querySelector('.form-msg');
@@ -71,6 +71,8 @@ if (form) {
     group.querySelector('[data-option-label]').textContent = btn.dataset.value;
     if (btn.dataset.variant) idInput.value = btn.dataset.variant;
     if (priceEl && btn.dataset.price) priceEl.textContent = btn.dataset.price;
+    const saleEl = document.querySelector('.pdp-price [data-sale-price]');
+    if (saleEl && btn.dataset.salePrice) saleEl.textContent = btn.dataset.salePrice;
     swapImage(btn.dataset.image);
     const available = btn.dataset.available === 'true';
     addBtn.disabled = !available;
@@ -130,3 +132,30 @@ document.querySelectorAll('[data-back]').forEach((btn) => {
     else window.location.href = BW.root || '/';
   });
 });
+
+/* Subscribe option (shows once a subscription app adds selling plans) */
+document.querySelectorAll('input[name="bw-purchase"]').forEach((r) => {
+  r.addEventListener('change', () => {
+    const hidden = document.querySelector('[data-selling-plan]');
+    if (!hidden) return;
+    hidden.value = r.value;
+    hidden.disabled = !r.value;
+  });
+});
+
+/* Sticky "Add to bag" bar on phones once the main button scrolls away */
+const sticky = document.querySelector('[data-sticky-bar]');
+const buy = document.querySelector('.pdp-buy');
+if (sticky && buy && 'IntersectionObserver' in window) {
+  const io = new IntersectionObserver(([entry]) => {
+    const show = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+    sticky.classList.toggle('is-visible', show);
+    sticky.setAttribute('aria-hidden', String(!show));
+    sticky.querySelector('[data-sticky-add]').tabIndex = show ? 0 : -1;
+  });
+  io.observe(buy);
+  sticky.querySelector('[data-sticky-add]').addEventListener('click', () => {
+    const f = document.getElementById('pdp-form');
+    if (f.requestSubmit) f.requestSubmit(); else f.querySelector('[data-add-button]').click();
+  });
+}

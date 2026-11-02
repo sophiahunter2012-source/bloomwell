@@ -8,6 +8,7 @@
     endif
   endfor
 -%}
+{%- assign rest_pct = 100 | minus: settings.sale_percent -%}{%- unless settings.sale_enabled -%}{%- assign rest_pct = 100 -%}{%- endunless -%}
 <section class="pdp c-hero" aria-labelledby="pdp-title">
   <div class="pdp-grid">
     <div class="pdp-media">
@@ -32,7 +33,7 @@
       {%- if ritual != '' -%}<a class="tag tag-link" href="{{ routes.collections_url }}/{{ ritual }}">{{ ritual | capitalize }}</a>{%- endif -%}
       <h1 id="pdp-title" class="pdp-title">{{ parts[0] }}</h1>
       {%- if parts[1] -%}<p class="pdp-sub">{{ parts[1] }}</p>{%- endif -%}
-      <p class="pdp-price"><span data-price>{{ v.price | money }}</span>{% if v.compare_at_price > v.price %} <s data-compare>{{ v.compare_at_price | money }}</s>{% endif %}</p>
+      {%- render 'bw-price', price: v.price, cls: 'pdp-price', show_sub: true -%}
 
       {%- form 'product', product, class: 'pdp-form', id: 'pdp-form' -%}
         <input type="hidden" name="id" value="{{ v.id }}" data-variant-input>
@@ -60,7 +61,7 @@
                   -%}
                   <button type="button" class="pdp-value{% if sw != '' %} has-swatch{% endif %}" style="{% if sw != '' %}--sw:{{ sw }}{% endif %}"
                     aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}"
-                    data-variant="{{ vv.id }}" data-price="{{ vv.price | money }}" data-available="{{ vv.available }}"
+                    data-variant="{{ vv.id }}" data-price="{{ vv.price | money }}" data-sale-price="{{ vv.price | times: 100 | minus: 0 | times: rest_pct | divided_by: 10000.0 | round | money }}" data-available="{{ vv.available }}"
                     data-image="{% if vv.featured_image %}{{ vv.featured_image | image_url: width: 1200 }}{% endif %}" data-value="{{ value | escape }}">
                     {%- if sw != '' -%}<span class="pdp-dot" aria-hidden="true"></span>{%- endif -%}{{ value }}
                   </button>
@@ -69,6 +70,16 @@
             </fieldset>
           {%- endfor -%}
         {%- endunless -%}
+        {%- if product.selling_plan_groups.size > 0 -%}
+          <fieldset class="pdp-purchase">
+            <legend class="sr-only">Purchase options</legend>
+            <label class="pdp-plan"><input type="radio" name="bw-purchase" value="" checked><span><strong>One-time purchase</strong></span></label>
+            {%- for g in product.selling_plan_groups -%}{%- for plan in g.selling_plans -%}
+              <label class="pdp-plan"><input type="radio" name="bw-purchase" value="{{ plan.id }}"><span><strong>{{ plan.name }}</strong><small>Save {{ settings.subscribe_percent }}% on every order · skip or cancel any time</small></span></label>
+            {%- endfor -%}{%- endfor -%}
+            <input type="hidden" name="selling_plan" value="" data-selling-plan disabled>
+          </fieldset>
+        {%- endif -%}
         <div class="pdp-buy">
           <div class="qty">
             <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
@@ -80,10 +91,72 @@
         <p class="form-msg" role="status" aria-live="polite"></p>
       {%- endform -%}
 
+      <ul class="pdp-trust" role="list">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Secure checkout</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v4h4"/></svg>30-day returns on unopened items</li>
+        {%- if settings.sale_enabled -%}<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12 12 20 4 12V4h8z"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>{{ settings.sale_percent }}% off taken off at checkout</li>{%- endif -%}
+      </ul>
+
       <div class="pdp-desc">{{ product.description }}</div>
+
+      {%- liquid
+        assign mf = product.metafields.bloomwell
+        assign kind = ''
+        for t in product.tags
+          if t contains 'type:'
+            assign kind = t | remove: 'type:'
+          endif
+        endfor
+      -%}
+      <div class="pdp-details">
+        <details class="c-faq-item" open>
+          <summary><span>How to use</span><span class="c-faq-icon" aria-hidden="true"></span></summary>
+          <div class="c-faq-answer rte">
+            {%- if mf.how_to_use != blank -%}{{ mf.how_to_use.value }}
+            {%- else -%}
+              {%- case kind -%}
+                {%- when 'protein' -%}<p>Shake or blend one scoop with water, milk or your favourite plant milk. It also stirs into smoothies, overnight oats and coffee. Check the label for the exact serving size.</p>
+                {%- when 'gummies' -%}<p>Chew the number of gummies shown on the label each day. Don't exceed the recommended amount.</p>
+                {%- when 'teas' -%}<p>Steep in freshly boiled water for a few minutes, then enjoy. The tin has the recommended amount and steeping time.</p>
+                {%- when 'powders' -%}<p>Mix with water, juice, a smoothie or your morning coffee. Check the label for the serving size.</p>
+                {%- when 'body' -%}<p>Apply a small amount and massage in whenever you need it. For external use only.</p>
+                {%- when 'home' -%}<p>See the label for directions. Never leave a lit candle unattended.</p>
+                {%- else -%}<p>See the label for directions.</p>
+              {%- endcase -%}
+            {%- endif -%}
+          </div>
+        </details>
+        <details class="c-faq-item">
+          <summary><span>{% if kind == 'protein' %}Nutrition per scoop{% else %}Ingredients &amp; nutrition{% endif %}</span><span class="c-faq-icon" aria-hidden="true"></span></summary>
+          <div class="c-faq-answer rte">
+            {%- if mf.serving_size != blank or mf.protein_per_serving != blank or mf.servings != blank or mf.net_weight != blank -%}
+              <table class="pdp-nutrition">
+                {%- if mf.serving_size != blank -%}<tr><th scope="row">Serving size</th><td>{{ mf.serving_size.value }}</td></tr>{%- endif -%}
+                {%- if mf.protein_per_serving != blank -%}<tr><th scope="row">Protein per serving</th><td>{{ mf.protein_per_serving.value }}</td></tr>{%- endif -%}
+                {%- if mf.calories_per_serving != blank -%}<tr><th scope="row">Energy per serving</th><td>{{ mf.calories_per_serving.value }}</td></tr>{%- endif -%}
+                {%- if mf.servings != blank -%}<tr><th scope="row">Servings per pack</th><td>{{ mf.servings.value }}</td></tr>{%- endif -%}
+                {%- if mf.net_weight != blank -%}<tr><th scope="row">Net weight</th><td>{{ mf.net_weight.value }}</td></tr>{%- endif -%}
+              </table>
+            {%- endif -%}
+            {%- if mf.ingredients != blank -%}<p><strong>Ingredients:</strong> {{ mf.ingredients.value }}</p>{%- endif -%}
+            <p>Full ingredients, allergens and nutrition information are printed on the pack. Food supplements should not replace a varied, balanced diet and healthy lifestyle.</p>
+          </div>
+        </details>
+        <details class="c-faq-item">
+          <summary><span>Delivery &amp; returns</span><span class="c-faq-icon" aria-hidden="true"></span></summary>
+          <div class="c-faq-answer rte">
+            <p>Delivery options and costs are shown at checkout. Unopened items can be returned within 30 days.{% assign rp = pages['refund-policy'] %}{% if rp.id %} <a href="{{ rp.url }}">Read our refund policy</a>.{% endif %}</p>
+          </div>
+        </details>
+      </div>
     </div>
   </div>
 </section>
+
+<div class="pdp-sticky" data-sticky-bar aria-hidden="true">
+  <div class="pdp-sticky-info"><strong>{{ parts[0] }}</strong>{%- render 'bw-price', price: v.price, cls: 'pdp-sticky-price', show_sub: false -%}</div>
+  <button type="button" class="btn" data-sticky-add tabindex="-1">Add to bag</button>
+</div>
 
 {%- if ritual != '' -%}
   {%- assign rc = collections[ritual] -%}
@@ -111,7 +184,7 @@
       <h2><a href="{{ p.url }}">{{ parts[0] }}</a></h2>
       {%- if parts[1] -%}<p class="p-short">{{ parts[1] }}</p>{%- endif -%}
       <p class="p-desc">{{ p.description | strip_html | truncatewords: 18 }}</p>
-      <p class="p-price">{% if p.price_varies %}From {% endif %}{{ p.price | money }}</p>
+      {%- render 'bw-price', price: p.price, from: p.price_varies, cls: 'p-price', show_sub: true -%}
       <a class="card-link" href="{{ p.url }}">Shop {{ parts[0] }}</a>
     </div>
   </div>

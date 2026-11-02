@@ -65,7 +65,7 @@
   endif
 -%}
 <!doctype html>
-<html lang="{{ request.locale.iso_code }}" style="--bg:{{ bg }}">
+<html lang="{{ request.locale.iso_code }}" class="{% if settings.sale_enabled %}has-sale{% endif %}" style="--bg:{{ bg }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -87,6 +87,14 @@
 </head>
 <body class="template-{{ template.name }}" data-accent="{{ accent }}"{% if template.name == 'product' or template.name == 'cart' %} data-pose="corner"{% endif %}>
   <a class="skip-link" href="#main">Skip to content</a>
+  {%- if settings.sale_enabled -%}
+    <div class="announce" role="region" aria-label="Sale">
+      <p class="sr-only">{{ settings.sale_message }}</p>
+      <div class="announce-track" aria-hidden="true">
+        {%- for i in (1..6) -%}<span>{{ settings.sale_message }}</span><span class="announce-dot">✦</span>{%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
   <canvas id="stage" aria-hidden="true"></canvas>
   <div class="grain" aria-hidden="true"></div>
   {% section 'bw-header' %}

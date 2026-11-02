@@ -17,6 +17,9 @@
     endif
   endfor
   assign d = section.settings.discount
+  if settings.sale_enabled and settings.sale_percent > d
+    assign d = settings.sale_percent
+  endif
   assign now = total
   if d > 0
     assign off = total | times: d | divided_by: 100
@@ -48,6 +51,9 @@
     endif
   endfor
   assign d = section.settings.discount
+  if settings.sale_enabled and settings.sale_percent > d
+    assign d = settings.sale_percent
+  endif
   assign now = total
   if d > 0
     assign off = total | times: d | divided_by: 100
@@ -79,6 +85,9 @@
     endif
   endfor
   assign d = section.settings.discount
+  if settings.sale_enabled and settings.sale_percent > d
+    assign d = settings.sale_percent
+  endif
   assign now = total
   if d > 0
     assign off = total | times: d | divided_by: 100

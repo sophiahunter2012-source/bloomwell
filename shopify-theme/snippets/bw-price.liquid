@@ -1,0 +1,17 @@
+{%- comment -%} Price with sale + subscribe line. Params: price, from (bool), cls, show_sub (bool) {%- endcomment -%}
+{%- liquid
+  assign pct = settings.sale_percent | default: 15
+  assign rest = 100 | minus: pct
+  assign sale = price | times: rest | divided_by: 100.0 | round
+-%}
+<p class="bw-price {{ cls }}">
+  {%- if from -%}<span class="from">From </span>{%- endif -%}
+  {%- if settings.sale_enabled -%}
+    <span class="price-sale" data-sale-price>{{ sale | money }}</span> <s class="price-orig" data-price>{{ price | money }}</s> <span class="sale-pill">{{ pct }}% off</span>
+  {%- else -%}
+    <span data-price>{{ price | money }}</span>
+  {%- endif -%}
+</p>
+{%- if show_sub and settings.subscribe_line -%}
+  <p class="sub-line"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19C5 10 11 4 20 4c0 9-6 15-15 15Z"/><path d="M5 19 14 10"/></svg><span>Subscribe for {{ settings.subscribe_percent | default: 20 }}% off all orders</span></p>
+{%- endif -%}

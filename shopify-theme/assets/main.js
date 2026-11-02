@@ -467,7 +467,7 @@ if (!reduceMotion) {
 /* ------------------------------------------------------------------ */
 /* Bundles: one-time vs subscribe & save pricing                       */
 /* ------------------------------------------------------------------ */
-const SUBSCRIBE_DISCOUNT = 0.15; // keep in sync with the "Save 15%" copy
+const SUBSCRIBE_DISCOUNT = 0.2; // keep in sync with the "Save 20%" copy
 const money = (n) => `$${n.toFixed(2)}`;
 document.querySelectorAll('.bundle').forEach((b) => {
   const price = Number(b.dataset.price);

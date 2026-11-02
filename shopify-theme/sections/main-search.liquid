@@ -19,7 +19,7 @@
       <h2><a href="{{ p.url }}">{{ parts[0] }}</a></h2>
       {%- if parts[1] -%}<p class="p-short">{{ parts[1] }}</p>{%- endif -%}
       <p class="p-desc">{{ p.description | strip_html | truncatewords: 18 }}</p>
-      <p class="p-price">{% if p.price_varies %}From {% endif %}{{ p.price | money }}</p>
+      {%- render 'bw-price', price: p.price, from: p.price_varies, cls: 'p-price', show_sub: true -%}
       <a class="card-link" href="{{ p.url }}">Shop {{ parts[0] }}</a>
     </div>
   </div>

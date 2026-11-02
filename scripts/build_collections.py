@@ -234,7 +234,7 @@ def collection_page(c):
       <div class="c-sub-inner">
         <div>
           <p class="eyebrow">Subscribe &amp; save</p>
-          <h2 id="c-sub-title" class="h2">Save 15% on every delivery</h2>
+          <h2 id="c-sub-title" class="h2">Save 20% on every order</h2>
         </div>
         <a class="btn btn-light" href="../index.html#subscribe">How it works</a>
       </div>
