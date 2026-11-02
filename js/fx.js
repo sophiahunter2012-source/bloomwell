@@ -3,8 +3,10 @@
 //  • giant 3D word ribbon that slides with your scroll
 //  • headings that flip in letter by letter
 //  • heart cursor + magnetic buttons (mouse / trackpad only)
-//  • tap or click the 3D heart to make it wobble and burst into gummies
+//  • tap or click the 3D heart to make it wobble and scatter leaves
+//  • a calm breathing guide synced to the heart's slow breathing
 // Everything is skipped for people who prefer reduced motion.
+import { BREATH } from './scene.js';
 
 const LOGO = `<svg viewBox="0 0 100 112" aria-hidden="true"><path d="M50 108C22 87 6 70 6 48 6 33 16 23 29 23c9 0 16 5 21 13 5-8 12-13 21-13 13 0 23 10 23 25 0 22-16 39-44 60Z" fill="#316B58"/><circle cx="50" cy="14" r="10" fill="#F2A35E"/><path d="M57 6c1-5 6-7 12-7-1 6-5 10-12 11Z" fill="#7DB36B"/></svg>`;
 
@@ -20,7 +22,7 @@ function intro(gsap) {
   const el = document.createElement('div');
   el.className = 'bw-loader';
   el.setAttribute('aria-hidden', 'true');
-  el.innerHTML = `<div class="bw-loader-mark">${LOGO}</div><div class="bw-loader-word"><span>Bloomwell</span></div>`;
+  el.innerHTML = `<div class="bw-loader-mark">${LOGO}</div><div class="bw-loader-word"><span>Bloomwell</span></div><p class="bw-loader-tag"><span>Health · Wellness</span></p>`;
   document.body.appendChild(el);
   const tl = gsap.timeline({ onComplete: () => el.remove() });
   tl.fromTo('.bw-loader-mark', { scale: 0.2, rotate: -25, opacity: 0 }, { scale: 1, rotate: 0, opacity: 1, duration: 0.6, ease: 'back.out(2.2)' })
@@ -29,6 +31,7 @@ function intro(gsap) {
     .to('.bw-loader-mark', { scale: 1.1, duration: 0.1, ease: 'power2.out' })
     .to('.bw-loader-mark', { scale: 1, duration: 0.16, ease: 'power2.in' })
     .from('.bw-loader-word span', { yPercent: 110, duration: 0.6, ease: 'power4.out' }, 0.35)
+    .from('.bw-loader-tag span', { yPercent: 110, opacity: 0, duration: 0.5, ease: 'power3.out' }, 0.6)
     .to(el, { clipPath: 'circle(0% at 50% 46%)', duration: 0.9, ease: 'power4.inOut' }, '+=0.15');
   markIntro();
   return 1.45; // seconds before the page content is revealed
@@ -37,10 +40,11 @@ function intro(gsap) {
 /* ---------- Giant word ribbon ---------- */
 function ribbon(gsap, ScrollTrigger, anchor) {
   if (!anchor) return;
-  const words = ['Glow', 'Gut', 'Rest', 'Fuel', 'Bloom'];
+  const words = ['Nourish', 'Restore', 'Hydrate', 'Balance', 'Rest'];
+  const LEAF = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19C5 10 11 4 20 4c0 9-6 15-15 15Z"/><path d="M5 19 14 10"/></svg>';
   const row = (cls) => {
     const items = [];
-    for (let r = 0; r < 4; r++) words.forEach((w, i) => items.push(`<span class="${(i + r) % 2 ? 'is-outline' : ''}">${w}</span><i>✦</i>`));
+    for (let r = 0; r < 4; r++) words.forEach((w, i) => items.push(`<span class="${(i + r) % 2 ? 'is-outline' : ''}">${w}</span><i>${LEAF}</i>`));
     return `<div class="bw-ribbon-row ${cls}">${items.join('')}</div>`;
   };
   const wrap = document.createElement('div');
@@ -98,7 +102,7 @@ function cursor(gsap) {
   const c = document.createElement('div');
   c.className = 'bw-cursor';
   c.setAttribute('aria-hidden', 'true');
-  c.innerHTML = `<span class="bw-cursor-ring"></span><span class="bw-cursor-heart">${LOGO}</span>`;
+  c.innerHTML = '<span class="bw-cursor-ring"></span><span class="bw-cursor-dot"></span>';
   document.body.appendChild(c);
   document.documentElement.classList.add('has-bw-cursor');
   const x = gsap.quickTo(c, 'x', { duration: 0.18, ease: 'power3.out' });
@@ -137,17 +141,29 @@ function tapHeart(stage) {
     if (e.target.closest('a, button, input, select, textarea, label, summary, [role="button"], .card, .p-card, .sa-card, .bundle, .moment, .review')) return;
     if (stage.hitTest(e.clientX, e.clientY)) {
       stage.burst(1);
-      if (hint) { hint.remove(); hint = null; }
     }
   });
-  // tiny hint the first time on the opening screen
+  // calm breathing guide on the opening screen, in time with the heart
   const hero = document.querySelector('.hero, .c-hero:not(.pdp):not(.cart-page)');
-  if (hero && !document.querySelector('.bw-tap-hint')) {
+  if (hero && !document.querySelector('.bw-breathe')) {
     hint = document.createElement('p');
-    hint.className = 'bw-tap-hint';
-    hint.textContent = 'Psst… tap the heart';
+    hint.className = 'bw-breathe';
     hint.setAttribute('aria-hidden', 'true');
+    hint.innerHTML = '<span class="bw-breathe-dot"></span><span class="bw-breathe-word">Breathe in</span><span class="bw-breathe-sub">tap the heart</span>';
     hero.appendChild(hint);
+    const word = hint.querySelector('.bw-breathe-word');
+    const dot = hint.querySelector('.bw-breathe-dot');
+    let last = '';
+    const tick = () => {
+      const p = (performance.now() / 1000) % BREATH;
+      const inhale = p < BREATH / 2;
+      const label = inhale ? 'Breathe in' : 'Breathe out';
+      if (label !== last) { word.textContent = label; last = label; }
+      const k = 0.5 - 0.5 * Math.cos((p / BREATH) * Math.PI * 2);
+      dot.style.transform = `scale(${0.55 + k * 0.45})`;
+      if (hint.isConnected) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
   }
 }
 

@@ -675,6 +675,8 @@ main, .site-footer { position: relative; z-index: 2; }
 .bw-loader-mark svg { width: 100%; height: 100%; }
 .bw-loader-word { overflow: hidden; font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 7vw, 72px); letter-spacing: -.02em; color: var(--ink); }
 .bw-loader-word span { display: inline-block; }
+.bw-loader-tag { overflow: hidden; margin-top: -6px; font-size: 13px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; color: var(--ink-soft); }
+.bw-loader-tag span { display: inline-block; }
 
 /* giant word ribbon */
 .bw-ribbon { position: relative; z-index: 2; overflow: hidden; padding: 40px 0 60px; perspective: 900px; pointer-events: none; }
@@ -685,7 +687,8 @@ main, .site-footer { position: relative; z-index: 2; }
 }
 .bw-ribbon-row + .bw-ribbon-row { margin-top: .08em; margin-left: -.6em; }
 .bw-ribbon-row .is-outline { color: transparent; -webkit-text-stroke: 2px var(--ink); }
-.bw-ribbon-row i { font-style: normal; font-size: .38em; color: var(--orange); transform: translateY(-.15em); }
+.bw-ribbon-row i { display: inline-flex; width: .42em; height: .42em; color: var(--leaf); transform: translateY(-.05em); }
+.bw-ribbon-row i svg { width: 100%; height: 100%; fill: currentColor; stroke: var(--bg); stroke-width: 1.2; stroke-linecap: round; }
 .row-b { color: var(--heart); }
 .row-b .is-outline { -webkit-text-stroke-color: var(--heart); }
 
@@ -700,21 +703,23 @@ main, .site-footer { position: relative; z-index: 2; }
   position: absolute; left: -18px; top: -18px; width: 36px; height: 36px; border-radius: 50%;
   border: 1.5px solid var(--ink); transition: transform .35s var(--ease-out), background-color .3s, border-color .3s;
 }
-.bw-cursor-heart { position: absolute; left: -6px; top: -7px; width: 12px; height: 14px; transition: transform .35s var(--ease-out); }
-.bw-cursor-heart svg { width: 100%; height: 100%; }
-.bw-cursor.is-hover .bw-cursor-ring { transform: scale(1.7); background: color-mix(in srgb, var(--orange) 22%, transparent); border-color: var(--orange); }
-.bw-cursor.is-hover .bw-cursor-heart { transform: scale(1.4); }
+.bw-cursor-dot { position: absolute; left: -3px; top: -3px; width: 6px; height: 6px; border-radius: 50%; background: var(--ink); transition: transform .35s var(--ease-out); }
+.bw-cursor.is-hover .bw-cursor-ring { transform: scale(1.7); background: color-mix(in srgb, var(--leaf) 18%, transparent); border-color: var(--heart); }
+.bw-cursor.is-hover .bw-cursor-dot { transform: scale(0); }
 .bw-cursor.is-down .bw-cursor-ring { transform: scale(.8); }
 @media (hover: hover) and (pointer: fine) { .has-bw-cursor, .has-bw-cursor a, .has-bw-cursor button { cursor: none; } .has-bw-cursor input, .has-bw-cursor textarea { cursor: text; } }
 
-/* tap hint */
-.bw-tap-hint {
+/* breathing guide */
+.bw-breathe {
   position: absolute; right: var(--gutter); top: 96px; z-index: 3; margin: 0;
-  padding: 8px 14px; border-radius: 999px; background: var(--card); box-shadow: var(--shadow-soft);
-  font-size: 13px; font-weight: 600; color: var(--ink-soft); animation: bw-hint 2.6s ease-in-out 3s infinite both;
+  display: inline-flex; align-items: center; gap: 10px; padding: 9px 16px 9px 12px; border-radius: 999px;
+  background: color-mix(in srgb, var(--card) 85%, transparent); box-shadow: var(--shadow-soft);
+  font-size: 13px; color: var(--ink-soft);
 }
-@keyframes bw-hint { 0%, 100% { transform: translateY(0); opacity: .95; } 50% { transform: translateY(-6px); opacity: 1; } }
-@media (max-width: 900px) { .bw-tap-hint { top: 84px; font-size: 12px; } }
+.bw-breathe-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--leaf); box-shadow: 0 0 0 4px color-mix(in srgb, var(--leaf) 25%, transparent); transform: scale(.55); }
+.bw-breathe-word { font-weight: 600; color: var(--ink); min-width: 7.2em; }
+.bw-breathe-sub { padding-left: 10px; border-left: 1px solid var(--line); font-size: 12px; }
+@media (max-width: 900px) { .bw-breathe { top: 84px; font-size: 12px; } .bw-breathe-sub { display: none; } }
 
 /* ---------- motion preferences ---------- */
 @media (prefers-reduced-motion: reduce) {

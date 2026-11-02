@@ -41,6 +41,9 @@ function leafShape() {
   return s;
 }
 
+// One full breath, shared with the on-page breathing guide (fx.js)
+export const BREATH = 5.5;
+
 export function createScene(canvas, { lowPower = false } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: !lowPower, alpha: true, powerPreference: lowPower ? 'default' : 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lowPower ? 1.5 : 1.75));
@@ -125,74 +128,42 @@ export function createScene(canvas, { lowPower = false } = {}) {
   }
   scene.add(gummies);
 
-  // ---- Orbiting gummies (a little ring around the heart) -----------------
+  // ---- Ingredient orbs orbiting the heart (citrus, berry, greens) --------
   const ORBIT = lowPower ? 7 : 10;
-  const orbitMat = new THREE.MeshPhysicalMaterial({ roughness: 0.55, clearcoat: 0.3, sheen: 1, sheenRoughness: 0.35, sheenColor: new THREE.Color('#ffffff') });
-  const orbitRing = new THREE.InstancedMesh(gummyGeo, orbitMat, ORBIT);
+  const orbitMat = new THREE.MeshPhysicalMaterial({ roughness: 0.5, clearcoat: 0.45, clearcoatRoughness: 0.3, sheen: 0.4, sheenColor: new THREE.Color('#fff7e8') });
+  const orbitRing = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 24, 16), orbitMat, ORBIT);
   orbitRing.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-  for (let i = 0; i < ORBIT; i++) orbitRing.setColorAt(i, new THREE.Color(palette[(i * 3) % palette.length]));
+  const ingredients = ['#F2A35E', '#7DB36B', '#E2B54A', '#B5566A', '#A6C78B', '#E8937A'];
+  for (let i = 0; i < ORBIT; i++) orbitRing.setColorAt(i, new THREE.Color(ingredients[i % ingredients.length]));
   heartGroup.add(orbitRing);   // follows the heart's position + size, not its spin
 
   // ---- Burst gummies (tap / click the heart) -----------------------------
   const BURST = lowPower ? 18 : 30;
-  const burstMesh = new THREE.InstancedMesh(gummyGeo, orbitMat.clone(), BURST);
+  const leafBurstGeo = new THREE.ExtrudeGeometry(leafShape(), { depth: 0.04, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.03, bevelSegments: 2, curveSegments: 12 });
+  leafBurstGeo.center();
+  const greens = ['#7DB36B', '#A6C78B', '#5E8F6E', '#C9DAB4', '#8DB87A', '#F2A35E'];
+  const burstMesh = new THREE.InstancedMesh(leafBurstGeo, new THREE.MeshStandardMaterial({ roughness: 0.6, side: THREE.DoubleSide }), BURST);
   burstMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   burstMesh.frustumCulled = false;
   const bursts = [];
   for (let i = 0; i < BURST; i++) {
-    burstMesh.setColorAt(i, new THREE.Color(palette[(i * 5) % palette.length]));
+    burstMesh.setColorAt(i, new THREE.Color(greens[i % greens.length]));
     bursts.push({ life: 0, p: new THREE.Vector3(), v: new THREE.Vector3(), r: new THREE.Euler(), w: new THREE.Vector3(), s: 0.2 });
   }
   scene.add(burstMesh);
 
-  // ---- Sparkle field (soft glowing dots, tinted to the section colour) ---
-  const SPARKS = lowPower ? 140 : 380;
-  const sparkGeo = new THREE.BufferGeometry();
-  const sp = new Float32Array(SPARKS * 3);
-  const sa = new Float32Array(SPARKS * 2);
-  for (let i = 0; i < SPARKS; i++) {
-    sp[i * 3] = rand(-1, 1); sp[i * 3 + 1] = rand(0, 1); sp[i * 3 + 2] = rand(-9, 2);
-    sa[i * 2] = rand(0.6, 1.6); sa[i * 2 + 1] = rand(0, Math.PI * 2);
+  // ---- Drifting botanical leaves -----------------------------------------
+  const LEAVES = lowPower ? 12 : 26;
+  const leafMat = new THREE.MeshStandardMaterial({ roughness: 0.65, side: THREE.DoubleSide, transparent: true, opacity: 1 });
+  const leafField = new THREE.InstancedMesh(leafBurstGeo, leafMat, LEAVES);
+  leafField.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  leafField.frustumCulled = false;
+  const leafSeeds = [];
+  for (let i = 0; i < LEAVES; i++) {
+    leafSeeds.push({ x: rand(-1, 1), y: rand(0, 1), z: rand(-7, 0.5), s: rand(0.35, 0.7), sp: rand(0.25, 0.7), ph: rand(0, 6.3), sw: rand(0.4, 1.2) });
+    leafField.setColorAt(i, new THREE.Color(greens[i % 5]));
   }
-  sparkGeo.setAttribute('position', new THREE.BufferAttribute(sp, 3));
-  sparkGeo.setAttribute('seed', new THREE.BufferAttribute(sa, 2));
-  const sparkMat = new THREE.ShaderMaterial({
-    transparent: true, depthWrite: false,
-    uniforms: {
-      uTime: { value: 0 }, uScroll: { value: 0 }, uView: { value: new THREE.Vector2(1, 1) },
-      uColor: { value: new THREE.Color('#316B58') }, uAlpha: { value: 1 }, uPx: { value: renderer.getPixelRatio() },
-    },
-    vertexShader: `
-      attribute vec2 seed;
-      uniform float uTime, uScroll, uPx;
-      uniform vec2 uView;
-      varying float vTw;
-      void main() {
-        vec3 p = position;
-        float span = uView.y * 1.8;
-        float depth = 1.0 + (-p.z) * 0.16;
-        float y = mod(p.y * span + uTime * 0.18 * seed.x + uScroll * span * 1.4 * seed.x, span) - span * 0.5;
-        vec3 w = vec3(p.x * uView.x * 0.6 * depth + sin(uTime * 0.3 + seed.y) * 0.4, y * depth, p.z);
-        vec4 mv = modelViewMatrix * vec4(w, 1.0);
-        vTw = 0.55 + 0.45 * sin(uTime * (1.2 + seed.x) + seed.y * 3.0);
-        gl_PointSize = (5.0 + seed.x * 6.0) * uPx * (10.0 / -mv.z);
-        gl_Position = projectionMatrix * mv;
-      }`,
-    fragmentShader: `
-      uniform vec3 uColor;
-      uniform float uAlpha;
-      varying float vTw;
-      void main() {
-        float d = length(gl_PointCoord - 0.5);
-        float a = smoothstep(0.5, 0.0, d);
-        float core = smoothstep(0.18, 0.0, d);
-        vec3 c = mix(uColor, vec3(1.0, 0.97, 0.9), core * 0.7);
-        gl_FragColor = vec4(c, a * a * vTw * 0.75 * uAlpha);
-      }`,
-  });
-  const sparkles = new THREE.Points(sparkGeo, sparkMat);
-  sparkles.frustumCulled = false;
-  scene.add(sparkles);
+  scene.add(leafField);
 
   // Jelly wobble spring + spin kick for tap reactions
   const jelly = { x: 0, v: 0, spin: 0, spinV: 0 };
@@ -268,8 +239,8 @@ export function createScene(canvas, { lowPower = false } = {}) {
       b.v.set(Math.cos(a) * sp2, up * sp2 * 0.9 + 2, Math.sin(a) * sp2 * 0.6 + 1.5);
       b.r.set(rand(0, 6), rand(0, 6), rand(0, 6));
       b.w.set(rand(-8, 8), rand(-8, 8), rand(-8, 8));
-      b.s = rand(0.16, 0.3);
-      b.life = rand(1.3, 1.9);
+      b.s = rand(0.45, 0.8);
+      b.life = rand(1.5, 2.1);
     }
   }
 
@@ -305,9 +276,8 @@ export function createScene(canvas, { lowPower = false } = {}) {
       state.z,
     );
     heartGroup.scale.setScalar(Math.max(size * ease, 0.0001));
-    // heartbeat (double pulse), scroll squash & stretch, and jelly wobble
-    const ph = t % 1.5;
-    const beat = 1 + 0.045 * Math.exp(-((ph - 0.1) ** 2) / 0.0016) + 0.03 * Math.exp(-((ph - 0.32) ** 2) / 0.0016);
+    // slow breathing (in for 2.75 s, out for 2.75 s), scroll squash & stretch, jelly wobble
+    const beat = 1 + 0.04 * Math.sin((t / BREATH) * Math.PI * 2 - Math.PI / 2) + 0.04;
     const sq = Math.min(Math.abs(state.vel), 1) * 0.16;
     heartSpin.scale.set(beat * (1 - sq * 0.5 + jelly.x * 0.22), beat * (1 + sq - jelly.x * 0.22), beat * (1 + jelly.x * 0.12));
     heartSpin.rotation.y = jelly.spin + state.turn + state.scroll * Math.PI * 4 + Math.sin(t * 0.6) * 0.22 + pointer.x * 0.35 + (1 - ease) * -2.5;
@@ -339,13 +309,14 @@ export function createScene(canvas, { lowPower = false } = {}) {
       if (b.life > 0) {
         anyBurst = true;
         b.life -= dt;
-        b.v.y -= 7.5 * dt;
+        b.v.y -= 3.2 * dt;                       // leaves float down gently
+        b.v.x += Math.sin(t * 3 + i) * 2.2 * dt;  // and flutter
         b.v.multiplyScalar(Math.pow(0.6, dt));
         b.p.addScaledVector(b.v, dt);
         b.r.x += b.w.x * dt; b.r.y += b.w.y * dt; b.r.z += b.w.z * dt;
         dummy.position.copy(b.p);
         dummy.rotation.copy(b.r);
-        dummy.scale.setScalar(b.s * Math.min(1, b.life / 0.5) * Math.min(1, (1.9 - b.life) * 8));
+        dummy.scale.setScalar(b.s * Math.min(1, b.life / 0.6) * Math.min(1, (2.1 - b.life) * 8));
       } else {
         dummy.scale.setScalar(0.0001);
       }
@@ -355,12 +326,25 @@ export function createScene(canvas, { lowPower = false } = {}) {
     burstMesh.visible = anyBurst;
     if (anyBurst) burstMesh.instanceMatrix.needsUpdate = true;
 
-    // Sparkles
-    sparkMat.uniforms.uTime.value = t;
-    sparkMat.uniforms.uScroll.value = state.scroll;
-    sparkMat.uniforms.uView.value.set(vw, vh);
-    sparkMat.uniforms.uColor.value.copy(heartMat.color);
-    sparkMat.uniforms.uAlpha.value = state.sparkles * ease;
+    // Leaves drift down, swaying like they're falling through still air
+    leafMat.opacity = state.sparkles * ease;
+    leafField.visible = leafMat.opacity > 0.01;
+    if (leafField.visible) {
+      const span = vh * 1.7;
+      for (let i = 0; i < LEAVES; i++) {
+        const l = leafSeeds[i];
+        const depth = 1 + (-l.z) * 0.17;
+        let y = (l.y * span - t * 0.22 * l.sp - state.scroll * span * 1.2 * l.sp) % span;
+        if (y < 0) y += span;
+        y -= span / 2;
+        dummy.position.set(l.x * (vw / 2) * 1.15 * depth + Math.sin(t * 0.5 * l.sw + l.ph) * 0.6, y * depth, l.z);
+        dummy.rotation.set(Math.sin(t * 0.7 + l.ph) * 0.9, t * 0.3 * l.sw + l.ph, Math.sin(t * 0.9 * l.sw + l.ph) * 0.8);
+        dummy.scale.setScalar(l.s);
+        dummy.updateMatrix();
+        leafField.setMatrixAt(i, dummy.matrix);
+      }
+      leafField.instanceMatrix.needsUpdate = true;
+    }
 
     // Gummies drift upward and react to scroll
     gummyMat.opacity = state.gummies * ease;
