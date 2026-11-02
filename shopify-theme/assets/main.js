@@ -87,8 +87,8 @@ if (stage) ScrollTrigger.create({ start: 0, end: 'max', onUpdate: (s) => { state
 
 // Heart poses per section. x/y are fractions of the half-viewport.
 const PRESETS = {
-  hero:      { d: { x: 0.44, y: -0.1,  scale: 0.95, tilt: 0,    turn: 0,           color: '#316B58', fruit: 1, gummies: 1,   bg: '#FAF5EC' },
-               m: { x: 0,    y: 0.6,   scale: 0.38, tilt: 0,    turn: 0,           color: '#316B58', fruit: 1, gummies: 1,   bg: '#FAF5EC' } },
+  hero:      { d: { x: 0.5,  y: -0.22, scale: 0.85, tilt: 0,    turn: 0,           color: '#316B58', fruit: 1, gummies: 0.4, bg: '#FAF5EC' },
+               m: { x: 0,    y: 0.44,  scale: 0.3,  tilt: 0,    turn: 0,           color: '#316B58', fruit: 1, gummies: 0.35,   bg: '#FAF5EC' } },
   manifesto: { d: { x: -0.5, y: -0.08, scale: 0.8,  tilt: 0.25, turn: Math.PI,     color: '#316B58', fruit: 1, gummies: 0.7, bg: '#F6EEE1' },
                m: { x: 0.55, y: 0.62,  scale: 0.35, tilt: 0.25, turn: Math.PI,     color: '#316B58', fruit: 1, gummies: 0.6, bg: '#F6EEE1' } },
   glow:      { d: { x: 0.5,  y: -0.04, scale: 1.25, tilt: 0.1,  turn: Math.PI * 2, color: '#F0AE9C', fruit: 0, gummies: 0.5, bg: '#FBEAE4' },
@@ -133,7 +133,7 @@ function applyPreset(name, instant = false) {
   const { bg, ...pose } = p;
   if (stage) {
     if (name === 'cta') state.anchorEl = ctaHeart;
-    gsap.to(state, { anchor: name === 'cta' ? 1 : 0, orbit: name === 'hero' || name === 'cta' ? 1 : 0, ...pose, duration: dur, ease: 'power3.inOut', overwrite: 'auto' });
+    gsap.to(state, { anchor: name === 'cta' ? 1 : 0, orbit: name === 'hero' || name === 'cta' ? 1 : 0, sparkles: name === 'hero' ? 0.35 : 1, ...pose, duration: dur, ease: 'power3.inOut', overwrite: 'auto' });
   }
   if (bg) gsap.to(root, { '--bg': bg, duration: dur, ease: 'power2.inOut', overwrite: 'auto' });
 }

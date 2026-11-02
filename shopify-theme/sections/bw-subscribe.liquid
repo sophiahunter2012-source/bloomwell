@@ -1,26 +1,168 @@
 <section class="subscribe" id="subscribe" aria-labelledby="subscribe-title">
-      <div class="subscribe-inner">
-        <div class="subscribe-copy">
-          <p class="eyebrow">Subscribe &amp; save</p>
-          <h2 id="subscribe-title" class="h2">Never run out of your ritual</h2>
-          <p class="lede">Save 20% on every order when you subscribe to any product or bundle.</p>
-        </div>
-        <ol class="steps">
-          <li><span class="step-num">1</span><h3>Pick your ritual</h3><p>Any product or bundle, any flavour.</p></li>
-          <li><span class="step-num">2</span><h3>Choose your rhythm</h3><p>Delivered every 30, 60 or 90 days.</p></li>
-          <li><span class="step-num">3</span><h3>Save 20%, always</h3><p>Skip, swap or cancel any time from your account.</p></li>
-        </ol>
+  <div class="subscribe-inner box-inner">
+    <div class="box-head">
+      <div class="subscribe-copy">
+        <p class="eyebrow">Subscribe &amp; save</p>
+        <h2 id="subscribe-title" class="h2">Never run out of your ritual</h2>
+        <p class="lede">Build your own box: pick your products, see how long they'll last, and we'll suggest how often to deliver.</p>
       </div>
-    </section>
+      <ol class="steps steps-tight">
+        <li><span class="step-num">1</span><div><h3>Pick your products</h3><p>Any mix, any flavour.</p></div></li>
+        <li><span class="step-num">2</span><div><h3>See how long it lasts</h3><p>We work it out as you go.</p></div></li>
+        <li><span class="step-num">3</span><div><h3>Choose your rhythm</h3><p>Every 30, 60 or 90 days.</p></div></li>
+      </ol>
+    </div>
+
+    {%- liquid
+      assign rest_pct = 100
+      if settings.sale_enabled
+        assign rest_pct = 100 | minus: settings.sale_percent
+      endif
+      assign has_plans = false
+    -%}
+    <div class="box" data-box data-sale="{{ rest_pct }}" data-sub="{{ settings.subscribe_percent }}">
+      <div class="box-pick">
+        <div class="box-chips" role="group" aria-label="Filter products">
+          <button type="button" class="box-chip" data-box-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="box-chip" data-box-filter="gummies" aria-pressed="false">Gummies</button>
+        <button type="button" class="box-chip" data-box-filter="protein" aria-pressed="false">Protein</button>
+        <button type="button" class="box-chip" data-box-filter="teas" aria-pressed="false">Teas</button>
+        <button type="button" class="box-chip" data-box-filter="powders" aria-pressed="false">Powders</button>
+        <button type="button" class="box-chip" data-box-filter="body" aria-pressed="false">Body care</button>
+        <button type="button" class="box-chip" data-box-filter="home" aria-pressed="false">Home</button>
+        </div>
+        <ul class="box-grid" role="list">
+          {%- for p in collections.all.products limit: 60 -%}
+            {%- liquid
+              assign v = p.selected_or_first_available_variant
+              assign kind = 'other'
+              assign days = 30
+              for t in p.tags
+                case t
+      when 'type:gummies'
+        assign kind = 'gummies'
+        assign days = section.settings.days_gummies
+      when 'type:protein'
+        assign kind = 'protein'
+        assign days = section.settings.days_protein
+      when 'type:teas'
+        assign kind = 'teas'
+        assign days = section.settings.days_teas
+      when 'type:powders'
+        assign kind = 'powders'
+        assign days = section.settings.days_powders
+      when 'type:body'
+        assign kind = 'body'
+        assign days = section.settings.days_body
+      when 'type:home'
+        assign kind = 'home'
+        assign days = section.settings.days_home
+                endcase
+              endfor
+              assign mf_servings = p.metafields.bloomwell.servings.value | plus: 0
+              if mf_servings > 0
+                assign days = mf_servings
+              endif
+              assign plan = p.selling_plan_groups.first.selling_plans.first
+              if plan
+                assign has_plans = true
+              endif
+            -%}
+            {%- if v.available -%}
+            <li class="box-item" data-kind="{{ kind }}" data-id="{{ v.id }}" data-price="{{ v.price }}" data-days="{{ days }}" data-name="{{ p.title | split: ' — ' | first | escape }}"{% if plan %} data-plan="{{ plan.id }}"{% endif %}>
+              <div class="box-img">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 240 | image_tag: alt: '', loading: 'lazy', width: 120, height: 120 }}{%- endif -%}</div>
+              <div class="box-meta">
+                <p class="box-name">{{ p.title | split: ' — ' | first }}</p>
+                <p class="box-price">{{ v.price | money }}<span> · ~{{ days }} days</span></p>
+              </div>
+              <div class="qty box-qty">
+                <button type="button" data-box-step="-1" aria-label="Remove one {{ p.title | split: ' — ' | first | escape }}">−</button>
+                <output aria-live="polite">0</output>
+                <button type="button" data-box-step="1" aria-label="Add one {{ p.title | split: ' — ' | first | escape }}">+</button>
+              </div>
+            </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <aside class="box-summary" aria-labelledby="box-title">
+        <h3 id="box-title">Your box</h3>
+        <p class="box-empty" data-box-empty>Tap + on anything you'd like.</p>
+        <ul class="box-lines" role="list" data-box-lines></ul>
+        <div class="box-lasts" data-box-lasts hidden>
+          <span class="box-ring" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"/><circle class="box-ring-fill" cx="22" cy="22" r="19" pathLength="100"/></svg></span>
+          <p>Lasts about <strong data-box-days>0</strong> days<small>Based on one serving a day. Check each label for the exact serving.</small></p>
+        </div>
+        <fieldset class="box-rhythm">
+          <legend>Deliver every</legend>
+          <label><input type="radio" name="box-rhythm" value="30" checked><span>30 days</span></label>
+          <label><input type="radio" name="box-rhythm" value="60"><span>60 days</span></label>
+          <label><input type="radio" name="box-rhythm" value="90"><span>90 days</span></label>
+        </fieldset>
+        <p class="box-hint" data-box-hint></p>
+        <dl class="box-totals">
+          <div><dt>Box total</dt><dd data-box-total>{{ 0 | money }}</dd></div>
+          {%- if settings.sale_enabled -%}<div class="box-save"><dt>Includes {{ settings.sale_percent }}% sale</dt><dd data-box-was></dd></div>{%- endif -%}
+          {%- if has_plans -%}<div class="box-save"><dt>When you subscribe ({{ settings.subscribe_percent }}% off)</dt><dd data-box-sub></dd></div>{%- endif -%}
+        </dl>
+        <button type="button" class="btn btn-block box-add" data-box-add disabled>Add my box to bag</button>
+        <p class="box-note">{% if has_plans %}Subscribe and save {{ settings.subscribe_percent }}% on every delivery. Skip, swap or cancel any time.{% else %}Subscriptions are coming soon. For now your box is added to your bag as a one-off order.{% endif %}</p>
+      </aside>
+    </div>
+  </div>
+</section>
 
 {% schema %}
 {
-  "name": "Subscribe & save",
+  "name": "Subscribe & save box",
   "tag": "div",
   "class": "bw-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "How many days each product type lasts, used when a product has no servings metafield (bloomwell.servings)."
+    },
+    {
+      "type": "number",
+      "id": "days_gummies",
+      "label": "Gummies: days per pack",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "days_protein",
+      "label": "Protein: days per pack",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "days_teas",
+      "label": "Teas: days per pack",
+      "default": 20
+    },
+    {
+      "type": "number",
+      "id": "days_powders",
+      "label": "Powders: days per pack",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "days_body",
+      "label": "Body care: days per pack",
+      "default": 60
+    },
+    {
+      "type": "number",
+      "id": "days_home",
+      "label": "Home: days per pack",
+      "default": 45
+    }
+  ],
   "presets": [
     {
-      "name": "Subscribe & save"
+      "name": "Subscribe & save box"
     }
   ]
 }

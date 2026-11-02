@@ -132,6 +132,109 @@ for cls, file, name in [
 ]:
     put(f"sections/{file}.liquid", convert(by_class[cls]) + "\n" + schema(name, {"presets": [{"name": name}]}))
 
+# Subscribe & save: build-your-own box (pick products, see how long it lasts)
+BOX_TYPES = [("gummies", "Gummies", 30), ("protein", "Protein", 30), ("teas", "Teas", 20),
+             ("powders", "Powders", 30), ("body", "Body care", 60), ("home", "Home", 45)]
+box_days_case = "\n".join(f"      when 'type:{k}'\n        assign kind = '{k}'\n        assign days = section.settings.days_{k}" for k, _, _ in BOX_TYPES)
+box_chips = "\n".join(f'        <button type="button" class="box-chip" data-box-filter="{k}" aria-pressed="false">{n}</button>' for k, n, _ in BOX_TYPES)
+put("sections/bw-subscribe.liquid", """<section class="subscribe" id="subscribe" aria-labelledby="subscribe-title">
+  <div class="subscribe-inner box-inner">
+    <div class="box-head">
+      <div class="subscribe-copy">
+        <p class="eyebrow">Subscribe &amp; save</p>
+        <h2 id="subscribe-title" class="h2">Never run out of your ritual</h2>
+        <p class="lede">Build your own box: pick your products, see how long they'll last, and we'll suggest how often to deliver.</p>
+      </div>
+      <ol class="steps steps-tight">
+        <li><span class="step-num">1</span><div><h3>Pick your products</h3><p>Any mix, any flavour.</p></div></li>
+        <li><span class="step-num">2</span><div><h3>See how long it lasts</h3><p>We work it out as you go.</p></div></li>
+        <li><span class="step-num">3</span><div><h3>Choose your rhythm</h3><p>Every 30, 60 or 90 days.</p></div></li>
+      </ol>
+    </div>
+
+    {%- liquid
+      assign rest_pct = 100
+      if settings.sale_enabled
+        assign rest_pct = 100 | minus: settings.sale_percent
+      endif
+      assign has_plans = false
+    -%}
+    <div class="box" data-box data-sale="{{ rest_pct }}" data-sub="{{ settings.subscribe_percent }}">
+      <div class="box-pick">
+        <div class="box-chips" role="group" aria-label="Filter products">
+          <button type="button" class="box-chip" data-box-filter="all" aria-pressed="true">All</button>
+""" + box_chips + """
+        </div>
+        <ul class="box-grid" role="list">
+          {%- for p in collections.all.products limit: 60 -%}
+            {%- liquid
+              assign v = p.selected_or_first_available_variant
+              assign kind = 'other'
+              assign days = 30
+              for t in p.tags
+                case t
+""" + box_days_case + """
+                endcase
+              endfor
+              assign mf_servings = p.metafields.bloomwell.servings.value | plus: 0
+              if mf_servings > 0
+                assign days = mf_servings
+              endif
+              assign plan = p.selling_plan_groups.first.selling_plans.first
+              if plan
+                assign has_plans = true
+              endif
+            -%}
+            {%- if v.available -%}
+            <li class="box-item" data-kind="{{ kind }}" data-id="{{ v.id }}" data-price="{{ v.price }}" data-days="{{ days }}" data-name="{{ p.title | split: ' — ' | first | escape }}"{% if plan %} data-plan="{{ plan.id }}"{% endif %}>
+              <div class="box-img">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 240 | image_tag: alt: '', loading: 'lazy', width: 120, height: 120 }}{%- endif -%}</div>
+              <div class="box-meta">
+                <p class="box-name">{{ p.title | split: ' — ' | first }}</p>
+                <p class="box-price">{{ v.price | money }}<span> · ~{{ days }} days</span></p>
+              </div>
+              <div class="qty box-qty">
+                <button type="button" data-box-step="-1" aria-label="Remove one {{ p.title | split: ' — ' | first | escape }}">−</button>
+                <output aria-live="polite">0</output>
+                <button type="button" data-box-step="1" aria-label="Add one {{ p.title | split: ' — ' | first | escape }}">+</button>
+              </div>
+            </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <aside class="box-summary" aria-labelledby="box-title">
+        <h3 id="box-title">Your box</h3>
+        <p class="box-empty" data-box-empty>Tap + on anything you'd like.</p>
+        <ul class="box-lines" role="list" data-box-lines></ul>
+        <div class="box-lasts" data-box-lasts hidden>
+          <span class="box-ring" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"/><circle class="box-ring-fill" cx="22" cy="22" r="19" pathLength="100"/></svg></span>
+          <p>Lasts about <strong data-box-days>0</strong> days<small>Based on one serving a day. Check each label for the exact serving.</small></p>
+        </div>
+        <fieldset class="box-rhythm">
+          <legend>Deliver every</legend>
+          <label><input type="radio" name="box-rhythm" value="30" checked><span>30 days</span></label>
+          <label><input type="radio" name="box-rhythm" value="60"><span>60 days</span></label>
+          <label><input type="radio" name="box-rhythm" value="90"><span>90 days</span></label>
+        </fieldset>
+        <p class="box-hint" data-box-hint></p>
+        <dl class="box-totals">
+          <div><dt>Box total</dt><dd data-box-total>{{ 0 | money }}</dd></div>
+          {%- if settings.sale_enabled -%}<div class="box-save"><dt>Includes {{ settings.sale_percent }}% sale</dt><dd data-box-was></dd></div>{%- endif -%}
+          {%- if has_plans -%}<div class="box-save"><dt>When you subscribe ({{ settings.subscribe_percent }}% off)</dt><dd data-box-sub></dd></div>{%- endif -%}
+        </dl>
+        <button type="button" class="btn btn-block box-add" data-box-add disabled>Add my box to bag</button>
+        <p class="box-note">{% if has_plans %}Subscribe and save {{ settings.subscribe_percent }}% on every delivery. Skip, swap or cancel any time.{% else %}Subscriptions are coming soon. For now your box is added to your bag as a one-off order.{% endif %}</p>
+      </aside>
+    </div>
+  </div>
+</section>
+""" + schema("Subscribe & save box", {
+    "settings": [{"type": "paragraph", "content": "How many days each product type lasts, used when a product has no servings metafield (bloomwell.servings)."}]
+    + [{"type": "number", "id": f"days_{k}", "label": f"{n}: days per pack", "default": d} for k, n, d in BOX_TYPES],
+    "presets": [{"name": "Subscribe & save box"}],
+}))
+
 # Press strip with editable blocks
 put("sections/bw-press.liquid", """<section class="press" aria-labelledby="press-title">
   <p id="press-title" class="press-label">{{ section.settings.label }}{% if section.settings.example %} <span class="example-tag">Example</span>{% endif %}</p>
@@ -367,26 +470,66 @@ put("sections/bw-header.liquid", """{%- liquid
 </header>
 """ + schema("Header"))
 
-coll_links = "\n".join(f'      {{%- assign c = collections["{h}"] -%}}{{%- if c.id -%}}<a href="{{{{ c.url }}}}">{{{{ c.title }}}}</a>{{%- endif -%}}' for h in TYPE_COLLS + RITUAL_COLLS)
+def flinks(hs):
+    return "\n".join(f'          {{%- assign c = collections["{h}"] -%}}{{%- if c.id -%}}<li><a href="{{{{ c.url }}}}">{{{{ c.title }}}}</a></li>{{%- endif -%}}' for h in hs)
+
+
 put("sections/bw-footer.liquid", """<footer class="site-footer">
-  <div class="footer-top">
-    <a class="brand brand-footer" href="{{ routes.root_url }}" aria-label="{{ shop.name }} home">
-      """ + LOGO + """
-      <span class="brand-word">Bloomwell</span>
-    </a>
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="{{ routes.collections_url }}">All collections</a>
-      {%- assign rp = pages['refund-policy'] -%}{%- if rp.id -%}<a href="{{ rp.url }}">Refund policy</a>{%- endif -%}
-      {%- for policy in shop.policies -%}{%- unless policy.title contains 'Refund' and rp.id -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endunless -%}{%- endfor -%}
-""" + coll_links + """
-      {%- for link in linklists.footer.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="brand brand-footer" href="{{ routes.root_url }}" aria-label="{{ shop.name }} home">
+        """ + LOGO + """
+        <span class="brand-word">Bloomwell</span>
+      </a>
+      <p class="footer-tag">{{ section.settings.tagline }}</p>
+      <ul class="footer-perks" role="list">
+        <li>Free UK delivery over £35</li>
+        <li>30-day returns on unopened items</li>
+        <li>Secure checkout</li>
+      </ul>
+    </div>
+    <nav class="footer-col" aria-labelledby="f-shop">
+      <h2 id="f-shop" class="footer-h">Shop</h2>
+      <ul role="list">
+        <li><a href="{{ routes.all_products_collection_url }}">Shop all</a></li>
+""" + flinks(TYPE_COLLS) + """
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-labelledby="f-rituals">
+      <h2 id="f-rituals" class="footer-h">Rituals</h2>
+      <ul role="list">
+""" + flinks(RITUAL_COLLS) + """
+        <li><a href="{{ routes.root_url }}#bundles">Bundles</a></li>
+        <li><a href="{{ routes.root_url }}#subscribe">Build a box</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-labelledby="f-help">
+      <h2 id="f-help" class="footer-h">Help</h2>
+      <ul role="list">
+        {%- assign dp = pages['delivery'] -%}{%- if dp.id -%}<li><a href="{{ dp.url }}">Delivery</a></li>{%- endif -%}
+        {%- assign rp = pages['refund-policy'] -%}{%- if rp.id -%}<li><a href="{{ rp.url }}">Refunds &amp; returns</a></li>{%- endif -%}
+        <li><a href="{{ routes.cart_url }}">Your bag</a></li>
+        {%- if shop.customer_accounts_enabled -%}<li><a href="{{ routes.account_url }}">Your account</a></li>{%- endif -%}
+        {%- if shop.email != blank -%}<li><a href="mailto:{{ shop.email }}">Contact us</a></li>{%- endif -%}
+        {%- for link in linklists.footer.links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-labelledby="f-legal">
+      <h2 id="f-legal" class="footer-h">Policies</h2>
+      <ul role="list">
+        {%- for policy in shop.policies -%}{%- unless policy.title contains 'Refund' and rp.id -%}<li><a href="{{ policy.url }}">{{ policy.title }}</a></li>{%- endunless -%}{%- endfor -%}
+      </ul>
     </nav>
   </div>
-  <p class="disclaimer">{{ section.settings.disclaimer }}</p>
-  <p class="copyright">© <span id="year">{{ 'now' | date: '%Y' }}</span> {{ shop.name }}. Health · Wellness.</p>
+  <div class="footer-bottom">
+    <p class="disclaimer">{{ section.settings.disclaimer }}</p>
+    <p class="copyright">© <span id="year">{{ 'now' | date: '%Y' }}</span> {{ shop.name }}. Health · Wellness.</p>
+  </div>
 </footer>
-""" + schema("Footer", {"settings": [{"type": "textarea", "id": "disclaimer", "label": "Disclaimer",
-    "default": "*These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease. Consult your healthcare provider before starting any supplement, especially if you are pregnant, nursing or taking medication."}]}))
+""" + schema("Footer", {"settings": [
+    {"type": "text", "id": "tagline", "label": "Tagline", "default": "Everyday rituals for your gut, skin, sleep and energy."},
+    {"type": "textarea", "id": "disclaimer", "label": "Disclaimer",
+    "default": "Food supplements should not be used as a substitute for a varied, balanced diet and a healthy lifestyle. Do not exceed the recommended daily dose. Our products are not intended to diagnose, treat, cure or prevent any disease. Speak to your GP or pharmacist before starting a supplement, especially if you are pregnant, breastfeeding or taking medication."}]}))
 
 # --------------------------------------------------------------------------
 # Layout
@@ -457,7 +600,7 @@ put("layout/theme.liquid", PALETTE_LIQUID + """
   <script src="{{ 'gsap.min.js' | asset_url }}" defer></script>
   <script src="{{ 'ScrollTrigger.min.js' | asset_url }}" defer></script>
   <script src="{{ 'lenis.min.js' | asset_url }}" defer></script>
-  <script>window.BW = { cartUrl: {{ routes.cart_url | json }}, cartAddUrl: {{ routes.cart_add_url | json }}, root: {{ routes.root_url | json }} };</script>
+  <script>window.BW = { cartUrl: {{ routes.cart_url | json }}, cartAddUrl: {{ routes.cart_add_url | json }}, root: {{ routes.root_url | json }}, currency: {{ cart.currency.iso_code | json }} };</script>
   {%- if template.name == 'index' -%}
     <script type="module" src="{{ 'main.js' | asset_url }}"></script>
   {%- else -%}
@@ -617,15 +760,30 @@ put("sections/main-product.liquid", """{%- liquid
 {%- assign rest_pct = 100 | minus: settings.sale_percent -%}{%- unless settings.sale_enabled -%}{%- assign rest_pct = 100 -%}{%- endunless -%}
 <section class="pdp c-hero" aria-labelledby="pdp-title">
   <div class="pdp-grid">
-    <div class="pdp-media">
-      <div class="pdp-main">
-        {%- assign img = v.featured_image | default: product.featured_image -%}
-        {%- if img -%}{{ img | image_url: width: 1200 | image_tag: id: 'pdp-image', widths: '600,900,1200', sizes: '(max-width: 900px) 100vw, 50vw', alt: img.alt | default: product.title, fetchpriority: 'high' }}{%- endif -%}
+    <div class="pdp-media" data-gallery>
+      {%- assign start = v.featured_media | default: product.featured_media -%}
+      <div class="pdp-main" aria-roledescription="carousel" aria-label="{{ product.title | escape }} images">
+        <div class="pdp-slides" data-slides>
+          {%- for m in product.media -%}
+            {%- assign active = false -%}{%- if m.id == start.id -%}{%- assign active = true -%}{%- endif -%}
+            {%- assign lz = 'lazy' -%}{%- if active -%}{%- assign lz = 'eager' -%}{%- endif -%}
+            <figure class="pdp-slide{% if active %} is-active{% endif %}" data-media-id="{{ m.id }}" role="group" aria-roledescription="slide" aria-label="{{ forloop.index }} of {{ product.media.size }}"{% unless active %} aria-hidden="true"{% endunless %}>
+              {{ m.preview_image | image_url: width: 1200 | image_tag: widths: '600,900,1200', sizes: '(max-width: 900px) 100vw, 50vw', alt: m.alt | default: product.title, loading: lz }}
+            </figure>
+          {%- else -%}
+            <figure class="pdp-slide is-active"></figure>
+          {%- endfor -%}
+        </div>
+        {%- if product.media.size > 1 -%}
+          <button type="button" class="pdp-arrow pdp-prev" data-gallery-step="-1" aria-label="Previous image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button type="button" class="pdp-arrow pdp-next" data-gallery-step="1" aria-label="Next image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+          <p class="pdp-count" aria-hidden="true"><span data-gallery-index>1</span> / {{ product.media.size }}</p>
+        {%- endif -%}
       </div>
       {%- if product.media.size > 1 -%}
         <ul class="pdp-thumbs" role="list">
           {%- for m in product.media -%}
-            <li><button type="button" class="pdp-thumb" data-src="{{ m.preview_image | image_url: width: 1200 }}" aria-label="Show image {{ forloop.index }}">{{ m.preview_image | image_url: width: 160 | image_tag: alt: '' }}</button></li>
+            <li><button type="button" class="pdp-thumb" data-goto="{{ forloop.index0 }}" aria-label="Show image {{ forloop.index }}" aria-current="{% if m.id == start.id %}true{% else %}false{% endif %}">{{ m.preview_image | image_url: width: 200 | image_tag: alt: '', loading: 'lazy' }}</button></li>
           {%- endfor -%}
         </ul>
       {%- endif -%}
@@ -659,7 +817,7 @@ put("sections/main-product.liquid", """{%- liquid
                   <button type="button" class="pdp-value{% if sw != '' %} has-swatch{% endif %}" style="{% if sw != '' %}--sw:{{ sw }}{% endif %}"
                     aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}"
                     data-variant="{{ vv.id }}" data-price="{{ vv.price | money }}" data-sale-price="{{ vv.price | times: 100 | minus: 0 | times: rest_pct | divided_by: 10000.0 | round | money }}" data-available="{{ vv.available }}"
-                    data-image="{% if vv.featured_image %}{{ vv.featured_image | image_url: width: 1200 }}{% endif %}" data-value="{{ value | escape }}">
+                    data-media="{{ vv.featured_media.id }}" data-value="{{ value | escape }}">
                     {%- if sw != '' -%}<span class="pdp-dot" aria-hidden="true"></span>{%- endif -%}{{ value }}
                   </button>
                 {%- endfor -%}
@@ -742,7 +900,12 @@ put("sections/main-product.liquid", """{%- liquid
         <details class="c-faq-item">
           <summary><span>Delivery &amp; returns</span><span class="c-faq-icon" aria-hidden="true"></span></summary>
           <div class="c-faq-answer rte">
-            <p>Delivery options and costs are shown at checkout. Unopened items can be returned within 30 days.{% assign rp = pages['refund-policy'] %}{% if rp.id %} <a href="{{ rp.url }}">Read our refund policy</a>.{% endif %}</p>
+            <ul class="pdp-ship" role="list">
+              <li><strong>Standard UK delivery</strong><span>£3.99 · free on orders over £35</span></li>
+              <li><strong>Express delivery</strong><span>£5.99 · next working day when you order by 1pm</span></li>
+              <li><strong>Returns</strong><span>Unopened items within 30 days</span></li>
+            </ul>
+            <p>{% assign dp = pages['delivery'] %}{% if dp.id %}<a href="{{ dp.url }}">Delivery info</a>{% endif %}{% assign rp = pages['refund-policy'] %}{% if rp.id %}{% if dp.id %} · {% endif %}<a href="{{ rp.url }}">Refund policy</a>{% endif %}</p>
           </div>
         </details>
       </div>
