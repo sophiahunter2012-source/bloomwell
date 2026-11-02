@@ -41,6 +41,7 @@
     <nav class="nav" id="primary-nav" aria-label="Primary">
       <a href="#rituals">Rituals</a>
       <a href="#shop">Shop</a>
+      <a href="#shop-all">Shop all</a>
       <a href="#bundles">Bundles</a>
       <a href="#subscribe">Subscribe &amp; save</a>
       <a href="#reviews">Reviews</a>
@@ -177,6 +178,74 @@
           <li class="card" style="--tint:#F6F0C8"><div class="card-media"><img src="assets/img/products/focus-tea-sm.webp" alt="Focus Tea in a soft yellow tin" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Focus Tea</h3><p>Clear mind tea with peppermint &amp; lemon.</p><a class="card-link" href="#shop">Shop Focus Tea</a></div></li>
           <li class="card" style="--tint:#F3D2C0"><div class="card-media"><img src="assets/img/products/stretch-balm-sm.webp" alt="Stretch Balm soothing muscle balm in an amber jar" width="600" height="600" loading="lazy"></div><div class="card-body"><span class="tag">Fuel</span><h3>Stretch Balm</h3><p>Soothing muscle balm with magnesium &amp; essential oils.</p><a class="card-link" href="#shop">Shop Stretch Balm</a></div></li>
         </ul>
+      </div>
+    </section>
+
+    <!-- SHOP ALL — every product, grouped by type -->
+    <section class="shop-all" id="shop-all" data-preset="shopall" aria-labelledby="shop-all-title">
+      <div class="section-head">
+        <p class="eyebrow">Shop all</p>
+        <h2 id="shop-all-title" class="h2">Everything, in its place</h2>
+        <p class="lede">Every Bloomwell product, sorted by type. Tap a category to narrow it down.</p>
+      </div>
+      <div class="sa-filters-wrap">
+        <div class="sa-filters" role="group" aria-label="Filter products by type"><button type="button" class="sa-filter" data-filter="all" aria-pressed="true">All <span>24</span></button><button type="button" class="sa-filter" data-filter="gummies" aria-pressed="false">Gummies <span>7</span></button><button type="button" class="sa-filter" data-filter="protein" aria-pressed="false">Protein powders <span>5</span></button><button type="button" class="sa-filter" data-filter="teas" aria-pressed="false">Herbal teas <span>3</span></button><button type="button" class="sa-filter" data-filter="powders" aria-pressed="false">Powders &amp; drinks <span>3</span></button><button type="button" class="sa-filter" data-filter="body" aria-pressed="false">Body care <span>3</span></button><button type="button" class="sa-filter" data-filter="home" aria-pressed="false">Home &amp; relaxation <span>3</span></button></div>
+      </div>
+      <div class="sa-groups" aria-live="polite">
+        <div class="sa-group" data-group="gummies">
+          <h3 class="sa-heading">Gummies <span>7</span></h3>
+          <ul class="sa-grid" role="list">
+            <li class="sa-card" style="--tint:#DDE7CF"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/daily-glow-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Daily Glow</h4><p>Adult multivitamin</p><span class="tag">Glow</span></div></div></li>
+            <li class="sa-card" style="--tint:#E4EBD6"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/gut-glow-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Gut Glow</h4><p>Prebiotic + probiotic</p><span class="tag">Gut</span></div></div></li>
+            <li class="sa-card" style="--tint:#F8DCD6"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/belly-bloom-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Belly Bloom</h4><p>Gentle digestion</p><span class="tag">Gut</span></div></div></li>
+            <li class="sa-card" style="--tint:#E4DDF4"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/calm-bloom-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Calm Bloom</h4><p>Magnesium + ashwagandha</p><span class="tag">Rest</span></div></div></li>
+            <li class="sa-card" style="--tint:#D7E6EA"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/rest-easy-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Rest Easy</h4><p>Sleep support</p><span class="tag">Rest</span></div></div></li>
+            <li class="sa-card" style="--tint:#F5D5C4"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/defend-bloom-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Defend Bloom</h4><p>Vitamin C + zinc</p><span class="tag">Fuel</span></div></div></li>
+            <li class="sa-card" style="--tint:#F8DCC4"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/defend-citrus-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Defend Bloom Citrus</h4><p>Vitamin C, zinc &amp; elderberry</p><span class="tag">Fuel</span></div></div></li>
+          </ul>
+        </div>
+        <div class="sa-group" data-group="protein">
+          <h3 class="sa-heading">Protein powders <span>5</span></h3>
+          <ul class="sa-grid" role="list">
+            <li class="sa-card" style="--tint:#DDE7CF"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/bloom-protein-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Bloom Protein Vanilla</h4><p>Creamy, gentle fuel</p><span class="tag">Fuel</span></div></div></li>
+            <li class="sa-card" style="--tint:#E9D3C6"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/protein-chocolate-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Bloom Protein Chocolate</h4><p>Rich, smooth fuel</p><span class="tag">Fuel</span></div></div></li>
+            <li class="sa-card" style="--tint:#EFEBE4"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/protein-cookies-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Bloom Protein Cookies &amp; Cream</h4><p>Indulgent, gentle fuel</p><span class="tag">Fuel</span></div></div></li>
+            <li class="sa-card" style="--tint:#F8DCDF"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/protein-strawberry-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Bloom Protein Strawberry</h4><p>Sweet, fruity fuel</p><span class="tag">Fuel</span></div></div></li>
+            <li class="sa-card" style="--tint:#F6F0C8"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/protein-lemon-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Bloom Protein Lemon Sorbet</h4><p>Bright, refreshing fuel</p><span class="tag">Fuel</span></div></div></li>
+          </ul>
+        </div>
+        <div class="sa-group" data-group="teas">
+          <h3 class="sa-heading">Herbal teas <span>3</span></h3>
+          <ul class="sa-grid" role="list">
+            <li class="sa-card" style="--tint:#DFEBDD"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/calm-tea-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Calm Tea</h4><p>Chamomile &amp; lemon balm</p><span class="tag">Rest</span></div></div></li>
+            <li class="sa-card" style="--tint:#F3D7C3"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/immune-tea-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Immune Tea</h4><p>Elderberry &amp; ginger</p><span class="tag">Fuel</span></div></div></li>
+            <li class="sa-card" style="--tint:#F6F0C8"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/focus-tea-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Focus Tea</h4><p>Peppermint &amp; lemon</p><span class="tag">Fuel</span></div></div></li>
+          </ul>
+        </div>
+        <div class="sa-group" data-group="powders">
+          <h3 class="sa-heading">Powders &amp; drinks <span>3</span></h3>
+          <ul class="sa-grid" role="list">
+            <li class="sa-card" style="--tint:#F6D9D1"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/skin-sip-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Skin Sip</h4><p>Collagen + hyaluronic acid</p><span class="tag">Glow</span></div></div></li>
+            <li class="sa-card" style="--tint:#DDE7CF"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/gut-greens-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Gut Greens</h4><p>Superfood + gut powder</p><span class="tag">Gut</span></div></div></li>
+            <li class="sa-card" style="--tint:#F6D3C6"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/hydrate-bloom-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Hydrate Bloom</h4><p>Electrolyte sticks</p><span class="tag">Fuel</span></div></div></li>
+          </ul>
+        </div>
+        <div class="sa-group" data-group="body">
+          <h3 class="sa-heading">Body care <span>3</span></h3>
+          <ul class="sa-grid" role="list">
+            <li class="sa-card" style="--tint:#F7D8C8"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/lip-balm-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Daily Nourish Lip Balm</h4><p>Natural beeswax</p><span class="tag">Glow</span></div></div></li>
+            <li class="sa-card" style="--tint:#F8DCD6"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/hand-cream-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Hand Cream</h4><p>Shea butter &amp; botanical oils</p><span class="tag">Glow</span></div></div></li>
+            <li class="sa-card" style="--tint:#F3D2C0"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/stretch-balm-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Stretch Balm</h4><p>Magnesium &amp; essential oils</p><span class="tag">Fuel</span></div></div></li>
+          </ul>
+        </div>
+        <div class="sa-group" data-group="home">
+          <h3 class="sa-heading">Home &amp; relaxation <span>3</span></h3>
+          <ul class="sa-grid" role="list">
+            <li class="sa-card" style="--tint:#E4DDF4"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/sleep-mist-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Sleep Well Mist</h4><p>Lavender &amp; chamomile pillow spray</p><span class="tag">Rest</span></div></div></li>
+            <li class="sa-card" style="--tint:#ECE8E1"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/bath-soak-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Relax Bath Soak</h4><p>Magnesium bath salts</p><span class="tag">Rest</span></div></div></li>
+            <li class="sa-card" style="--tint:#F1EADD"><div class="sa-link"><div class="sa-media"><img src="assets/img/products/calm-candle-sm.webp" alt="" width="600" height="600" loading="lazy"></div><div class="sa-body"><h4>Calm Soy Candle</h4><p>Slow-burning natural wax</p><span class="tag">Rest</span></div></div></li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -449,6 +518,7 @@
       <nav class="footer-nav" aria-label="Footer">
         <a href="#rituals">Rituals</a>
         <a href="#shop">Shop</a>
+        <a href="#shop-all">Shop all</a>
         <a href="#bundles">Bundles</a>
         <a href="#subscribe">Subscribe &amp; save</a>
         <a href="#day">A day in bloom</a>

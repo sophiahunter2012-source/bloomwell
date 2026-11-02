@@ -97,6 +97,8 @@ const PRESETS = {
                m: { x: 0.72, y: 0.74, scale: 0.22, tilt: 0,    turn: Math.PI * 6, color: '#316B58', fruit: 1, gummies: 0.4,  bg: '#FAF5EC' } },
   bundles:   { d: { x: 0.84, y: 0.66, scale: 0.3,  tilt: 0.1,  turn: Math.PI * 6.5, color: '#E8937A', fruit: 0, gummies: 0.5, bg: '#FBF1EA' },
                m: { x: 0.72, y: 0.74, scale: 0.22, tilt: 0.1,  turn: Math.PI * 6.5, color: '#E8937A', fruit: 0, gummies: 0.4, bg: '#FBF1EA' } },
+  shopall:   { d: { x: 0.86, y: 0.62, scale: 0.26, tilt: 0,   turn: Math.PI * 6.2, color: '#316B58', fruit: 1, gummies: 0.45, bg: '#FAF5EC' },
+               m: { x: 0.72, y: 0.74, scale: 0.22, tilt: 0,   turn: Math.PI * 6.2, color: '#316B58', fruit: 1, gummies: 0.4,  bg: '#FAF5EC' } },
   reviews:   { d: { x: -0.84, y: -0.62, scale: 0.3, tilt: -0.1, turn: Math.PI * 7.5, color: '#316B58', fruit: 1, gummies: 0.6, bg: '#FAF5EC' },
                m: { x: 0.72, y: 0.74, scale: 0.22, tilt: -0.1, turn: Math.PI * 7.5, color: '#316B58', fruit: 1, gummies: 0.4, bg: '#FAF5EC' } },
   day:       { d: { x: -0.78, y: 0.55, scale: 0.42, tilt: 0.2, turn: Math.PI * 7, fruit: 0, gummies: 0.45 },
@@ -415,6 +417,49 @@ fans.forEach((fan) => {
     if (img && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); rotateFan(fan, img); }
   });
 });
+
+/* ------------------------------------------------------------------ */
+/* Shop all: filter by product type                                    */
+/* ------------------------------------------------------------------ */
+const saFilters = [...document.querySelectorAll('.sa-filter')];
+const saGroups = [...document.querySelectorAll('.sa-group')];
+const saSection = document.getElementById('shop-all');
+saFilters.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const f = btn.dataset.filter;
+    saFilters.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+    saGroups.forEach((g) => { g.hidden = f !== 'all' && g.dataset.group !== f; });
+    btn.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
+    ScrollTrigger.refresh();
+    // Bring the start of the (now shorter) list back into view, just under
+    // the sticky header + filter bar, if the visitor had scrolled past it.
+    const list = saSection.querySelector('.sa-groups');
+    // (The bar can briefly un-stick when the list shrinks, so measure from the header.)
+    const barH = saSection.querySelector('.sa-filters-wrap').offsetHeight;
+    const stickTop = header.getBoundingClientRect().bottom + barH;
+    const listTop = list.getBoundingClientRect().top;
+    if (listTop < stickTop) {
+      const offset = -(stickTop + 8);
+      requestAnimationFrame(() => {
+        if (lenis) { lenis.resize(); lenis.scrollTo(list, { offset, duration: 0.9, force: true }); }
+        else window.scrollTo({ top: list.getBoundingClientRect().top + window.scrollY + offset, behavior: reduceMotion ? 'auto' : 'smooth' });
+      });
+    }
+    if (!reduceMotion) {
+      gsap.fromTo(saSection.querySelectorAll('.sa-group:not([hidden]) .sa-card'),
+        { y: 40, opacity: 0, rotationX: -25, transformPerspective: 900 },
+        { y: 0, opacity: 1, rotationX: 0, duration: 0.7, ease: 'power3.out', stagger: 0.03, clearProps: 'transform,opacity' });
+    }
+  });
+});
+if (!reduceMotion) {
+  gsap.utils.toArray('.sa-group').forEach((g) => {
+    gsap.from(g.querySelectorAll('.sa-card'), {
+      y: 60, opacity: 0, rotationX: isFlow() ? 0 : -25, transformPerspective: 900, duration: 0.9, ease: 'power3.out', stagger: 0.05,
+      clearProps: 'transform,opacity', scrollTrigger: { trigger: g, start: 'top 85%' },
+    });
+  });
+}
 
 /* ------------------------------------------------------------------ */
 /* Bundles: one-time vs subscribe & save pricing                       */
